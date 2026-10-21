@@ -1,0 +1,12 @@
+% Extra LaTeX settings for the Challenge 3 defensive-design report.
+% Goal: keep every table where it is written and let wide tables fit the page
+% (the report is essentially a set of editable matrices).
+\usepackage{graphicx}
+\usepackage{float}
+\floatplacement{table}{H}
+% Tables: booktabs rules + wrapping columns so 10-column matrices fit A4.
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+% Never let a figure overflow the page.
+\setkeys{Gin}{width=\linewidth,height=0.65\textheight,keepaspectratio}

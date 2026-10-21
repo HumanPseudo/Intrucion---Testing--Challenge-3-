@@ -1,0 +1,103 @@
+# Deliverable — Challenge 3 (Intrusión y Testing)
+
+How to turn `doc.md` into the submitted document. Everything here is content-only:
+edit `doc.md`, run one command, get `report.pdf` (or `report.docx`).
+
+- Write **all** content in `doc.md` (front matter holds title, author, date, `lang`).
+- The mandatory matrices are already scaffolded as editable Markdown tables inside `doc.md`
+  (Tables 1–13). Replace the `[..]` cells and the `> **[to complete …]**` blocks with your own
+  analysis; do **not** paste images of tables or link to external repositories (rubric forbids it).
+- `report.pdf`, `report.docx` and LaTeX temp files are gitignored — only sources are tracked.
+
+## Requirements
+
+- **Pandoc** — Markdown → LaTeX/Word front-end. `sudo apt install pandoc` (check: `pandoc --version`).
+- **A Unicode-capable LaTeX engine** — TinyTeX/TeX Live provides `xelatex`. Check: `xelatex --version`.
+  (`pdflatex` is **not** used: the matrices contain glyphs such as `≥`, `→`, `↔` and Spanish accents.)
+- **DejaVu fonts** — set as main/mono font so those glyphs render. Check: `fc-match "DejaVu Serif"`.
+
+## Quick start (Makefile)
+
+From this folder (`report/`):
+
+```bash
+make          # builds report.pdf  (same as: make pdf)
+make docx     # builds report.docx (editable Word — matrices stay editable)
+make both     # builds both
+make tex      # builds report.tex only
+make clean    # removes outputs and LaTeX temp files
+```
+
+`make` only rebuilds when `doc.md` is newer than `report.pdf`.
+
+## Quick start (raw commands)
+
+```bash
+# PDF
+pandoc doc.md -o report.pdf \
+  --pdf-engine=xelatex \
+  --toc -V toc-title="Contents" \
+  -H header.tex \
+  -V documentclass=article \
+  -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" \
+  -V fontsize=10pt -V papersize=a4 \
+  -V geometry:margin=1.5cm,top=1.2cm,bottom=1.2cm \
+  -V parskip=4pt -V indent=false
+
+# Editable Word
+pandoc doc.md -o report.docx --toc -V toc-title="Contents"
+```
+
+Result: `report.pdf` / `report.docx` in this folder. Re-run after every edit to `doc.md`.
+
+## What the flags do
+
+| Flag | Effect |
+|---|---|
+| `-o report.pdf` | Output file. |
+| `--pdf-engine=xelatex` | LaTeX engine with Unicode support (TeX Live's `xelatex`). |
+| `-V mainfont=...` / `-V monofont=...` | DejaVu fonts so symbols (`≥`, `→`) and accents render. |
+| `--toc -V toc-title="Contents"` | Insert a table of contents with this heading. |
+| `-H header.tex` | Extra LaTeX: `graphicx`, `float`, `booktabs`, `longtable`, `array` and figure sizing so the wide matrices fit. |
+| `-V documentclass=article` | Base LaTeX class. |
+| `-V geometry:...` | Tight page margins for a slim layout. |
+| `-V indent=false` | No first-line paragraph indentation. |
+
+## Structure
+
+```
+doc.md        report content (10 mandatory sections + AI appendix)
+Makefile      render targets (pdf / docx / tex / clean)
+header.tex    LaTeX preamble extras (tables + figures)
+README.md     this file
+figures/      optional diagrams (architecture, attack path, Kill Chain)
+```
+
+## Table inventory (editable matrices → rubric criterion)
+
+Every matrix is a native Markdown table in `doc.md`, titled, numbered and referenced in the text.
+`plan.md §4` uses the same numbers, so both files point at the same object.
+
+| Table | In `doc.md` | Content | Rubric |
+|---|---|---|---|
+| 1 | §2.1 | Asset classification by domain (A-01…A-08) | C2.a |
+| 2 | §2.2 | Attack vectors from Challenge 2 (10) | C2.a/§2 |
+| 3 | §2.3 | Vulnerability matrix (CVE/CWE · CVSS) | §2 |
+| 4 | §3 | Risk prioritization (6 criteria, descending) | C2.b |
+| 5 | §4 | Traceability matrix vector–control (10 cols) | C2.c |
+| 6 | §5.1 | Hardening a) Web / LAMP (≥4) | C2.d |
+| 7 | §5.2 | Hardening b) IT / Windows (≥4) | C2.d |
+| 8 | §5.3 | Hardening c) IoT / OT (≥4) | C2.d |
+| 9 | §6.1 | SIEM/XDR detection rules (≥6) | C2.e |
+| 10 | §6.2 | Monitoring and alerting plan | C2.e |
+| 11 | §7 | DevSecOps practices (≥4) | C2.g |
+| 12 | §8 | NIST SP 800-61 playbook (6 phases) | C2.f |
+| 13 | §9 | Validation criteria for Challenge 4 (≥5) | C2.h |
+
+## Before submitting (rubric C1 / C3)
+
+- Word count of the body, **excluding references**, is **6,000–8,000**.
+- The **10 sections** have visible headings; every table is **titled, numbered and referenced** in
+  the text; all tables are **editable** (no screenshots, no external links).
+- Include the **no-test declaration** and the **AI-usage declaration/log**.
+- References in **APA** with **≥8 sources** (≥3 course resources + ≥3 technical frameworks).

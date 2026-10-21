@@ -1,0 +1,18 @@
+# Output
+report.pdf
+report.docx
+report.tex
+*.pdf
+*.log
+*.aux
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+
+# Local temp
+.tmp/
+.DS_Store
+Thumbs.db
