@@ -25,7 +25,7 @@ PFLAGS := --pdf-engine=xelatex \
 
 DFLAGS := --toc -V toc-title="Contents"
 
-.PHONY: all pdf docx both tex clean
+.PHONY: all pdf docx both tex wordcount check clean
 
 all: pdf
 
@@ -34,6 +34,15 @@ pdf: $(PDF)
 docx: $(DOCX)
 
 both: pdf docx
+
+# Running gauge: body word count (sections 1-10, references excluded) against
+# the 6,000-8,000 target, plus a per-section breakdown.
+wordcount:
+	@python3 ../tools/check_report.py --wordcount
+
+# Full verification pass against the rubric (format, integrity, sources).
+check:
+	@python3 ../tools/check_report.py
 
 $(PDF): $(SRC) header.tex
 	$(PANDOC) $(SRC) -o $@ $(PFLAGS)

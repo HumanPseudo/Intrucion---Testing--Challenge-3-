@@ -23,7 +23,7 @@ being merged.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
 - [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *appendix structured in `doc.md`; content (prompts, output, verification, adjustments) to be completed and reviewed before submission (see Section 6, Sat 24).*
 - [x] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
-- [ ] Keep a running word count excluding references, target 6,000–8,000.
+- [x] Keep a running word count excluding references, target 6,000–8,000. — *mechanism in place: `cd report && make wordcount` (script `tools/check_report.py`; counts the body only, cross-checks the rendered `.docx`, breaks the count down per section and exits non-zero outside the range). Current: 2,221 words — still 3,779 to write before the closing pass on Sat 24.*
 
 ---
 

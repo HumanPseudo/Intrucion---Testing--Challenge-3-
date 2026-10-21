@@ -46,6 +46,7 @@ column points at the matrices (Tables 1–13) inventoried in `report/README.md`.
 plan.md            PROCESS: operational checklist (phases, rubric, schedule)
 report/doc.md      PRODUCT: report content → report.pdf / report.docx
 report/README.md   how to render + Table 1–13 inventory
+tools/             check_report.py: word-count gauge + rubric verification (`make check`)
 AGENTS.md          agent guide (rules, errata, pipeline, verification)
 README.md          this file (task summary + artifacts map)
 md/                converted course material, Challenge 2 inputs and instruments
@@ -84,3 +85,10 @@ coherent by sharing the same **section titles** and the same **Table 1–13** nu
 
 `plan.md` is the operational checklist: 6 phases over the 15 guide steps (~30 h), a rubric
 checklist and a day-by-day schedule to Oct 25, 2026 (complete-draft milestone on Oct 22).
+
+```bash
+cd report
+make both        # render report.pdf + report.docx
+make wordcount   # body word count (6,000–8,000 target) with per-section breakdown
+make check       # full verification pass against the rubric (exits non-zero on failure)
+```

@@ -56,6 +56,8 @@ Taken from `resources/REVISION_RETO3.md`:
 cd report
 make          # report.pdf
 make docx     # main editable report.docx
+make wordcount  # body word count + per-section breakdown (6,000–8,000 gauge)
+make check      # full verification pass (word count, sections, tables, sources)
 make clean
 ```
 
@@ -64,6 +66,8 @@ Requires **Pandoc** and a Unicode-capable LaTeX engine (`xelatex`) with the Deja
 
 ## Verification checklist before finishing
 
+Automated: `cd report && make check` (script: `tools/check_report.py`; exits non-zero on failure).
+
 - `report/doc.md` has the **10 sections** with visible headings and references to every table.
 - Section titles and **Table 1–13** numbers stay identical across `report/doc.md`, `plan.md` Section 3 and
   `report/README.md` (one object, three views — do not merge the files).
@@ -71,7 +75,8 @@ Requires **Pandoc** and a Unicode-capable LaTeX engine (`xelatex`) with the Deja
 - Every control maps to a Challenge 2 vector/asset; no orphan controls.
 - No-test declaration and AI log present.
 - References: ≥8, in APA, with bidirectional citation↔reference correspondence.
-- Body word count between 6,000 and 8,000 (references excluded).
+- Body word count between 6,000 and 8,000 (references excluded) — `make wordcount`.
+- No leftover `[..]` placeholders or `> **[to complete …]**` blocks.
 - `resources/*.pdf`, `resources/*.h5p` and `md/referencias/` are not committed (copyright).
 
 ## Gotchas

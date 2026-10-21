@@ -30,6 +30,35 @@ make clean    # removes outputs and LaTeX temp files
 
 `make` only rebuilds when `doc.md` is newer than `report.pdf`.
 
+## Verification (the running word count and the rubric gate)
+
+```bash
+make wordcount   # body word count + per-section breakdown (the 6,000–8,000 gauge)
+make check       # full verification pass: word count, sections, tables, sources, placeholders
+```
+
+Both call `tools/check_report.py` at the repo root and exit non-zero when a hard check fails,
+so they can be used as a gate before a commit or before submission.
+
+`make wordcount` counts only the body (sections 1–10) and **excludes the reference list and the
+AI appendix**. It prints the same slice measured in the rendered `report.docx`, so the figure can
+be checked against Word's own counter, and it breaks the count down per section:
+
+```
+Body word count (sections 1-10, references excluded): 2221
+Rendered .docx (same slice): 2219
+Target: 6000-8000 -> 3779 words still to write
+
+Per section:
+     299  1. Introducción y alcance del diseño defensivo (Introduction and scope)
+     ...
+```
+
+`make check` runs the whole checklist: word count in range, the 10 mandatory headings present,
+the 13 table captions numbered and referenced in the text, no leftover `[..]` placeholders, no
+images (the rubric forbids screenshots of matrices), no section symbol, and the source mix
+(≥8 entries, ≥3 course resources, ≥3 technical frameworks) with bidirectional citation checks.
+
 ## Quick start (raw commands)
 
 ```bash
@@ -67,10 +96,11 @@ Result: `report.pdf` / `report.docx` in this folder. Re-run after every edit to 
 
 ```
 doc.md        report content (10 mandatory sections + AI appendix)
-Makefile      render targets (pdf / docx / tex / clean)
+Makefile      render targets (pdf / docx / tex / wordcount / check / clean)
 header.tex    LaTeX preamble extras (tables + figures)
 README.md     this file
 figures/      optional diagrams (architecture, attack path, Kill Chain)
+../tools/check_report.py  verification script (word count + rubric checks)
 ```
 
 ## Table inventory (editable matrices → rubric criterion)
@@ -95,6 +125,8 @@ Every matrix is a native Markdown table in `doc.md`, titled, numbered and refere
 | 13 | Section 9 | Validation criteria for Challenge 4 (≥5) | C2.h |
 
 ## Before submitting (rubric C1 / C3)
+
+Run `make check` — it verifies every item below automatically.
 
 - Word count of the body, **excluding references**, is **6,000–8,000**.
 - The **10 sections** have visible headings; every table is **titled, numbered and referenced** in
