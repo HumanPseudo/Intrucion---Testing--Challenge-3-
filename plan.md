@@ -1,6 +1,6 @@
 # plan.md — Challenge 3 (Reto 3) — Checklist
 
-**Course:** Intrusión y Testing (203028113) · Maestría en Ciberseguridad · ECBTI–UNAD
+**Course:** Intrusión y Testing (203028113) · Master's in Cybersecurity · ECBTI–UNAD
 **Case:** AgroSmart del Sumapaz S.A.S. (single case shared by Challenges 2–5)
 **Deliverable:** Technical defensive-design report (.docx or PDF), individual, 6,000–8,000 words excluding references, 10 mandatory sections
 **Window:** 28 Sep 2026 → **Sunday 25 Oct 2026** · 30 h · 125 points · learning outcome **RA2**
@@ -21,7 +21,7 @@ being merged.
 - [x] Confirm the **delivery channel and cut-off hour** with the tutor and record the answer (audit **A2**).
 - [x] Adopt the **10-column traceability matrix** decision (audit **A5**) and plan to declare it in the report.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
-- [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *apéndice estructurado en `doc.md`; contenido (prompts, salida, verificación, ajustes) a completar y revisar antes de la entrega (ver Section 6, sáb 24).*
+- [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *appendix structured in `doc.md`; content (prompts, output, verification, adjustments) to be completed and reviewed before submission (see Section 6, Sat 24).*
 - [x] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
 - [ ] Keep a running word count excluding references, target 6,000–8,000.
 
@@ -62,29 +62,29 @@ being merged.
 - [ ] Design preventive/detective/corrective controls per vector, aligned to CIS Controls, OWASP, hardening and vulnerability management (Step 5).
   - [ ] Output: control blocks in Section 5, each tagged with vector + framework (rubric C2.i, C3.d).
 - [ ] **Web/LAMP hardening ≥4 actions** — Apache version, directory listing, sensitive paths (`/dbadmin`, `/backup`, `.git`), HTTP headers, TLS, backups (Step 6).
-  - [ ] Output: editable hardening checklist **a) Web/LAMP** with `¿Aplica? S/N`, vector mitigated, verification (instrument 3.2a).
-  - [ ] Refs: Anexo 1 instrument 3.2a (pp. 32–33), Sec. 3.2/3.3/3.7/3.8; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 1, 2, 5, 10)
+  - [ ] Output: editable hardening checklist **a) Web/LAMP** with `Applies? (Y/N)`, vector mitigated, verification (instrument 3.2a).
+  - [ ] Refs: Annex 1 instrument 3.2a (pp. 32–33), Sec. 3.2/3.3/3.7/3.8; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 1, 2, 5, 10)
 - [ ] **Web-application controls** — input validation, parameterized queries, output encoding, session/JWT, IDOR/API access control, file-upload validation, secret management (Step 7).
   - [ ] Output: app-security subsection in Section 5 tied to SQLi, IDOR, `alg:none`, upload.
-  - [ ] Refs: `…/2.3 Matriz CVE-CVSS.md` (CWE-89/639/347/434); Anexo 1 Sec. 3.3, 3.8
+  - [ ] Refs: `…/2.3 Matriz CVE-CVSS.md` (CWE-89/639/347/434); Annex 1 Sec. 3.3, 3.8
 - [ ] **IT hardening ≥4 actions** — SMBv1, SMB signing, RDP/NLA, password + lockout, segmentation (Step 8).
   - [ ] Output: editable hardening checklist **b) IT/Windows** (instrument 3.2b).
-  - [ ] Refs: Anexo 1 instrument 3.2b (p. 33), Sec. 3.9; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 7, 8); `…/2.7 MITRE ATT&CK.md` (T1110.001, T1021.002)
+  - [ ] Refs: Annex 1 instrument 3.2b (p. 33), Sec. 3.9; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 7, 8); `…/2.7 MITRE ATT&CK.md` (T1110.001, T1021.002)
 - [ ] **IoT/OT hardening ≥4 actions** — Telnet off, default credentials, MQTT auth/ACL/TLS, Modbus/PLC isolation, firmware (Step 9).
   - [ ] Output: editable hardening checklist **c) IoT/OT** (instrument 3.2c).
-  - [ ] Refs: Anexo 1 instrument 3.2c (p. 33), Sec. 3.5, 3.10; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 6, 9); `…/2.7 MITRE ATT&CK.md` (T0855)
+  - [ ] Refs: Annex 1 instrument 3.2c (p. 33), Sec. 3.5, 3.10; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 6, 9); `…/2.7 MITRE ATT&CK.md` (T0855)
 
 ### Phase 4 — Detection, response and DevSecOps (Steps 10–12) · 6 h
 
 - [ ] Define **≥6 SIEM/XDR use cases** with log source, trigger condition, severity, expected event and initial action (Step 10).
   - [ ] Output: editable rules/monitoring tables (instruments 3.3 + 3.4) for Apache `access.log`, `error.log`, `app.log`, `auth.log`, Windows 4625/4624/7045 + Sysmon 1/3, MariaDB, MQTT broker, camera, firewall.
-  - [ ] Refs: Anexo 1 instruments 3.3–3.4 (p. 34), Sec. 3.6, 3.9d; `md/reto2/instrumentos/2.6 Cyber Kill Chain.md`; `…/2.7 MITRE ATT&CK.md`
+  - [ ] Refs: Annex 1 instruments 3.3–3.4 (p. 34), Sec. 3.6, 3.9d; `md/reto2/instrumentos/2.6 Cyber Kill Chain.md`; `…/2.7 MITRE ATT&CK.md`
 - [ ] Formulate the **NIST SP 800-61 response plan** with the 6 phases for **≥1 prioritized scenario** (Step 11).
   - [ ] Output: editable playbook table (instrument 3.5) for the chosen scenario (portal compromise or irrigation manipulation).
-  - [ ] Refs: Anexo 1 instrument 3.5 (pp. 34–35), Sec. 3.6, 3.11; `md/reto2/instrumentos/2.9 Impacto y riesgo.md`
+  - [ ] Refs: Annex 1 instrument 3.5 (pp. 34–35), Sec. 3.6, 3.11; `md/reto2/instrumentos/2.9 Impacto y riesgo.md`
 - [ ] Define **≥4 DevSecOps practices** with lifecycle stage (Step 12).
   - [ ] Output: DevSecOps table (input validation, secure coding, SAST, DAST, SCA, secret scanning, change control).
-  - [ ] Refs: `md/reto2/instrumentos/2.3 Matriz CVE-CVSS.md`; Anexo 1 Sec. 3.3/3.8; `md/reto2/CONTEXTO-RETO3.md` Section 4
+  - [ ] Refs: `md/reto2/instrumentos/2.3 Matriz CVE-CVSS.md`; Annex 1 Sec. 3.3/3.8; `md/reto2/CONTEXTO-RETO3.md` Section 4
 
 ### Phase 5 — Validation criteria (Step 13) · 2 h
 

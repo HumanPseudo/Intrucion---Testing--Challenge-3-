@@ -21,7 +21,7 @@ anchored in Annex 1; nothing about the case is re-invented here.
 **Case.** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
 come from Annex 1 and the Challenge 2 instruments).
 
-**Declaración de no ejecución de pruebas (rubric C3.e).** No tests, exploitation attempts or live
+**Declaration of no tests executed (rubric C3.e).** No tests, exploitation attempts or live
 validation were executed at any point of this challenge: no vulnerability was exploited, no
 payload was delivered against the portal, no credential was used against the corporate network, no
 command was sent to the irrigation controller and no social-engineering action was carried out.
@@ -30,7 +30,7 @@ This is a design-only deliverable: every control is a proposal whose effectivene
 Challenge 4, under the rules of engagement established there. The report therefore contains no
 test results — only the validation criteria and the evidence that will be required.
 
-**Declaración de uso de IA (rubric C3.b).** The complete AI-usage declaration and prompt log —
+**AI-usage declaration (rubric C3.b).** The complete AI-usage declaration and prompt log —
 tool, purpose, prompts, verification and own adjustments — is included as the appendix at the end
 of this document.
 
@@ -296,7 +296,7 @@ of this document.
 
 ---
 
-# Appendix — AI-usage declaration / log (Declaración de uso de IA)
+# Appendix — AI-usage declaration / log
 
 > **[to complete — mandatory]** Record tool, purpose, prompts, output, how it was verified, and the
 > critical adjustments made. If AI was not used, state so explicitly.

@@ -3,7 +3,9 @@
 Academic repo for the **Challenge 3 defensive-design report** (individual, midterm, 125 points).
 The report designs detection, defense, hardening, monitoring, containment and response for the
 case **AgroSmart del Sumapaz S.A.S.**, traceable to the Challenge 2 offensive analysis. Keep
-changes minimal and never edit source/reference files in place.
+changes minimal: never alter the substance of source/reference files, and never rename or move
+them. Cosmetic normalization (e.g. replacing the section symbol) is allowed but must not change
+what the material says.
 
 ## Core paths
 
