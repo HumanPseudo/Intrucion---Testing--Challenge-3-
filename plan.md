@@ -21,7 +21,7 @@ being merged.
 - [x] Confirm the **delivery channel and cut-off hour** with the tutor and record the answer (audit **A2**).
 - [x] Adopt the **10-column traceability matrix** decision (audit **A5**) and plan to declare it in the report.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
-- [ ] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`).
+- [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *apéndice estructurado en `doc.md`; contenido (prompts, salida, verificación, ajustes) a completar y revisar antes de la entrega (ver §6, sáb 24).*
 - [ ] Fix the citation errata and never reintroduce the old forms (see §4 last block).
 - [ ] Keep a running word count excluding references, target 6,000–8,000.
 
