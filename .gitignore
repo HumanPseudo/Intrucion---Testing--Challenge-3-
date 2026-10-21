@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Report build outputs (Pandoc + LaTeX) — see report/.gitignore
+report/report.pdf
+report/report.docx
+report/report.tex
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+
+# Local copyrighted / third-party reference material (not versioned)
+# Original course PDFs and H5P, and the converted copyrighted articles.
+resources/*.pdf
+resources/*.h5p
+md/referencias/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editores
+*.swp
+*~
+.vscode/
+.idea/
+
+# Temporales
+*.tmp
