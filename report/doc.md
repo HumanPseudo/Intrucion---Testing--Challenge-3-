@@ -21,18 +21,50 @@ anchored in Annex 1; nothing about the case is re-invented here.
 **Case.** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
 come from Annex 1 and the Challenge 2 instruments).
 
-**Declaration of no tests executed (rubric C3.e).** No tests, exploitation attempts or live
-validation were executed at any point of this challenge: no vulnerability was exploited, no
-payload was delivered against the portal, no credential was used against the corporate network, no
-command was sent to the irrigation controller and no social-engineering action was carried out.
-This is a design-only deliverable: every control is a proposal whose effectiveness is described as
-*expected evidence*, and its verification is deferred in full to the authorized Cyber Range of
-Challenge 4, under the rules of engagement established there. The report therefore contains no
-test results — only the validation criteria and the evidence that will be required.
+**Relation with the Challenge 2 findings.** The offensive analysis is consumed here, not repeated.
+Challenge 2 delivered eight critical assets (A-01…A-08) with their exposure surfaces, ten attack
+vectors, a nine-row CVE/CVSS matrix with its CWE mappings, the seven phases of the Cyber Kill Chain
+and thirteen MITRE ATT&CK techniques bound to those phases. Those findings are the input of this
+report: the vectors become the rows of the traceability matrix, the assets become the unit of
+criticality, and the techniques become the anchor of each detection rule. The attack paths were
+built with the penetration-testing methodologies reviewed in the course (Palomo Luna et al., 2024;
+Lu & Yu, 2021) and with web-application vulnerability analysis (Crespo-Martínez, 2021); the human
+factor present in vector 7 was characterized following the social-engineering and phishing
+literature of the course (Albininé Budavári et al., 2023; Benavides et al., 2020; Benavides-Astudillo
+et al., 2020; Prado Díaz, 2021).
+
+**Scope and exclusions.** This deliverable is design only, and the following are explicitly outside
+its scope: (a) exploitation of any vulnerability, whether proof of concept or complete; (b) live
+testing of the production assets described in Annex 1; (c) validation of exploitation on a virtual
+machine or laboratory; (d) destructive or availability-impacting actions, including denial of
+service against the portal, the MQTT broker or the irrigation controller; (e) real or simulated data
+exfiltration; and (f) any executed social-engineering action against the staff of AgroSmart del
+Sumapaz S.A.S. No activity of that kind was carried out and no argument in this report depends on
+one: every control is argued from the Challenge 2 findings and from the technical literature, and
+every verification step is written as a criterion to be executed later, in the authorized Cyber
+Range.
+
+**Declaration of no tests executed (rubric C3.e).** No test, exploitation attempt or live validation
+was executed at any point in this challenge: no vulnerability was exploited, no payload was delivered
+against the portal, no credential was used against the corporate network, no command was sent to the
+irrigation controller and no social-engineering action was carried out. The report therefore
+contains no test results — only the validation criteria and the expected evidence that will be
+required. The verification of every proposed control is deferred in full to the authorized Cyber
+Range of Challenge 4, under the rules of engagement established there.
 
 **AI-usage declaration (rubric C3.b).** The complete AI-usage declaration and prompt log —
 tool, purpose, prompts, verification and own adjustments — is included as the appendix at the end
 of this document.
+
+**Structure, method and evidence conventions.** The deliverable is an individual technical report of
+6,000–8,000 words (excluding the reference list), delivered as .docx or PDF and organized in the ten
+titled sections of the rubric. Every matrix is an editable table integrated in this document, with a
+title, a number and a reference in the text; no screenshot, image of a table or link to an external
+repository substitutes the requested content. Control proposals follow the preventive, detective and
+corrective taxonomy of the traceability matrix, and each one is anchored both in the corresponding
+Annex 1 instrument and in a recognized framework — CIS Controls, NIST CSF, NIST SP 800-61,
+ISO/IEC 27001, OWASP ASVS/WSTG, MITRE ATT&CK and the NVD vulnerability records. Citations and the
+reference list follow APA 7.
 
 # 2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)
 
@@ -289,8 +321,8 @@ of this document.
 - Albininé Budavári, E., Albini, A., & Mester, G. (2023). The role of social engineering in the energy balance of systems. *Interdisciplinary Description of Complex Systems, 21*(2), 168–173. https://doi.org/10.7906/indecs.21.2.5
 - Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
 - Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
-- Zambrano, L. F. (2026). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 — **[to be verified: handle returns 404]**
-- Zambrano, L. F. (2026). *Vectores de ataque y estrategias de defensa* [OVA]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83229 — **[to be verified: handle returns 404]**
+- Zambrano, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 — **[to be verified: handle returns 404]**
+- Zambrano, L. F. (2026b). *Vectores de ataque y estrategias de defensa* [OVA]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83229 — **[to be verified: handle returns 404]**
 
 **Technical frameworks (to add — real, verifiable, cited; ≥3):** CIS Controls; NIST CSF; NIST SP 800-61; ISO/IEC 27001; OWASP ASVS/WSTG + Top 10 (A03:2021); MITRE ATT&CK; NVD.
 

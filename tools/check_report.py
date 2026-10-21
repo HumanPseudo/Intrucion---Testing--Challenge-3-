@@ -219,7 +219,17 @@ def check_symbol(rep: Report, body: str) -> None:
 
 
 def check_references(rep: Report, body: str, references: str) -> None:
-    entries = re.findall(r"^-\s+(.+?)\((\d{4}[a-z]?)\)", references, re.M)
+    raw_entries = re.findall(r"^-\s+(.+)$", references, re.M)
+    entries = []
+    optional = []
+    for raw in raw_entries:
+        m = re.match(r"(.+?)\((\d{4}[a-z]?)\)", raw)
+        if not m:
+            continue
+        if "to be verified" in raw.lower():
+            optional.append((m.group(1).strip(), m.group(2)))
+        else:
+            entries.append((m.group(1).strip(), m.group(2)))
     if not entries:
         rep.fail("no reference entries found in the reference list")
         return
@@ -236,8 +246,15 @@ def check_references(rep: Report, body: str, references: str) -> None:
     else:
         rep.ok(f"all {len(entries)} listed sources are cited in the text")
 
+    if optional:
+        rep.warn(
+            f"{len(optional)} source(s) carry the 'to be verified' caveat "
+            "(handle returns 404); citing them in the text is optional: "
+            + ", ".join(f"{a.split(',')[0]} ({y})" for a, y in optional)
+        )
+
     in_text = set(re.findall(r"\(([A-ZÁÉÍÓÚÑ][^()]{0,40}?),\s*(?:19|20)\d\d[a-z]?\)", body))
-    listed = " ".join(a for a, _ in entries)
+    listed = " ".join(a for a, _ in entries + optional)
     missing = []
     for cite in in_text:
         surname = re.split(r"[,\s&(]", cite.strip())[0]

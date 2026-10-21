@@ -29,11 +29,11 @@ being merged.
 
 ## 1. Objective and scope — verify before writing
 
-- [ ] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections.
-- [ ] State the purpose = evidence learning outcome **RA2** (design integral detection/identification/management schemas using offensive techniques + adversarial thinking).
-- [ ] Cover the three domains: **DMZ/Web LAMP**, **corporate IT**, **IoT/OT** of the smart greenhouse.
-- [ ] Declare out of scope: no exploitation, no live testing, no VM validation, no destructive DoS, no real exfiltration, no executed social engineering.
-- [ ] Confirm all matrices will be editable tables (no screenshots / image-tables / external links), APA citations, AI log included.
+- [x] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections. — *confirmed against the rubric (items 1–3): `.docx`/PDF pipeline in `report/Makefile`; individual work (rubric: "proceso individual"); the 10 visible headings are enforced by `make check`; the word range is declared in Section 1 and measured by `make wordcount` (currently 2,620 — to be closed while sections 2–10 are written).*
+- [x] State the purpose = evidence learning outcome **RA2** (design integral detection/identification/management schemas using offensive techniques + adversarial thinking). — *stated in Section 1, with RA2 quoted in the sense of `md/reto2/CONTEXTO-RETO3.md`; the rubric's own requirement for section 1 (purpose, domains, relation with the Challenge 2 findings) is covered by the added "Relation with the Challenge 2 findings" paragraph.*
+- [x] Cover the three domains: **DMZ/Web LAMP**, **corporate IT**, **IoT/OT** of the smart greenhouse. — *named in the opening paragraph of Section 1 and split again in Table 1 (domain column).*
+- [x] Declare out of scope: no exploitation, no live testing, no VM validation, no destructive DoS, no real exfiltration, no executed social engineering. — *explicit "Scope and exclusions" list (a–f) in Section 1, plus the C3.e no-test declaration; the guide's wording ("no ejecutar pruebas sobre la máquina virtual ni validar explotación técnica") is respected.*
+- [x] Confirm all matrices will be editable tables (no screenshots / image-tables / external links), APA citations, AI log included. — *declared in Section 1 ("Structure, method and evidence conventions"); enforced mechanically by `make check` (no images, 13 numbered captions, each referenced in the text); APA 7 list in place with the first in-text citations, and the AI log in the appendix.*
 
 ---
 
