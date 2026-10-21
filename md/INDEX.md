@@ -94,7 +94,7 @@ Material del Reto 2 incorporado para dar contexto al Reto 3. Origen: vault `Obsi
 
 ### Instrumentos y contexto (`md/reto2/instrumentos/`, `md/reto2/contexto/`)
 
-14 instrumentos (1.1, 1.B, 1.C, 2.1-2.9, 3.13, Declaración IA) + 8 notas de contexto (arquitectura, marco legal/ROE, rúbrica, glosario…). Copias literales de las notas del vault (ya en Markdown de calidad). Detalle en `md/reto2/CONTEXTO-RETO3.md` §5.
+14 instrumentos (1.1, 1.B, 1.C, 2.1-2.9, 3.13, Declaración IA) + 8 notas de contexto (arquitectura, marco legal/ROE, rúbrica, glosario…). Copias literales de las notas del vault (ya en Markdown de calidad). Detalle en `md/reto2/CONTEXTO-RETO3.md` sección 5.
 
 ### No incluido
 

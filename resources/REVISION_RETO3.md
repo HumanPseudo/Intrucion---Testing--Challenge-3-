@@ -8,7 +8,7 @@
 
 > **Añadido — insumos del Reto 2 (`md/reto2/`).** Como el Reto 3 *se construye sobre el análisis ofensivo del Reto 2*, se incorporó también a Markdown el material de ese reto (documento maestro **Anexo 1**, guía del Reto 2, los 14 instrumentos 1.x/2.x y 8 notas de contexto). El punto de entrada es **`md/reto2/CONTEXTO-RETO3.md`** (contexto consolidado para redactar el informe). Ver Tarea 1.
 >
-> **Corrección de un falso positivo:** el «Anexo 1» que una primera pasada marcó como **inexistente/crítico** **existe** (documento maestro, 48 págs) y contiene la ficha y los 5 instrumentos del Reto 3. Ver §«Corrección de un falso positivo…».
+> **Corrección de un falso positivo:** el «Anexo 1» que una primera pasada marcó como **inexistente/crítico** **existe** (documento maestro, 48 págs) y contiene la ficha y los 5 instrumentos del Reto 3. Ver sección «Corrección de un falso positivo…».
 
 > Nota de método: la conversión es **fiel e integral** (sin resúmenes). Los detalles de calidad y las salvedades (OCR, ligaduras, marcas de agua) están en `md/INDEX.md` y en la cabecera de cada `.md`.
 >
@@ -86,7 +86,7 @@ El detalle por archivo (páginas, estado, notas) está en **`md/INDEX.md`**.
 
 | # | Hallazgo | Tipo | Gravedad |
 |---|---|---|---|
-| A1 | **«Anexo 1» no está publicado *en `resources/`*.** La rúbrica lo cita **5 veces** («al menos 8 activos del Anexo 1», «la sección o el artefacto del Anexo 1», «pistas del Anexo 1») y la guía del Reto 3 **no lo adjunta ni lo describe**. **Corrección (ver §«Corrección de un falso positivo…» y «Errata aplicada»):** el Anexo **sí existe** — es el documento maestro del curso (`Anexo 1 Caso AgroSmart del Sumapaz.pdf`, 48 págs), que vive con el material del Reto 2 y **contiene la ficha y los 5 instrumentos del Reto 3 (pp. 32-35)**. Hallazgo real, ya **no crítico**: es un problema de **publicación/ubicación** (no viaja con la guía del Reto 3), no de inexistencia. Mitigado: incorporado a `md/reto2/`. | Coherencia / ubicación de materiales | **Media** (era «Crítica» por falso positivo) |
+| A1 | **«Anexo 1» no está publicado *en `resources/`*.** La rúbrica lo cita **5 veces** («al menos 8 activos del Anexo 1», «la sección o el artefacto del Anexo 1», «pistas del Anexo 1») y la guía del Reto 3 **no lo adjunta ni lo describe**. **Corrección (ver sección «Corrección de un falso positivo…» y «Errata aplicada»):** el Anexo **sí existe** — es el documento maestro del curso (`Anexo 1 Caso AgroSmart del Sumapaz.pdf`, 48 págs), que vive con el material del Reto 2 y **contiene la ficha y los 5 instrumentos del Reto 3 (pp. 32-35)**. Hallazgo real, ya **no crítico**: es un problema de **publicación/ubicación** (no viaja con la guía del Reto 3), no de inexistencia. Mitigado: incorporado a `md/reto2/`. | Coherencia / ubicación de materiales | **Media** (era «Crítica» por falso positivo) |
 | A2 | **Canal y fecha-hora de entrega ausentes.** Solo se indica «finaliza el domingo 25 de octubre de 2026»; no hay plataforma, enlace ni hora límite de entrega. | Instrucción incompleta | Alta |
 | A3 | **Foros sin criterio de evaluación.** Se declara la interacción «Foros de interacción entre estudiantes», pero el entregable es individual y **la rúbrica no evalúa participación en foros**. | Actividad sin evaluación | Media |
 | A4 | **«Cuestionario de evaluación» mal rotulado.** La Tabla 1 dice «Puntuación del **cuestionario** de evaluación de este Reto: 125», pero el instrumento es una **rúbrica de informe**, no un cuestionario. | Redacción | Menor |

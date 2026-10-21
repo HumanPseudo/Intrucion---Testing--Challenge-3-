@@ -343,16 +343,16 @@ Tecnologías nombradas por la guía: **SIEM/XDR, hardening, DevSecOps, seguridad
 
 | Vector (Reto 2) | Activo | Técnica MITRE | Sección del informe (Reto 3) | Dominio |
 |-----------------|--------|---------------|------------------------------|---------|
-| 1 · Explotación Apache 2.4.49 | A-01 | T1190 | §5 Hardening Web/LAMP + §5 controles app | DMZ |
-| 2 · Inyección SQL | A-01 | T1190 | §5 controles app web (DevSecOps/SAST) | DMZ |
-| 3 · IDOR en API | A-01 | — | §5 control de acceso a la API | DMZ |
-| 4 · JWT `alg:none` | A-01 | T1606.001 | §5 autenticación y sesiones | DMZ |
-| 5 · Credenciales expuestas (`.bak`/`.git`) | A-01→A-03 | T1552.001 | §5 directorios/backups + gestión de secretos | DMZ/IT |
-| 6 · Credenciales por defecto en gateway | A-05 | T1078 (por defecto) | §9 controles IoT/OT | IoT/OT |
-| 7 · Phishing/pretexting | A-04 | T1566 | §5 controles organizativos + §6 monitoreo de correo | IT |
-| 8 · Movimiento lateral SMB null session | A-03 | T1021.002 | §8 controles IT (SMBv1, firma, null session) | IT |
-| 9 · Manipulación OT vía MQTT/Modbus | A-07/A-08 | T0855 | §6 (prioridad) §9 MQTT/Modbus + segmentación | IoT/OT |
-| 10 · Cliente desactualizado y TLS débil | A-01 | T1557 (AitM) | §5 hardening TLS + gestión de dependencias | DMZ |
+| 1 · Explotación Apache 2.4.49 | A-01 | T1190 | sección 5 Hardening Web/LAMP + sección 5 controles app | DMZ |
+| 2 · Inyección SQL | A-01 | T1190 | sección 5 controles app web (DevSecOps/SAST) | DMZ |
+| 3 · IDOR en API | A-01 | — | sección 5 control de acceso a la API | DMZ |
+| 4 · JWT `alg:none` | A-01 | T1606.001 | sección 5 autenticación y sesiones | DMZ |
+| 5 · Credenciales expuestas (`.bak`/`.git`) | A-01→A-03 | T1552.001 | sección 5 directorios/backups + gestión de secretos | DMZ/IT |
+| 6 · Credenciales por defecto en gateway | A-05 | T1078 (por defecto) | sección 9 controles IoT/OT | IoT/OT |
+| 7 · Phishing/pretexting | A-04 | T1566 | sección 5 controles organizativos + sección 6 monitoreo de correo | IT |
+| 8 · Movimiento lateral SMB null session | A-03 | T1021.002 | sección 8 controles IT (SMBv1, firma, null session) | IT |
+| 9 · Manipulación OT vía MQTT/Modbus | A-07/A-08 | T0855 | sección 6 (prioridad) sección 9 MQTT/Modbus + segmentación | IoT/OT |
+| 10 · Cliente desactualizado y TLS débil | A-01 | T1557 (AitM) | sección 5 hardening TLS + gestión de dependencias | DMZ |
 
 **Causas transversales** (aplican a varios vectores): falta de segmentación (F2/F3), ausencia de bloqueo por intentos, credenciales reutilizadas, ausencia de monitoreo en fuentes clave.
 
