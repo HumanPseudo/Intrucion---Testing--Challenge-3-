@@ -150,7 +150,7 @@ of this document.
 
 > **[to complete — intro paragraph]** State that hardening follows CIS Controls and OWASP, and that
 > every action names the vector it mitigates. **Tables 6–8** are the per-domain hardening
-> checklists; **§5.4** covers the application-layer controls.
+> checklists; **Section 5.4** covers the application-layer controls.
 
 ## 5.1 Hardening — a) Web / LAMP (≥4 actions) · instrument 3.2a
 

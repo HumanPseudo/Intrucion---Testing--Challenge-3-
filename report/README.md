@@ -76,23 +76,23 @@ figures/      optional diagrams (architecture, attack path, Kill Chain)
 ## Table inventory (editable matrices → rubric criterion)
 
 Every matrix is a native Markdown table in `doc.md`, titled, numbered and referenced in the text.
-`plan.md §4` uses the same numbers, so both files point at the same object.
+`plan.md` Section 4 uses the same numbers, so both files point at the same object.
 
 | Table | In `doc.md` | Content | Rubric |
 |---|---|---|---|
-| 1 | §2.1 | Asset classification by domain (A-01…A-08) | C2.a |
-| 2 | §2.2 | Attack vectors from Challenge 2 (10) | C2.a/§2 |
-| 3 | §2.3 | Vulnerability matrix (CVE/CWE · CVSS) | §2 |
-| 4 | §3 | Risk prioritization (6 criteria, descending) | C2.b |
-| 5 | §4 | Traceability matrix vector–control (10 cols) | C2.c |
-| 6 | §5.1 | Hardening a) Web / LAMP (≥4) | C2.d |
-| 7 | §5.2 | Hardening b) IT / Windows (≥4) | C2.d |
-| 8 | §5.3 | Hardening c) IoT / OT (≥4) | C2.d |
-| 9 | §6.1 | SIEM/XDR detection rules (≥6) | C2.e |
-| 10 | §6.2 | Monitoring and alerting plan | C2.e |
-| 11 | §7 | DevSecOps practices (≥4) | C2.g |
-| 12 | §8 | NIST SP 800-61 playbook (6 phases) | C2.f |
-| 13 | §9 | Validation criteria for Challenge 4 (≥5) | C2.h |
+| 1 | Section 2.1 | Asset classification by domain (A-01…A-08) | C2.a |
+| 2 | Section 2.2 | Attack vectors from Challenge 2 (10) | C2.a/Section 2 |
+| 3 | Section 2.3 | Vulnerability matrix (CVE/CWE · CVSS) | Section 2 |
+| 4 | Section 3 | Risk prioritization (6 criteria, descending) | C2.b |
+| 5 | Section 4 | Traceability matrix vector–control (10 cols) | C2.c |
+| 6 | Section 5.1 | Hardening a) Web / LAMP (≥4) | C2.d |
+| 7 | Section 5.2 | Hardening b) IT / Windows (≥4) | C2.d |
+| 8 | Section 5.3 | Hardening c) IoT / OT (≥4) | C2.d |
+| 9 | Section 6.1 | SIEM/XDR detection rules (≥6) | C2.e |
+| 10 | Section 6.2 | Monitoring and alerting plan | C2.e |
+| 11 | Section 7 | DevSecOps practices (≥4) | C2.g |
+| 12 | Section 8 | NIST SP 800-61 playbook (6 phases) | C2.f |
+| 13 | Section 9 | Validation criteria for Challenge 4 (≥5) | C2.h |
 
 ## Before submitting (rubric C1 / C3)
 

@@ -24,7 +24,7 @@ A generic list of good practices is not graded; coherence between threat and def
 
 ## Planned deliverable structure
 
-Canonical titles live in `report/doc.md` and are mirrored verbatim in `plan.md §3`; the **Table**
+Canonical titles live in `report/doc.md` and are mirrored verbatim in `plan.md` Section 3; the **Table**
 column points at the matrices (Tables 1–13) inventoried in `report/README.md`.
 
 | # | Section (canonical title in `report/doc.md`) | Table(s) | Content |
@@ -59,10 +59,10 @@ coherent by sharing the same **section titles** and the same **Table 1–13** nu
 
 | Object | Lives in | Meaning |
 |---|---|---|
-| Section title (10) | `report/doc.md` headings ≡ `plan.md §3` ≡ this README | The graded structure. |
-| Table 1–13 | `report/doc.md` (built) ≡ `report/README.md` (inventory) ≡ `plan.md §4` (rubric) | The editable matrices. |
-| Phase 1–6 / schedule | `plan.md §2, §6` | How the product gets written. |
-| Rubric C1, C2.a–i, C3.a–e | `plan.md §4` (authoritative thresholds) | What is scored. |
+| Section title (10) | `report/doc.md` headings ≡ `plan.md` Section 3 ≡ this README | The graded structure. |
+| Table 1–13 | `report/doc.md` (built) ≡ `report/README.md` (inventory) ≡ `plan.md` Section 4 (rubric) | The editable matrices. |
+| Phase 1–6 / schedule | `plan.md` Sections 2 and 6 | How the product gets written. |
+| Rubric C1, C2.a–i, C3.a–e | `plan.md` Section 4 (authoritative thresholds) | What is scored. |
 
 - `md/` and `resources/` hold **local reference material** (course guides, rubric, converted
   articles, original PDFs) and the Challenge 2 inputs. They are the base of the design; nothing is

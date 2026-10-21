@@ -11,7 +11,7 @@
 **Artifacts map (keep coherent):** `plan.md` (this file) = **process**; `report/doc.md` = **product**
 (renders to `report.pdf` / `report.docx`); `report/README.md` = render pipeline + Table 1–13
 inventory; `README.md` = task summary; `AGENTS.md` = agent rules. The three share the same section
-titles (this §3) and the same **Table 1–13** numbers, so they reference the same objects without
+titles (this Section 3) and the same **Table 1–13** numbers, so they reference the same objects without
 being merged.
 
 ---
@@ -21,8 +21,8 @@ being merged.
 - [x] Confirm the **delivery channel and cut-off hour** with the tutor and record the answer (audit **A2**).
 - [x] Adopt the **10-column traceability matrix** decision (audit **A5**) and plan to declare it in the report.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
-- [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *apéndice estructurado en `doc.md`; contenido (prompts, salida, verificación, ajustes) a completar y revisar antes de la entrega (ver §6, sáb 24).*
-- [ ] Fix the citation errata and never reintroduce the old forms (see §4 last block).
+- [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *apéndice estructurado en `doc.md`; contenido (prompts, salida, verificación, ajustes) a completar y revisar antes de la entrega (ver Section 6, sáb 24).*
+- [ ] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
 - [ ] Keep a running word count excluding references, target 6,000–8,000.
 
 ---
@@ -60,12 +60,12 @@ being merged.
 ### Phase 3 — Defensive controls and hardening (Steps 5–9) · 8 h
 
 - [ ] Design preventive/detective/corrective controls per vector, aligned to CIS Controls, OWASP, hardening and vulnerability management (Step 5).
-  - [ ] Output: control blocks in §5, each tagged with vector + framework (rubric C2.i, C3.d).
+  - [ ] Output: control blocks in Section 5, each tagged with vector + framework (rubric C2.i, C3.d).
 - [ ] **Web/LAMP hardening ≥4 actions** — Apache version, directory listing, sensitive paths (`/dbadmin`, `/backup`, `.git`), HTTP headers, TLS, backups (Step 6).
   - [ ] Output: editable hardening checklist **a) Web/LAMP** with `¿Aplica? S/N`, vector mitigated, verification (instrument 3.2a).
   - [ ] Refs: Anexo 1 instrument 3.2a (pp. 32–33), Sec. 3.2/3.3/3.7/3.8; `md/reto2/instrumentos/2.4 Vectores de ataque.md` (vectors 1, 2, 5, 10)
 - [ ] **Web-application controls** — input validation, parameterized queries, output encoding, session/JWT, IDOR/API access control, file-upload validation, secret management (Step 7).
-  - [ ] Output: app-security subsection in §5 tied to SQLi, IDOR, `alg:none`, upload.
+  - [ ] Output: app-security subsection in Section 5 tied to SQLi, IDOR, `alg:none`, upload.
   - [ ] Refs: `…/2.3 Matriz CVE-CVSS.md` (CWE-89/639/347/434); Anexo 1 Sec. 3.3, 3.8
 - [ ] **IT hardening ≥4 actions** — SMBv1, SMB signing, RDP/NLA, password + lockout, segmentation (Step 8).
   - [ ] Output: editable hardening checklist **b) IT/Windows** (instrument 3.2b).
@@ -84,7 +84,7 @@ being merged.
   - [ ] Refs: Anexo 1 instrument 3.5 (pp. 34–35), Sec. 3.6, 3.11; `md/reto2/instrumentos/2.9 Impacto y riesgo.md`
 - [ ] Define **≥4 DevSecOps practices** with lifecycle stage (Step 12).
   - [ ] Output: DevSecOps table (input validation, secure coding, SAST, DAST, SCA, secret scanning, change control).
-  - [ ] Refs: `md/reto2/instrumentos/2.3 Matriz CVE-CVSS.md`; Anexo 1 Sec. 3.3/3.8; `md/reto2/CONTEXTO-RETO3.md` §4
+  - [ ] Refs: `md/reto2/instrumentos/2.3 Matriz CVE-CVSS.md`; Anexo 1 Sec. 3.3/3.8; `md/reto2/CONTEXTO-RETO3.md` Section 4
 
 ### Phase 5 — Validation criteria (Step 13) · 2 h
 
@@ -97,7 +97,7 @@ being merged.
 - [ ] Assemble the report with the 10 titled sections, formal prose, all matrices embedded and referenced (Step 14).
   - [ ] Output: complete draft (.docx) with 10 sections and 6,000–8,000 words excluding references.
 - [ ] Quality pass: spelling, structure, editable tables, vector↔control coherence, APA citation↔reference correspondence, AI log, no plagiarism (Step 15).
-  - [ ] Output: final .docx/PDF that passes the §4 checklist; AI declaration completed.
+  - [ ] Output: final .docx/PDF that passes the Section 4 checklist; AI declaration completed.
   - [ ] Refs: `resources/REVISION_RETO3.md` (A2, A5, A6, A7); `md/reto2/instrumentos/Declaracion uso de IA.md`; `resources/references.md`
 - [ ] **Hour budget confirmed:** 3 + 4 + 8 + 6 + 2 + 7 = **30 h**. Every task has an output; no output is a generic good-practice list.
 
@@ -130,7 +130,7 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 | ☐ | **C1 — Format (25 pts / 20 %)** | .docx or PDF; **6,000–8,000 words** excluding references; **10 sections** with visible headings; all matrices editable, titled, numbered, referenced in text; no screenshots/image-tables/external-link substitutes. |
 | ☐ | **C2.a — Asset classification** | Names "DMZ/Web LAMP", "IT", "IoT/OT" and classifies **≥8 assets from Annex 1** (A-01…A-08) each with function, criticality, exposure. |
 | ☐ | **C2.b — Prioritization matrix** | Applies the **6 criteria** (asset criticality, impact, probability, CVSS severity, exposure, cross-domain propagation) and **orders descending**. |
-| ☐ | **C2.c — Traceability matrix** | **≥8 Challenge 2 vectors**; the rubric's **9** columns + **"expected evidence" (10)** — *decision:* deliver 10 columns (superset satisfies both; audit **A5**); declare in §4. |
+| ☐ | **C2.c — Traceability matrix** | **≥8 Challenge 2 vectors**; the rubric's **9** columns + **"expected evidence" (10)** — *decision:* deliver 10 columns (superset satisfies both; audit **A5**); declare in Section 4. |
 | ☐ | **C2.d — Hardening per domain** | **≥4 actions per domain** for LAMP, IT and IoT/OT, each naming the mitigated vector (instruments 3.2a/b/c). |
 | ☐ | **C2.e — SIEM/XDR use cases** | **≥6 use cases**, each with log source, trigger condition, severity, expected event, initial action. |
 | ☐ | **C2.f — Incident response** | **6 NIST SP 800-61 phases** for **≥1 prioritized scenario** (instrument 3.5). |
@@ -161,8 +161,8 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 ## 5. Risks and open decisions — resolve checklist
 
 - [ ] **A2 — Delivery channel/date/time undefined.** Deliver by the last day; confirm channel/hour with the tutor; keep versioned .docx + PDF.
-- [ ] **A6 — Numeric thresholds only in the rubric.** Hit every threshold (see §4); treat the rubric as authoritative.
-- [ ] **A5 — Column-count divergence.** Deliver the **10-column** matrix and declare the decision in §4.
+- [ ] **A6 — Numeric thresholds only in the rubric.** Hit every threshold (see Section 4); treat the rubric as authoritative.
+- [ ] **A5 — Column-count divergence.** Deliver the **10-column** matrix and declare the decision in Section 4.
 - [ ] **Mandatory declarations not ordered by the guide.** Include (1) no-test declaration (C3.e) and (2) AI log (C3.b).
 - [ ] **A1 — Annex 1 not bundled with the guide.** Use `md/reto2/fuentes/Anexo 1 - Caso AgroSmart del Sumapaz.md` (Sec. 3.1 assets; pp. 32–35 instruments) as the authority for C2.a and C3.d.
 - [ ] **A3/A4 — Forums not graded; "cuestionario" mislabel.** No forum content planned; deliverable is the individual report.
@@ -178,15 +178,15 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 - [ ] **Mon 19 Oct · 5 h — Phase 1 + start Phase 2 (Steps 1–2, start 3).**
   - [ ] Challenge-2 input checklist.
   - [ ] Asset-classification table (A-01…A-08, function/criticality/exposure).
-  - [ ] Draft §1–§2.
+  - [ ] Draft Sections 1–2.
 - [ ] **Tue 20 Oct · 5 h — Phase 2 (Steps 3–4).**
-  - [ ] Prioritization matrix with the 6 criteria, ordered descending (§3).
-  - [ ] Traceability matrix skeleton with ≥8 vector rows (§4).
+  - [ ] Prioritization matrix with the 6 criteria, ordered descending (Section 3).
+  - [ ] Traceability matrix skeleton with ≥8 vector rows (Section 4).
 - [ ] **Wed 21 Oct · 6 h — Phase 3 (Steps 5–9).**
-  - [ ] §5 hardening checklists LAMP/IT/IoT-OT (≥4 each).
+  - [ ] Section 5 hardening checklists LAMP/IT/IoT-OT (≥4 each).
   - [ ] App-web / IT / IoT control subsections, each tagged to a vector.
 - [ ] **Thu 22 Oct · 8 h — Phase 4 finish + Phase 5 + assemble draft (Steps 10–14).**
-  - [ ] §6 SIEM/XDR (≥6); §7 DevSecOps (≥4); §8 NIST SP 800-61 (6 phases); §9 validation (≥5); §10 conclusions.
+  - [ ] Section 6 SIEM/XDR (≥6); Section 7 DevSecOps (≥4); Section 8 NIST SP 800-61 (6 phases); Section 9 validation (≥5); Section 10 conclusions.
   - [ ] **MILESTONE: complete draft ≥6,000 words.**
 - [ ] **Fri 23 Oct · 3 h — Phase 6 Quality pass I (Step 15).**
   - [ ] Every control/rule has vector + framework + Annex 1 anchor.
@@ -203,6 +203,6 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 
 ## Immediate next actions
 
-- [ ] Confirm the delivery channel and cut-off time (A2) with the tutor and record it in §5.
+- [ ] Confirm the delivery channel and cut-off time (A2) with the tutor and record it in Section 5.
 - [ ] Fix the 10-column traceability decision (C2.c) and the two mandatory declarations (no tests; AI log) as standing requirements.
 - [ ] Start Phase 1 on 19 Oct: populate the asset-classification table from Annex 1, Sec. 3.1 (A-01…A-08) before writing any control.

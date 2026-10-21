@@ -63,7 +63,7 @@ Requires **Pandoc** and a Unicode-capable LaTeX engine (`xelatex`) with the Deja
 ## Verification checklist before finishing
 
 - `report/doc.md` has the **10 sections** with visible headings and references to every table.
-- Section titles and **Table 1–13** numbers stay identical across `report/doc.md`, `plan.md §3` and
+- Section titles and **Table 1–13** numbers stay identical across `report/doc.md`, `plan.md` Section 3 and
   `report/README.md` (one object, three views — do not merge the files).
 - Each table is titled, numbered and referenced in the text; all are editable.
 - Every control maps to a Challenge 2 vector/asset; no orphan controls.
