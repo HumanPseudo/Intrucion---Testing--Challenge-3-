@@ -20,7 +20,7 @@ being merged.
 
 - [x] Confirm the **delivery channel and cut-off hour** with the tutor and record the answer (audit **A2**).
 - [x] Adopt the **10-column traceability matrix** decision (audit **A5**) and plan to declare it in the report.
-- [ ] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
+- [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
 - [ ] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`).
 - [ ] Fix the citation errata and never reintroduce the old forms (see §4 last block).
 - [ ] Keep a running word count excluding references, target 6,000–8,000.
@@ -108,7 +108,7 @@ being merged.
 Titles below are **identical** to the headings in `report/doc.md`; the table numbers match the
 inventory in `report/README.md`. Write in order and tick each box.
 
-- [ ] **1. Introducción y alcance del diseño defensivo (Introduction and scope)** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
+- [x] **1. Introducción y alcance del diseño defensivo (Introduction and scope)** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
 - [ ] **2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 9 CVE/CWE rows, 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
 - [ ] **3. Matriz de priorización de riesgos (Risk prioritization matrix)** — **Table 4**: vectors scored on the 6 mandated criteria and ordered descending; justification of web, corporate and physical-operational risks.
 - [ ] **4. Matriz de trazabilidad vector–control (Traceability matrix vector–control)** — **Table 5**: ≥8 vector rows across 10 columns (9 rubric + expected evidence); declare the column decision.
@@ -141,7 +141,7 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 | ☐ | **C3.b — AI declaration** | Log with **prompts, purpose, verification, adjustments** — or explicit no-AI statement (audit **A7** → provide the full log). |
 | ☐ | **C3.c — Citation ↔ reference** | Every listed source cited in text and every in-text citation listed (bidirectional). |
 | ☐ | **C3.d — Framework + Annex 1 anchor** | **Each** control and detection rule names its supporting framework **and** the Annex 1 section/artifact motivating it. |
-| ☐ | **C3.e — No-test declaration** | Explicit statement that **no tests/exploitation were executed**; verification deferred to the authorized Cyber Range. |
+| ☑ | **C3.e — No-test declaration** | Explicit statement that **no tests/exploitation were executed**; verification deferred to the authorized Cyber Range. |
 
 **Citation errata already applied** (from `resources/REVISION_RETO3.md` — do not reintroduce old forms):
 

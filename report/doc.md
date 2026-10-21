@@ -8,19 +8,31 @@ lang: en
 
 # 1. Introducción y alcance del diseño defensivo (Introduction and scope)
 
-> **[to complete — 1 paragraph]** State the purpose of the report, the three domains analysed
-> (**DMZ/Web LAMP**, **corporate IT**, **IoT/OT** of the smart greenhouse) and the link to the
-> Challenge 2 offensive analysis. Keep it to learning outcome RA2.
+This report presents the defensive design required by Challenge 3 of *Intrusión y Testing*
+(203028113) and is the direct continuation of the offensive analysis delivered in Challenge 2.
+Its purpose is to demonstrate learning outcome RA2 by designing an integral scheme of detection,
+identification, hardening, monitoring, containment and response, built from the offensive
+techniques and the adversarial thinking already applied to the case. The design covers the three
+domains of AgroSmart del Sumapaz S.A.S. — the **DMZ/Web LAMP** environment, the **corporate IT**
+network and the **IoT/OT** layer of the smart greenhouse — and every control, hardening action and
+detection rule is traceable to a vector, asset or probable cause identified in Challenge 2 and
+anchored in Annex 1; nothing about the case is re-invented here.
 
-**Case:** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
-come from `md/reto2/fuentes/Anexo 1 - Caso AgroSmart del Sumapaz.md` and the Challenge 2
-instruments; none of it is re-invented here).
+**Case.** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
+come from Annex 1 and the Challenge 2 instruments).
 
-**Declarations required by the rubric (include explicitly):**
+**Declaración de no ejecución de pruebas (rubric C3.e).** No tests, exploitation attempts or live
+validation were executed at any point of this challenge: no vulnerability was exploited, no
+payload was delivered against the portal, no credential was used against the corporate network, no
+command was sent to the irrigation controller and no social-engineering action was carried out.
+This is a design-only deliverable: every control is a proposal whose effectiveness is described as
+*expected evidence*, and its verification is deferred in full to the authorized Cyber Range of
+Challenge 4, under the rules of engagement established there. The report therefore contains no
+test results — only the validation criteria and the evidence that will be required.
 
-- No tests or technical exploitation were executed in this challenge; validation is deferred to
-  the authorized Cyber Range of Challenge 4.
-- AI-usage declaration / log — see the appendix at the end of this document.
+**Declaración de uso de IA (rubric C3.b).** The complete AI-usage declaration and prompt log —
+tool, purpose, prompts, verification and own adjustments — is included as the appendix at the end
+of this document.
 
 # 2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)
 
