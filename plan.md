@@ -22,7 +22,7 @@ being merged.
 - [x] Adopt the **10-column traceability matrix** decision (audit **A5**) and plan to declare it in the report.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
 - [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *apéndice estructurado en `doc.md`; contenido (prompts, salida, verificación, ajustes) a completar y revisar antes de la entrega (ver Section 6, sáb 24).*
-- [ ] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
+- [x] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
 - [ ] Keep a running word count excluding references, target 6,000–8,000.
 
 ---
@@ -145,11 +145,11 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 
 **Citation errata already applied** (from `resources/REVISION_RETO3.md` — do not reintroduce old forms):
 
-- [ ] UNAD Bulletin authorship = **Palomo Luna, D. F.; Zambrano Hernández, L. F.; Moreno Molano, S. X.; Peña Hidalgo, H. J.** (Boletín N.º 28, 2024).
-- [ ] UNEMI article year = **2020** (not 2019).
-- [ ] INDECS author = **Albininé Budavári, E.** (not "Budavári, E. A.").
-- [ ] Direct DOIs: UNEMI `10.29076/issn.2528-7737vol13iss32.2020pp27-40p`; phishing `10.18779/cyt.v13i1.357`; INDECS `10.7906/indecs.21.2.5`.
-- [ ] The two **OVI/OVA** UNAD handles (`10596/83223`, `10596/83229`) are **404 → "to be verified"**; cite only with that caveat or omit.
+- [x] UNAD Bulletin authorship = **Palomo Luna, D. F.; Zambrano Hernández, L. F.; Moreno Molano, S. X.; Peña Hidalgo, H. J.** (Boletín N.º 28, 2024).
+- [x] UNEMI article year = **2020** (not 2019).
+- [x] INDECS author = **Albininé Budavári, E.** (not "Budavári, E. A.").
+- [x] Direct DOIs: UNEMI `10.29076/issn.2528-7737vol13iss32.2020pp27-40p`; phishing `10.18779/cyt.v13i1.357`; INDECS `10.7906/indecs.21.2.5`.
+- [x] The two **OVI/OVA** UNAD handles (`10596/83223`, `10596/83229`) are **404 → "to be verified"**; cite only with that caveat or omit.
 
 **Planned source set (≥8, to be cited):**
 
