@@ -31,16 +31,16 @@ WORD_MIN = 6000
 WORD_MAX = 8000
 
 SECTION_TITLES = [
-    "1. Introducción y alcance del diseño defensivo",
-    "2. Síntesis del análisis ofensivo del Reto 2",
-    "3. Matriz de priorización de riesgos",
-    "4. Matriz de trazabilidad vector–control",
-    "5. Diseño de controles defensivos",
-    "6. Propuesta de monitoreo y detección",
-    "7. Propuesta DevSecOps",
-    "8. Plan básico de respuesta ante incidentes",
-    "9. Criterios de validación para el Reto 4",
-    "10. Conclusiones y referencias",
+    "1. Introduction and scope of defensive design",
+    "2. Synthesis of the Challenge 2 offensive analysis",
+    "3. Risk prioritization matrix",
+    "4. Traceability matrix: vector to control",
+    "5. Design of defensive controls",
+    "6. Monitoring and detection proposal",
+    "7. DevSecOps proposal",
+    "8. Incident response plan",
+    "9. Validation criteria for Challenge 4",
+    "10. Conclusions and references",
 ]
 
 TABLE_COUNT = 13
@@ -61,7 +61,7 @@ def body_of_markdown(text: str) -> tuple[str, str]:
     reference list and the AI-usage appendix are excluded from the word count.
     """
     text = strip_frontmatter(text)
-    start = text.find("# 1. Introducción")
+    start = text.find("# 1. Introduction")
     ref = text.find("## References")
     if start < 0 or ref < 0:
         return text, ""
@@ -107,8 +107,8 @@ def docx_body_words() -> int | None:
     ]
     joined = "\n".join(texts)
     # The table of contents repeats every heading: take the last occurrence.
-    start = joined.rfind("1. Introducción")
-    end = joined.find("References (APA)")
+    start = joined.rfind("1. Introduction")
+    end = joined.find("References")
     if start < 0 or end < 0 or end < start:
         return None
     return count_words(joined[start:end])

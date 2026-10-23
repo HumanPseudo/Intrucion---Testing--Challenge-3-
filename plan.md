@@ -113,16 +113,16 @@ inventory in `report/README.md`. Write in order and tick each box.
 functions, hardening rationale, Cyber Range validation). Technical frameworks → Sections 5, 6, 8
 (CIS, OWASP, ISO/IEC 27001, NIST CSF 2.0, NIST SP 800-61, MITRE ATT&CK, NVD).
 
-- [x] **1. Introducción y alcance del diseño defensivo (Introduction and scope)** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
-- [x] **2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 9 CVE/CWE rows, 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
-- [x] **3. Matriz de priorización de riesgos (Risk prioritization matrix)** — **Table 4**: vectors scored on the 6 mandated criteria and ordered descending; justification of web, corporate and physical-operational risks.
-- [x] **4. Matriz de trazabilidad vector–control (Traceability matrix vector–control)** — **Table 5**: ≥8 vector rows across 10 fields (9 rubric + expected evidence); declare the column decision.
-- [x] **5. Diseño de controles defensivos (Design of defensive controls)** — **Tables 6–8**: hardening Ubuntu/Apache/PHP/MariaDB; app-web controls; auth/sessions; credentials; sensitive dirs/backups/exposed services; IT and IoT/OT controls — each tied to a vector.
-- [x] **6. Propuesta de monitoreo y detección (Monitoring and detection proposal)** — **Tables 9–10**: ≥6 SIEM/XDR use cases with log source, trigger condition, severity, expected event, correlation and initial action.
-- [x] **7. Propuesta DevSecOps (DevSecOps proposal)** — **Table 11**: ≥4 practices placed at their lifecycle stage.
-- [x] **8. Plan básico de respuesta ante incidentes (Incident response plan)** — **Table 12**: the 6 NIST SP 800-61 phases applied to ≥1 prioritized scenario.
-- [x] **9. Criterios de validación para el Reto 4 (Validation criteria for Challenge 4)** — **Table 13**: ≥5 hypotheses/controls to verify, each with expected evidence and validation method.
-- [x] **10. Conclusiones y referencias (Conclusions and references)** — contributions, limitations, recommendations; APA reference list (≥8 sources) + AI-usage declaration/log (appendix).
+- [x] **1. Introduction and scope of defensive design** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
+- [x] **2. Synthesis of the Challenge 2 offensive analysis** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 9 CVE/CWE rows, 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
+- [x] **3. Risk prioritization matrix** — **Table 4**: vectors scored on the 6 mandated criteria and ordered descending; justification of web, corporate and physical-operational risks.
+- [x] **4. Traceability matrix: vector to control** — **Table 5**: ≥8 vector rows across 10 fields (9 rubric + expected evidence); declare the column decision.
+- [x] **5. Design of defensive controls** — **Tables 6–8**: hardening Ubuntu/Apache/PHP/MariaDB; app-web controls; auth/sessions; credentials; sensitive dirs/backups/exposed services; IT and IoT/OT controls — each tied to a vector.
+- [x] **6. Monitoring and detection proposal** — **Tables 9–10**: ≥6 SIEM/XDR use cases with log source, trigger condition, severity, expected event, correlation and initial action.
+- [x] **7. DevSecOps proposal** — **Table 11**: ≥4 practices placed at their lifecycle stage.
+- [x] **8. Incident response plan** — **Table 12**: the 6 NIST SP 800-61 phases applied to ≥1 prioritized scenario.
+- [x] **9. Validation criteria for Challenge 4** — **Table 13**: ≥5 hypotheses/controls to verify, each with expected evidence and validation method.
+- [x] **10. Conclusions and references** — contributions, limitations, recommendations; APA reference list (≥8 sources) + AI-usage declaration/log (appendix).
 
 ---
 

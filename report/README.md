@@ -8,6 +8,8 @@ edit `doc.md`, run one command, get `report.pdf` (or `report.docx`).
   (Tables 1–13). Replace the `[..]` cells and the `> **[to complete …]**` blocks with your own
   analysis; do **not** paste images of tables or link to external repositories (rubric forbids it).
 - `report.pdf`, `report.docx` and LaTeX temp files are gitignored — only sources are tracked.
+- **Canonical outputs:** render the same `doc.md` to `report.pdf` and/or `report.docx`. Do not create
+  task-tagged variants such as `report-check.*` or `report-limpio.*`; use `make clean` for temp files.
 
 ## Requirements
 
@@ -45,12 +47,12 @@ AI appendix**. It prints the same slice measured in the rendered `report.docx`, 
 be checked against Word's own counter, and it breaks the count down per section:
 
 ```
-Body word count (sections 1-10, references excluded): 3358
-Rendered .docx (same slice): 3357
-Target: 6000-8000 -> 2642 words still to write
+Body word count (sections 1-10, references excluded): 4350
+Rendered .docx (same slice): 4343
+Target: 6000-8000 -> 1650 words still to write
 
 Per section:
-     299  1. Introducción y alcance del diseño defensivo (Introduction and scope)
+     299  1. Introduction and scope of defensive design
      ...
 ```
 
@@ -64,17 +66,18 @@ images (the rubric forbids screenshots of matrices), no section symbol, and the 
 ```bash
 # PDF
 pandoc doc.md -o report.pdf \
+  -f markdown+autolink_bare_uris \
   --pdf-engine=xelatex \
   --toc -V toc-title="Contents" \
   -H header.tex \
   -V documentclass=article \
   -V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono" \
-  -V fontsize=10pt -V papersize=a4 \
-  -V geometry:margin=1.5cm,top=1.2cm,bottom=1.2cm \
+  -V fontsize=12pt -V papersize=a4 \
+  -V geometry:margin=2.54cm \
   -V parskip=4pt -V indent=false
 
 # Editable Word
-pandoc doc.md -o report.docx --toc -V toc-title="Contents"
+pandoc doc.md -o report.docx -f markdown+autolink_bare_uris --toc -V toc-title="Contents"
 ```
 
 Result: `report.pdf` / `report.docx` in this folder. Re-run after every edit to `doc.md`.
@@ -97,9 +100,8 @@ Result: `report.pdf` / `report.docx` in this folder. Re-run after every edit to 
 ```
 doc.md        report content (10 mandatory sections + AI appendix)
 Makefile      render targets (pdf / docx / tex / wordcount / check / clean)
-header.tex    LaTeX preamble extras (tables + figures)
+header.tex    LaTeX preamble extras (tables)
 README.md     this file
-figures/      optional diagrams (architecture, attack path, Kill Chain)
 ../tools/check_report.py  verification script (word count + rubric checks)
 ```
 
@@ -114,7 +116,7 @@ Every matrix is a native Markdown table in `doc.md`, titled, numbered and refere
 | 2 | Section 2.2 | Attack vectors from Challenge 2 (10) | C2.a/Section 2 |
 | 3 | Section 2.3 | Vulnerability matrix (CVE/CWE · CVSS) | Section 2 |
 | 4 | Section 3 | Risk prioritization (6 criteria, descending) | C2.b |
-| 5 | Section 4 | Traceability matrix vector–control (10 cols) | C2.c |
+| 5 | Section 4 | Traceability matrix vector–control (10 fields + vector label) | C2.c |
 | 6 | Section 5.1 | Hardening a) Web / LAMP (≥4) | C2.d |
 | 7 | Section 5.2 | Hardening b) IT / Windows (≥4) | C2.d |
 | 8 | Section 5.3 | Hardening c) IoT / OT (≥4) | C2.d |

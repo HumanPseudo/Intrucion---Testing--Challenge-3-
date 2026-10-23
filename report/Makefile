@@ -11,7 +11,8 @@ PDF    := report.pdf
 DOCX   := report.docx
 TEX    := report.tex
 
-PFLAGS := --pdf-engine=xelatex \
+PFLAGS := -f markdown+autolink_bare_uris \
+          --pdf-engine=xelatex \
           --toc -V toc-title="Contents" \
           -H header.tex \
           -V documentclass=article \
@@ -23,7 +24,7 @@ PFLAGS := --pdf-engine=xelatex \
           -V parskip=4pt \
           -V indent=false
 
-DFLAGS := --toc -V toc-title="Contents"
+DFLAGS := -f markdown+autolink_bare_uris --toc -V toc-title="Contents"
 
 .PHONY: all pdf docx both tex wordcount check clean
 

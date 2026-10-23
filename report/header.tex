@@ -1,12 +1,61 @@
 % Extra LaTeX settings for the Challenge 3 defensive-design report.
-% Goal: keep every table where it is written and let wide tables fit the page
-% (the report is essentially a set of editable matrices).
-\usepackage{graphicx}
-\usepackage{float}
-\floatplacement{table}{H}
-% Tables: booktabs rules + wrapping columns so 10-column matrices fit A4.
+% The report is essentially a set of editable matrices. Every matrix is rendered
+% as a PORTRAIT Pandoc longtable: landscape rotation was removed because the
+% TinyTeX install ships only `lscape` (not `pdflscape`), and the home-grown
+% /Rotate mechanism leaked onto adjacent text pages (whole paragraphs came out
+% sideways) and stranded captions on half-empty pages. Portrait longtables with
+% per-table font sizing are robust, reproducible and never rotate running text.
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-% Never let a figure overflow the page.
-\setkeys{Gin}{width=\linewidth,height=0.65\textheight,keepaspectratio}
+\usepackage{etoolbox}
+\usepackage{geometry}
+\usepackage{needspace}
+
+% Per-table font size. Default is \small; a wide-table block in doc.md overrides
+% it (e.g. \renewcommand{\tablesize}{\scriptsize}) inside \begingroup/\endgroup,
+% so the change affects only that one table.
+\newcommand{\tablesize}{\small}
+\AtBeginEnvironment{longtable}{\tablesize}
+
+% Compact but readable column padding and row height for dense matrices.
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
+
+% Space above/below each longtable.
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{10pt}
+
+% \raggedright p-columns: allow a little stretch so long wrapped lines settle
+% cleanly instead of bleeding past the column edge into the neighbour.
+\setlength{\emergencystretch}{3em}
+
+% Let long slash-separated tokens (file paths, CVSS vectors, CONNECT/PUBLISH,
+% "tactic/technique", "WAF/access.log") wrap inside dense table cells instead of
+% spilling into the next column. \breakslashes turns "/" into a break point;
+% call it inside a wide table's \begingroup so the catcode change is scoped to
+% that one table and never affects URLs in the reference list.
+\chardef\slashchar=`\/
+{\catcode`\/=\active \gdef/{\slashchar\penalty0 }}
+\newcommand{\breakslashes}{\catcode`\/=\active}
+
+% Stronger break set for the 11-column traceability matrix: also break at ":"
+% and "_" so dense monospace tokens (information_schema, PDO::prepare,
+% mosquitto_pub, alg:none) wrap inside their cell instead of overflowing.
+\chardef\colonchar=`\:
+\chardef\uscorechar=`\_
+{\catcode`\:=\active \gdef:{\colonchar\penalty0 }}
+\newcommand{\breaktokens}{\catcode`\/=\active \catcode`\:=\active \def\_{\uscorechar\penalty0 }}
+
+% Keep a paragraph's last line from landing alone at the top of the next page
+% (an orphaned "4." before a table, a widow line, etc.).
+\widowpenalty=10000
+\clubpenalty=10000
+
+% Break long URLs in the reference list so they wrap instead of running past the
+% right margin: xelatex's hyperref defaults to breaklinks=false, which left the
+% Genially/repository links overflowing.
+\usepackage{url}
+\urlstyle{same}
+\Urlmuskip=0mu plus 3mu\relax
+\PassOptionsToPackage{breaklinks=true}{hyperref}
