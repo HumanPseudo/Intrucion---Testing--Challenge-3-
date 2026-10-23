@@ -235,7 +235,7 @@ def check_references(rep: Report, body: str, references: str) -> None:
         return
     uncited = []
     for author, year in entries:
-        surname = re.split(r"[,\s&(]", author.strip())[0]
+        surname = re.split(r"[,\s&(]", author.strip())[0].rstrip(".")
         if surname and not re.search(re.escape(surname), body):
             uncited.append(f"{surname} ({year})")
     if uncited:

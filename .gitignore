@@ -22,6 +22,8 @@ report/report.tex
 # Original course PDFs and H5P, and the converted copyrighted articles.
 resources/*.pdf
 resources/*.h5p
+resources/*.zip
+resources/*.mp4
 md/referencias/
 
 # Sistema

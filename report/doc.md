@@ -8,7 +8,7 @@ lang: en
 
 # 1. Introducción y alcance del diseño defensivo (Introduction and scope)
 
-This report presents the defensive design required by Challenge 3 of *Intrusión y Testing*
+This report presents the defensive design strategy analysis required by Challenge 3 of *Intrusión y Testing*
 (203028113) and is the direct continuation of the offensive analysis delivered in Challenge 2.
 Its purpose is to demonstrate learning outcome RA2 by designing an integral scheme of detection,
 identification, hardening, monitoring, containment and response, built from the offensive
@@ -32,6 +32,17 @@ Lu & Yu, 2021) and with web-application vulnerability analysis (Crespo-Martínez
 factor present in vector 7 was characterized following the social-engineering and phishing
 literature of the course (Albininé Budavári et al., 2023; Benavides et al., 2020; Benavides-Astudillo
 et al., 2020; Prado Díaz, 2021).
+
+**Defensive frame of reference.** The design is organized around the six functions of the NIST
+Cybersecurity Framework (CSF) 2.0 — Govern, Identify, Protect, Detect, Respond and Recover — because
+that taxonomy lets each Challenge 2 vector travel from exposure to response without inventing a
+parallel control catalogue (NIST, 2024; Mantilla Torres, 2025a, 2025b, 2025c). The course OVI on
+detection and management of attacks in IT/IoT environments supplies the operational reading of that
+frame: it links attack vectors and adversarial thinking with the Cyber Kill Chain and MITRE ATT&CK,
+and it orders detection and incident response around evidence rather than around tools (Zambrano
+Hernández, 2026). The report therefore uses CSF 2.0 for the architecture of the defense, the OVI for
+the detection-and-response logic, and NIST SP 800-61 for the incident-response phases (Cichonski et
+al., 2012).
 
 **Scope and exclusions.** This deliverable is design only, and the following are explicitly outside
 its scope: (a) exploitation of any vulnerability, whether proof of concept or complete; (b) live
@@ -63,8 +74,8 @@ title, a number and a reference in the text; no screenshot, image of a table or 
 repository substitutes the requested content. Control proposals follow the preventive, detective and
 corrective taxonomy of the traceability matrix, and each one is anchored both in the corresponding
 Annex 1 instrument and in a recognized framework — CIS Controls, NIST CSF, NIST SP 800-61,
-ISO/IEC 27001, OWASP ASVS/WSTG, MITRE ATT&CK and the NVD vulnerability records. Citations and the
-reference list follow APA 7.
+ISO/IEC 27001, OWASP ASVS/WSTG, MITRE ATT&CK and the National Vulnerability Database records (NVD,
+n.d.). Citations and the reference list follow APA 7.
 
 # 2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)
 
@@ -126,11 +137,16 @@ reference list follow APA 7.
 
 ## 2.4 Cyber Kill Chain and MITRE ATT&CK
 
-> **[to complete — 1 paragraph + table]** Reuse the 7 Kill-Chain phases (Reconnaissance →
-> Actions on Objectives) and the 13 techniques in 7 tactics (T1595, T1589, T1566, T1190, T1059,
-> T1543.003, T1110.001, T1552.001, T1539, T1606.001, T1021.002, T1210, T0855). Highlight that
-> *Impair Process Control* (T0855) is the only tactic with no control — the argument for
-> prioritizing IoT/OT defense.
+The course OVI reads Cyber Kill Chain and MITRE ATT&CK as complementary rather than
+interchangeable: the first narrates the sequence of an intrusion from reconnaissance to actions on
+objectives, while the second names the tactics and techniques observable at each stage (Zambrano
+Hernández, 2026; Strom et al., 2018). The 13 techniques retained from Challenge 2 distribute across
+seven tactics: reconnaissance (T1595, T1589); initial access (T1566, T1190); execution (T1059);
+persistence (T1543.003); credential access (T1110.001, T1552.001, T1539, T1606.001); lateral movement
+(T1021.002, T1210); and impairment of process control (T0855). The last one is the only technique with
+no preventive or detective control in the Challenge 2 matrix, and it is the reason the IoT/OT domain is
+prioritized in Section 3: an authorized command published to the MQTT broker can open the irrigation
+valve without touching the corporate network.
 
 # 3. Matriz de priorización de riesgos (Risk prioritization matrix)
 
@@ -180,9 +196,16 @@ reference list follow APA 7.
 
 # 5. Diseño de controles defensivos (Design of defensive controls)
 
-> **[to complete — intro paragraph]** State that hardening follows CIS Controls and OWASP, and that
-> every action names the vector it mitigates. **Tables 6–8** are the per-domain hardening
-> checklists; **Section 5.4** covers the application-layer controls.
+The control design follows the CSF 2.0 functions so that each action has a defensive purpose before
+it has a tool: Govern assigns roles and supplier risk, Identify fixes the asset and vulnerability
+baseline, Protect contains the hardening actions of Table 6 (web/LAMP), Table 7 (corporate IT) and
+Table 8 (IoT/OT), Detect feeds Section 6, Respond feeds Section 8 and Recover closes the loop
+through backups and restoration tests (NIST, 2024; Mantilla Torres, 2025a, 2025b). The technical
+baseline is taken from the CIS Critical Security Controls v8 for the hardening items and from the
+OWASP Top 10 for the application layer (Center for Internet Security, 2021; OWASP Foundation, 2021),
+while ISO/IEC 27001:2022 provides the management-system anchor for roles, suppliers and continual
+improvement (ISO/IEC, 2022). The CSF function is the *why*, the CIS/OWASP control is the *how*, and
+the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 without all three.
 
 ## 5.1 Hardening — a) Web / LAMP (≥4 actions) · instrument 3.2a
 
@@ -228,8 +251,14 @@ reference list follow APA 7.
 
 # 6. Propuesta de monitoreo y detección (Monitoring and detection proposal)
 
-> **[to complete — 1 paragraph]** Define the SIEM/XDR strategy and how the use cases correlate.
-> **Table 9** holds the detection rules and **Table 10** the monitoring/alerting plan.
+The monitoring layer is designed as a detection pipeline, not as a log-collection exercise: sources
+(Apache, Windows/Sysmon, MQTT broker, firewall and camera) feed correlation rules that turn isolated
+events into incident candidates, following the sequence used by the course OVI — logs and events,
+network traffic, IoT telemetry, SIEM correlation and alerts (Zambrano Hernández, 2026). Each rule in
+Table 9 is bound to a Kill Chain phase and a MITRE technique from Challenge 2, so a detection gap can
+be read as a missing ATT&CK coverage (Strom et al., 2018). Severity and thresholds are set so that the
+first alert triggers a containment action rather than a report; Table 10 assigns the source, the
+frequency, the threshold and the owner.
 
 ## 6.1 SIEM/XDR use cases (≥6)
 
@@ -274,8 +303,14 @@ reference list follow APA 7.
 
 # 8. Plan básico de respuesta ante incidentes (Incident response plan)
 
-> **[to complete — 1 paragraph]** Chosen prioritized scenario: **[portal compromise *or* irrigation
-> manipulation — choose one]**. **Table 12** applies NIST SP 800-61.
+The prioritized scenario is vector 9, unauthorized command manipulation through the anonymous MQTT
+broker and the unauthenticated Modbus PLC (Table 4, rank 1). The playbook follows the six NIST SP
+800-61 phases — preparation, detection and analysis, containment, eradication, recovery and lessons
+learned (Cichonski et al., 2012) — and the operational sequence used by the course OVI: identify,
+contain, eradicate, recover and learn (Zambrano Hernández, 2026). The CSF 2.0 Respond and Recover
+functions supply the governance interface: who declares the incident, who authorizes an OT shutdown
+and what evidence must survive recovery (NIST, 2024; Mantilla Torres, 2025b). Table 12 translates each
+phase into AgroSmart-specific actions, owner and evidence.
 
 **Table 12 — Incident-response playbook (instrument 3.5; NIST SP 800-61, 6 phases).**
 
@@ -290,8 +325,13 @@ reference list follow APA 7.
 
 # 9. Criterios de validación para el Reto 4 (Validation criteria for Challenge 4)
 
-> **[to complete — 1 paragraph]** No tests are run here; define what will be verified in the Cyber
-> Range. **Table 13** lists the criteria.
+Validation is written as a set of falsifiable hypotheses, not as a test log: each row of Table 13
+names the control, the evidence that would prove it works and the method to obtain that evidence in
+the Cyber Range. The Cyber Range activity included in the course OVA (OVA 3) insists on rules of
+engagement, authorized scope, controlled validation and evidence retention before any technical
+action (Mantilla Torres, 2025c), while the OVI frames evidence as the link between a finding and a
+defensible decision (Zambrano Hernández, 2026). No criterion is executed here; the table is the
+contract for Challenge 4.
 
 **Table 13 — Validation criteria for Challenge 4 (≥5, with expected evidence and method).**
 
@@ -306,25 +346,42 @@ reference list follow APA 7.
 
 # 10. Conclusiones y referencias (Conclusions and references)
 
-> **[to complete — 1 paragraph]** Contributions, limitations, recommendations for later validation.
+This report converts the Challenge 2 offensive findings into a defensive design that is traceable end
+to end: each control starts from a vector, a probable cause and an affected asset, and ends in an
+expected evidence line. The contribution is the chain vector → probable cause → control → evidence,
+organized by the CSF 2.0 functions and operationalized through the course OVI's detection and response
+sequence. The main limitation is that no control has been validated: thresholds, correlation rules and
+playbook times are design hypotheses to be tested in the Cyber Range. A second limitation is the
+reliance on course materials and framework guidance rather than measured results; the OVA/OVI and the
+NIST, CIS and OWASP references orient the design but do not substitute for validation. The next step
+is to execute Table 13 under the Challenge 4 rules of engagement and feed the results back into
+Tables 5, 9 and 12.
 
 ## References (APA)
 
-> **[to complete — APA 7, ≥8 sources: ≥3 course resources + ≥3 technical frameworks]**
+**Course resources**
 
-**Course resources (planned):**
-
+- Albininé Budavári, E., Albini, A., & Mester, G. (2023). The role of social engineering in the energy balance of systems. *Interdisciplinary Description of Complex Systems, 21*(2), 168–173. https://doi.org/10.7906/indecs.21.2.5
+- Benavides, E., Fuertes, W., & Sánchez, S. (2020). Caracterización de los ataques de phishing y técnicas para mitigarlos. Ataques: una revisión sistemática de la literatura. *Revista Ciencia y Tecnología, 13*(1), 97–104. https://doi.org/10.18779/cyt.v13i1.357
+- Benavides-Astudillo, E., Fuertes-Díaz, W., & Sánchez-Gordon, S. (2020). Un experimento para crear conciencia en las personas acerca de los ataques de Ingeniería Social. *Revista Ciencia UNEMI, 13*(32), 27–40. https://doi.org/10.29076/issn.2528-7737vol13iss32.2020pp27-40p
 - Crespo-Martínez, E. (2021). Análisis de vulnerabilidades con SQLMAP aplicada a entornos APEX 5. *Ingenius, Revista de Ciencia y Tecnología*, (25), 104–113. https://doi.org/10.17163/ings.n25.2021.10
 - Lu, H.-J., & Yu, Y. (2021). Research on WiFi penetration testing with Kali Linux. *Complexity, 2021*, Article 5570001. https://doi.org/10.1155/2021/5570001
-- Benavides-Astudillo, E., Fuertes-Díaz, W., & Sánchez-Gordon, S. (2020). Un experimento para crear conciencia en las personas acerca de los ataques de Ingeniería Social. *Revista Ciencia UNEMI, 13*(32), 27–40. https://doi.org/10.29076/issn.2528-7737vol13iss32.2020pp27-40p
-- Benavides, E., Fuertes, W., & Sánchez, S. (2020). Caracterización de los ataques de phishing y técnicas para mitigarlos. Ataques: una revisión sistemática de la literatura. *Revista Ciencia y Tecnología, 13*(1), 97–104. https://doi.org/10.18779/cyt.v13i1.357
-- Albininé Budavári, E., Albini, A., & Mester, G. (2023). The role of social engineering in the energy balance of systems. *Interdisciplinary Description of Complex Systems, 21*(2), 168–173. https://doi.org/10.7906/indecs.21.2.5
-- Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
+- Mantilla Torres, E. A. (2025a). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 1) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a29f213dc375b9eff3ca8b8/presentation-ova-1-iyt-203028113
+- Mantilla Torres, E. A. (2025b). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 2) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a29fb634ab60d77b87d6b2c/presentation-ova-2-iyt-203028113
+- Mantilla Torres, E. A. (2025c). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 3) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a2c82d71c0297a142919615/presentation-ova-3-iyt-203028113
 - Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
-- Zambrano, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 — **[to be verified: handle returns 404]**
-- Zambrano, L. F. (2026b). *Vectores de ataque y estrategias de defensa* [OVA]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83229 — **[to be verified: handle returns 404]**
+- Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
+- Zambrano Hernández, L. F. (2026). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 [restricted access; local copy verified]
 
-**Technical frameworks (to add — real, verifiable, cited; ≥3):** CIS Controls; NIST CSF; NIST SP 800-61; ISO/IEC 27001; OWASP ASVS/WSTG + Top 10 (A03:2021); MITRE ATT&CK; NVD.
+**Technical frameworks**
+
+- Center for Internet Security. (2021). *CIS Controls Version 8 (CIS Critical Security Controls)*. https://www.cisecurity.org/controls/v8
+- Cichonski, P., Millar, T., Grance, T., & Scarfone, K. (2012). *Computer security incident handling guide* (NIST SP 800-61 Rev. 2). National Institute of Standards and Technology. https://doi.org/10.6028/NIST.SP.800-61r2
+- ISO/IEC. (2022). *Information security, cybersecurity and privacy protection — Information security management systems — Requirements* (ISO/IEC 27001:2022).
+- NIST. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSF 2.0; NIST CSWP 29). https://doi.org/10.6028/NIST.CSWP.29
+- NIST. (n.d.). *National Vulnerability Database* (NVD) [Database]. Retrieved October 22, 2026, from https://nvd.nist.gov/
+- OWASP Foundation. (2021). *OWASP Top 10:2021*. https://owasp.org/Top10/
+- Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2018). *MITRE ATT&CK: Design and philosophy*. The MITRE Corporation. https://doi.org/10.13140/RG.2.2.13778.58565
 
 ---
 

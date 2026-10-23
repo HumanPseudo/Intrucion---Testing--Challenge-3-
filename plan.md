@@ -6,7 +6,7 @@
 **Window:** 28 Sep 2026 → **Sunday 25 Oct 2026** · 30 h · 125 points · learning outcome **RA2**
 **Governing rule:** *traceability* — every control must answer a vector/asset/cause identified in Challenge 2.
 
-> Sources of record: `md/reto2/CONTEXTO-RETO3.md`; `md/rubrica/Rúbrica de evaluación - Reto 3.md` (authoritative on numeric thresholds); `md/actividad/Guía de aprendizaje - Reto 3.md` (15 steps); `resources/REVISION_RETO3.md` (audit A1–A8 + fixed errata); `md/reto2/fuentes/Anexo 1 - Caso AgroSmart del Sumapaz.md` (Sec. 3.1 assets; instruments pp. 32–35).
+> Sources of record: `md/reto2/CONTEXTO-RETO3.md`; `md/rubrica/Rúbrica de evaluación - Reto 3.md` (authoritative on numeric thresholds); `md/actividad/Guía de aprendizaje - Reto 3.md` (15 steps); `resources/REVISION_RETO3.md` (audit A1–A8 + fixed errata); `md/reto2/fuentes/Anexo 1 - Caso AgroSmart del Sumapaz.md` (Sec. 3.1 assets; instruments pp. 32–35); `md/referencias/OVI - Diseño de estrategias de detección y gestión de ataques cibernéticos.md` and `md/referencias/OVA 1–3 - Marco de Seguridad Cibernética 2.0 del NIST.md` (course conversions, local-only).
 
 **Artifacts map (keep coherent):** `plan.md` (this file) = **process**; `report/doc.md` = **product**
 (renders to `report.pdf` / `report.docx`); `report/README.md` = render pipeline + Table 1–13
@@ -23,13 +23,13 @@ being merged.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
 - [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *appendix structured in `doc.md`; content (prompts, output, verification, adjustments) to be completed and reviewed before submission (see Section 6, Sat 24).*
 - [x] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
-- [x] Keep a running word count excluding references, target 6,000–8,000. — *mechanism in place: `cd report && make wordcount` (script `tools/check_report.py`; counts the body only, cross-checks the rendered `.docx`, breaks the count down per section and exits non-zero outside the range). Current: 2,221 words — still 3,779 to write before the closing pass on Sat 24.*
+- [x] Keep a running word count excluding references, target 6,000–8,000. — *mechanism in place: `cd report && make wordcount` (script `tools/check_report.py`; counts the body only, cross-checks the rendered `.docx`, breaks the count down per section and exits non-zero outside the range). Current: 3,358 words — still 2,642 to write before the closing pass on Sat 24.*
 
 ---
 
 ## 1. Objective and scope — verify before writing
 
-- [x] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections. — *confirmed against the rubric (items 1–3): `.docx`/PDF pipeline in `report/Makefile`; individual work (rubric: "proceso individual"); the 10 visible headings are enforced by `make check`; the word range is declared in Section 1 and measured by `make wordcount` (currently 2,620 — to be closed while sections 2–10 are written).*
+- [x] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections. — *confirmed against the rubric (items 1–3): `.docx`/PDF pipeline in `report/Makefile`; individual work (rubric: "proceso individual"); the 10 visible headings are enforced by `make check`; the word range is declared in Section 1 and measured by `make wordcount` (currently 3,358 — to be closed while sections 2–10 are written).*
 - [x] State the purpose = evidence learning outcome **RA2** (design integral detection/identification/management schemas using offensive techniques + adversarial thinking). — *stated in Section 1, with RA2 quoted in the sense of `md/reto2/CONTEXTO-RETO3.md`; the rubric's own requirement for section 1 (purpose, domains, relation with the Challenge 2 findings) is covered by the added "Relation with the Challenge 2 findings" paragraph.*
 - [x] Cover the three domains: **DMZ/Web LAMP**, **corporate IT**, **IoT/OT** of the smart greenhouse. — *named in the opening paragraph of Section 1 and split again in Table 1 (domain column).*
 - [x] Declare out of scope: no exploitation, no live testing, no VM validation, no destructive DoS, no real exfiltration, no executed social engineering. — *explicit "Scope and exclusions" list (a–f) in Section 1, plus the C3.e no-test declaration; the guide's wording ("no ejecutar pruebas sobre la máquina virtual ni validar explotación técnica") is respected.*
@@ -78,10 +78,10 @@ being merged.
 
 - [ ] Define **≥6 SIEM/XDR use cases** with log source, trigger condition, severity, expected event and initial action (Step 10).
   - [ ] Output: editable rules/monitoring tables (instruments 3.3 + 3.4) for Apache `access.log`, `error.log`, `app.log`, `auth.log`, Windows 4625/4624/7045 + Sysmon 1/3, MariaDB, MQTT broker, camera, firewall.
-  - [ ] Refs: Annex 1 instruments 3.3–3.4 (p. 34), Sec. 3.6, 3.9d; `md/reto2/instrumentos/2.6 Cyber Kill Chain.md`; `…/2.7 MITRE ATT&CK.md`
+  - [ ] Refs: Annex 1 instruments 3.3–3.4 (p. 34), Sec. 3.6, 3.9d; `md/reto2/instrumentos/2.6 Cyber Kill Chain.md`; `…/2.7 MITRE ATT&CK.md`; `md/referencias/OVI - Diseño de estrategias de detección y gestión de ataques cibernéticos.md` (SIEM/correlation sequence); `md/referencias/OVA 2 - Marco de Seguridad Cibernética 2.0 del NIST.md` (Detect function)
 - [ ] Formulate the **NIST SP 800-61 response plan** with the 6 phases for **≥1 prioritized scenario** (Step 11).
   - [ ] Output: editable playbook table (instrument 3.5) for the chosen scenario (portal compromise or irrigation manipulation).
-  - [ ] Refs: Annex 1 instrument 3.5 (pp. 34–35), Sec. 3.6, 3.11; `md/reto2/instrumentos/2.9 Impacto y riesgo.md`
+  - [ ] Refs: Annex 1 instrument 3.5 (pp. 34–35), Sec. 3.6, 3.11; `md/reto2/instrumentos/2.9 Impacto y riesgo.md`; `md/referencias/OVI - Diseño de estrategias de detección y gestión de ataques cibernéticos.md` (identify→contain→eradicate→recover→learn); `md/referencias/OVA 2 - Marco de Seguridad Cibernética 2.0 del NIST.md` (Respond/Recover functions)
 - [ ] Define **≥4 DevSecOps practices** with lifecycle stage (Step 12).
   - [ ] Output: DevSecOps table (input validation, secure coding, SAST, DAST, SCA, secret scanning, change control).
   - [ ] Refs: `md/reto2/instrumentos/2.3 Matriz CVE-CVSS.md`; Annex 1 Sec. 3.3/3.8; `md/reto2/CONTEXTO-RETO3.md` Section 4
@@ -90,7 +90,7 @@ being merged.
 
 - [ ] Define **≥5 validation criteria** for Challenge 4, each with expected technical evidence and verification method in the Cyber Range (no tests executed here).
   - [ ] Output: editable validation-criteria table mapped to prioritized controls and Challenge 2 vectors.
-  - [ ] Refs: `md/rubrica/Rúbrica de evaluación - Reto 3.md` (C2.h, C3.e); `md/reto2/instrumentos/2.4 Vectores de ataque.md`; `…/2.8 Ruta probable de ataque.md`
+  - [ ] Refs: `md/rubrica/Rúbrica de evaluación - Reto 3.md` (C2.h, C3.e); `md/reto2/instrumentos/2.4 Vectores de ataque.md`; `…/2.8 Ruta probable de ataque.md`; `md/referencias/OVA 3 - Marco de Seguridad Cibernética 2.0 del NIST.md` (Cyber Range rules/evidence); `md/referencias/OVI - Diseño de estrategias de detección y gestión de ataques cibernéticos.md` (evidence logic)
 
 ### Phase 6 — Writing and quality (Steps 14–15) · 7 h
 
@@ -107,6 +107,11 @@ being merged.
 
 Titles below are **identical** to the headings in `report/doc.md`; the table numbers match the
 inventory in `report/README.md`. Write in order and tick each box.
+
+**Course sources already mapped:** OVI (Zambrano Hernández, 2026) → Sections 1, 2.4, 6, 8, 9, 10
+(detection/response/evidence); OVA 1–3 (Mantilla Torres, 2025a–c) → Sections 1, 5, 8, 9 (CSF 2.0
+functions, hardening rationale, Cyber Range validation). Technical frameworks → Sections 5, 6, 8
+(CIS, OWASP, ISO/IEC 27001, NIST CSF 2.0, NIST SP 800-61, MITRE ATT&CK, NVD).
 
 - [x] **1. Introducción y alcance del diseño defensivo (Introduction and scope)** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
 - [ ] **2. Síntesis del análisis ofensivo del Reto 2 (Synthesis of the Challenge 2 offensive analysis)** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 9 CVE/CWE rows, 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
@@ -149,12 +154,12 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 - [x] UNEMI article year = **2020** (not 2019).
 - [x] INDECS author = **Albininé Budavári, E.** (not "Budavári, E. A.").
 - [x] Direct DOIs: UNEMI `10.29076/issn.2528-7737vol13iss32.2020pp27-40p`; phishing `10.18779/cyt.v13i1.357`; INDECS `10.7906/indecs.21.2.5`.
-- [x] The two **OVI/OVA** UNAD handles (`10596/83223`, `10596/83229`) are **404 → "to be verified"**; cite only with that caveat or omit.
+- [x] **OVI/OVA status (updated).** OVI `10596/83223` (Zambrano Hernández, 2026): the handle still returns 404, but the local video `resources/ovi_2_iyt_203028113.mp4` was transcribed and its title, author, year and content verified → cite **Zambrano Hernández (2026)** with an access caveat, not "to be verified". OVA `10596/83229` (Zambrano, 2026b) remains 404 and is **not cited**. The three local OVAs (`OVA1/2/3genially_203028113.zip`) are **Mantilla Torres (2025a–c)**, *Marco de seguridad cibernética 2.0 del NIST* — **not** the guide's OVA; cite them as course resources and do not use them to replace `83229`.
 
 **Planned source set (≥8, to be cited):**
 
-- [ ] Course: Crespo-Martínez (2021); Lu & Yu (2021); Benavides-Astudillo et al. (2020, UNEMI); Benavides et al. (2020, phishing); Albininé Budavári et al. (2023); Prado Díaz (2021); Palomo Luna et al. (2024).
-- [ ] Frameworks (≥3): CIS Controls; NIST CSF; NIST SP 800-61; ISO/IEC 27001; OWASP ASVS/WSTG + Top 10 (A03:2021); MITRE ATT&CK; NVD. All must be real, verifiable and cited.
+- [x] Course: Crespo-Martínez (2021); Lu & Yu (2021); Benavides-Astudillo et al. (2020, UNEMI); Benavides et al. (2020, phishing); Albininé Budavári et al. (2023); Prado Díaz (2021); Palomo Luna et al. (2024); Mantilla Torres (2025a, 2025b, 2025c — OVA 1–3, CSF 2.0); Zambrano Hernández (2026 — OVI, detection/response).
+- [x] Frameworks (≥3): Center for Internet Security (2021, CIS Controls v8); NIST (2024, CSF 2.0); Cichonski et al. (2012, NIST SP 800-61r2); ISO/IEC (2022, ISO/IEC 27001:2022); OWASP Foundation (2021, Top 10); Strom et al. (2018, MITRE ATT&CK); NIST (n.d., NVD). All real, verifiable and cited.
 
 ---
 
@@ -167,6 +172,7 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 - [ ] **A1 — Annex 1 not bundled with the guide.** Use `md/reto2/fuentes/Anexo 1 - Caso AgroSmart del Sumapaz.md` (Sec. 3.1 assets; pp. 32–35 instruments) as the authority for C2.a and C3.d.
 - [ ] **A3/A4 — Forums not graded; "cuestionario" mislabel.** No forum content planned; deliverable is the individual report.
 - [ ] **A7 — AI declaration detail.** Provide the full log (satisfies both readings).
+- [ ] **OVA attribution (new).** The three local OVAs are **Mantilla Torres (2025a–c)**, not the guide's Zambrano OVA; keep them as CSF 2.0 course resources and do not cite `10596/83229` unless it becomes available before submission.
 - [ ] **Word-count gate (C1).** Track running count excluding references; expand/trim to stay in 6,000–8,000.
 
 ---

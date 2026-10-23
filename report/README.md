@@ -45,9 +45,9 @@ AI appendix**. It prints the same slice measured in the rendered `report.docx`, 
 be checked against Word's own counter, and it breaks the count down per section:
 
 ```
-Body word count (sections 1-10, references excluded): 2221
-Rendered .docx (same slice): 2219
-Target: 6000-8000 -> 3779 words still to write
+Body word count (sections 1-10, references excluded): 3358
+Rendered .docx (same slice): 3357
+Target: 6000-8000 -> 2642 words still to write
 
 Per section:
      299  1. Introducción y alcance del diseño defensivo (Introduction and scope)
