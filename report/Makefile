@@ -17,9 +17,9 @@ PFLAGS := --pdf-engine=xelatex \
           -V documentclass=article \
           -V mainfont="DejaVu Serif" \
           -V monofont="DejaVu Sans Mono" \
-          -V fontsize=10pt \
+          -V fontsize=12pt \
           -V papersize=a4 \
-          -V geometry:margin=1.5cm,top=1.2cm,bottom=1.2cm \
+          -V geometry:margin=2.54cm \
           -V parskip=4pt \
           -V indent=false
 
