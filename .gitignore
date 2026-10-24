@@ -24,7 +24,6 @@ resources/*.pdf
 resources/*.h5p
 resources/*.zip
 resources/*.mp4
-md/referencias/
 
 # Sistema
 .DS_Store
