@@ -10,25 +10,25 @@ lang: en
 
 This report presents the defensive design strategy analysis required by Challenge 3 of *Intrusión y Testing*
 (203028113) and is the direct continuation of the offensive analysis delivered in Challenge 2.
-Its purpose is to demonstrate learning outcome RA2 by designing an integral scheme of detection,
+Its aim is to show that a relevant learning outcome has been met by designing a detection strategy,
 identification, hardening, monitoring, containment and response, built from the offensive
-techniques and the adversarial thinking already applied to the case. The design covers the three
+techniques and the adversarial thinking. The design covers the three
 domains of AgroSmart del Sumapaz S.A.S. — the **DMZ/Web LAMP** environment, the **corporate IT**
 network and the **IoT/OT** layer of the smart greenhouse — and every control, hardening action and
-detection rule is traceable to a vector, asset or probable cause identified in Challenge 2 and
-anchored in Annex 1; nothing about the case is re-invented here.
+detection rule is traceable to a vector, asset or probable cause identified.
 
 **Case.** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
-come from Annex 1 and the Challenge 2 instruments).
+come from Annex 1 and the Challenge 2 instruments; Zambrano Hernández, 2026b).
 
-**Relation with the Challenge 2 findings.** The offensive analysis is consumed here, not repeated.
-Challenge 2 delivered eight critical assets (A-01…A-08) with their exposure surfaces, ten attack
-vectors, a ten-row CVE/CWE matrix (5 CVE, 5 CWE) with its severity mappings, the seven phases of the
-Cyber Kill Chain and the fifteen MITRE ATT&CK techniques (13 from Challenge 2's instrument, plus
-T1078 and T1557 added here and justified in Section 2.4) bound to those phases. Those findings are the input of this
-report: the vectors become the rows of the traceability matrix, the assets become the unit of
-criticality, and the techniques become the anchor of each detection rule. The attack paths were
-built with the penetration-testing methodologies reviewed in the course (Palomo Luna et al., 2024;
+**Relation with the Challenge 2 findings.** The offensive analysis is incorporated here rather than
+repeated: Section 2 synthesizes it from the case data (Tables 1–3), and therefore the earlier
+deliverable need not be consulted as a separate source. That synthesis consolidated eight critical assets
+(A-01…A-08) with their exposure surfaces, ten attack vectors, a ten-row CVE/CWE matrix (5 CVE, 5 CWE)
+with its severity mappings, the seven phases of the Cyber Kill Chain and the fifteen MITRE ATT&CK
+techniques bound to those phases (13 from Challenge 2's instrument plus T1078 and T1557, all justified in Section 2.4). Those findings are the input of this report: the vectors become the rows of
+the traceability matrix, the assets become the unit of criticality, and the techniques become the
+anchor of each detection rule. The attack paths were built with the penetration-testing
+methodologies reviewed in the course (Palomo Luna et al., 2024;
 Lu & Yu, 2021) and with web-application vulnerability analysis (Crespo-Martínez, 2021); the human
 factor present in vector 7 was characterized following the social-engineering and phishing
 literature of the course (Albininé Budavári et al., 2023; Benavides et al., 2020; Benavides-Astudillo
@@ -36,12 +36,12 @@ et al., 2020; Prado Díaz, 2021).
 
 **Defensive frame of reference.** The design is organized around the six functions of the NIST
 Cybersecurity Framework (CSF) 2.0 — Govern, Identify, Protect, Detect, Respond and Recover — because
-that taxonomy lets each Challenge 2 vector travel from exposure to response without inventing a
-parallel control catalogue (NIST, 2024; Mantilla Torres, 2025a, 2025b, 2025c). The course OVI on
+that taxonomy allows each Challenge 2 vector to be traced from exposure to response without
+establishing a parallel control catalogue (NIST, 2024; Mantilla Torres, 2025a, 2025b, 2025c). The course OVI on
 detection and management of attacks in IT/IoT environments supplies the operational reading of that
 frame: it links attack vectors and adversarial thinking with the Cyber Kill Chain and MITRE ATT&CK,
 and it orders detection and incident response around evidence rather than around tools (Zambrano
-Hernández, 2026). The report therefore uses CSF 2.0 for the architecture of the defense, the OVI for
+Hernández, 2026a). The report therefore uses CSF 2.0 for the architecture of the defense, the OVI for
 the detection-and-response logic, and NIST SP 800-61 for the incident-response phases (Cichonski et
 al., 2012).
 
@@ -63,10 +63,6 @@ irrigation controller and no social-engineering action was carried out. The repo
 contains no test results — only the validation criteria and the expected evidence that will be
 required. The verification of every proposed control is deferred in full to the authorized Cyber
 Range of Challenge 4, under the rules of engagement established there.
-
-**AI-usage declaration (rubric C3.b).** The complete AI-usage declaration and prompt log —
-tool, purpose, prompts, verification and own adjustments — is included as the appendix at the end
-of this document.
 
 **Structure, method and evidence conventions.** The deliverable is an individual technical report of
 6,000–8,000 words (excluding the reference list), delivered as .docx or PDF and organized in the ten
@@ -142,10 +138,13 @@ Challenge 2 completed a systematic offensive analysis of AgroSmart del Sumapaz S
 | A-08 IoT/OT | Anonymous MQTT broker | CWE-306 | Connects/publishes without credential | 9.1 Critical* |
 
 > All five CVE identifiers and their CVSS v3.1 vectors were independently verified against the NVD
-> API and match exactly; no vector was altered. CVE-2021-41773, CVE-2021-42013 and CVE-2017-0143 are
-> confirmed in the CISA KEV catalog (added 2021-11-03); CVE-2017-9833 and CVE-2022-45956 are
-> confirmed absent from it. CVE-2017-9833's NVD record carries a dispute note attributing the flaw to
-> system integrators rather than to Boa itself, consistent with the "(disputed)" label used here.
+> API, and the values above match the current NVD records. For CVE-2017-0143, NVD's primary (NIST)
+> metric is `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H` (8.8 High) — the same vector and score recorded in
+> the Challenge 2 instrument, so no divergence arises. CVE-2021-41773, CVE-2021-42013 and
+> CVE-2017-0143 are confirmed in the CISA KEV catalog (added 2021-11-03); CVE-2017-9833 and CVE-2022-45956 are confirmed
+> absent from it. CVE-2022-45956 was recorded in Challenge 2 as the camera's alternative Boa CVE and is
+> promoted to a matrix row here. CVE-2017-9833's NVD record carries a dispute note attributing the flaw to system integrators rather than
+> to Boa itself, consistent with the "(disputed)" label used here.
 
 ```{=latex}
 \endgroup
@@ -156,7 +155,7 @@ Challenge 2 completed a systematic offensive analysis of AgroSmart del Sumapaz S
 The course OVI reads Cyber Kill Chain and MITRE ATT&CK as complementary rather than
 interchangeable: the first narrates the sequence of an intrusion from reconnaissance to actions on
 objectives, while the second names the tactics and techniques observable at each stage (Zambrano
-Hernández, 2026; Strom et al., 2018). Challenge 2's ATT&CK instrument (2.7) verified 13 techniques
+Hernández, 2026a; Strom et al., 2018). Challenge 2's ATT&CK instrument (2.7) verified 13 techniques
 against the official MITRE data, distributed across seven tactics: reconnaissance (T1595, T1589);
 initial access (T1566, T1190); execution (T1059); persistence (T1543.003); credential access
 (T1110.001, T1552.001, T1539, T1606.001); lateral movement (T1021.002, T1210); and impair process
@@ -166,8 +165,8 @@ credentials, and **T1557 Adversary-in-the-Middle** (credential access / collecti
 interception risk in vector 10's weak-TLS finding. Both are verified current MITRE ATT&CK Enterprise
 techniques and are technically justified by the Challenge 2 vector descriptions even though the
 original instrument did not enumerate them; the retained count is therefore **15 techniques**, not
-13. One technique has also been renumbered since Challenge 2 was authored: **T0855 "Unauthorized
-Command Message"** was revoked in ATT&CK for ICS v20.0 and consolidated into **T1692.001 "Command
+13. Of these fifteen, the eight bound to a numbered vector appear in Table 5; the remaining seven are Challenge 2 Kill Chain context. One technique has also been renumbered since Challenge 2 was authored: **T0855 "Unauthorized
+Command Message"** was revoked in ATT&CK for ICS v19.0 and consolidated into **T1692.001 "Command
 Message"** (tactics: Evasion, Impair Process Control). Table 5 and this section cite the current ID,
 T1692.001, while preserving the T0855 label historically used in Challenge 2's instrument for
 traceability; it is the only technique with no preventive or detective control in the Challenge 2
@@ -184,8 +183,8 @@ Authorization), not MITRE ATT&CK.
 
 Table 4 scores every Challenge 2 vector on the six criteria required by the rubric and orders the
 rows by the resulting priority. The primary score is the product of probability and impact (P×I) on
-the 1–5 scale of the Challenge 2 risk instrument; the other four criteria are not decorative: they
-break ties and explain why vectors with the same P×I do not receive the same urgency. Asset
+the 1–5 scale of the Challenge 2 risk instrument; the remaining four criteria are not merely illustrative: they
+resolve ties and explain why vectors with the same P×I do not receive the same urgency. Asset
 criticality is the C–I–D sum from Table 1, CVSS is the NVD score where a CVE exists and the
 asterisked CWE estimate from Table 3 where it does not, exposure is the trust boundary from Section
 2.2, and cross-domain propagation records whether the vector can move from DMZ to IT or from IT to
@@ -195,7 +194,7 @@ Vector 9 is first because it scores 20 and its propagation is physical/OT; vecto
 PII with a single parameter, whereas vector 1 requires a public exploit. Vectors 3 and 4 are
 alternative paths inside that same portal-compromise scenario (20 in instrument 2.9), but they keep
 their own conservative scores: IDOR discloses PII without full database extraction, and JWT forgery
-requires a token, so the scenario's full weight is carried by vector 2, the direct SQLi path. Vectors
+requires a token, so the full weight of the scenario falls to vector 2, the direct SQLi path. Vectors
 4 and 8 (16 each)
 follow, with vector 4 first because it is Internet-facing; the 12-point vectors 5 and 3 are separated
 by propagation (5 crosses A-01→A-03), and the 9-point vectors 6 and 7 by the same rule (6 reaches
@@ -215,7 +214,7 @@ the probability or the physical consequence for this organization.
 ```
 
 | Rank | Vector (Challenge 2) | Asset criticality | Impact | Probability | CVSS severity | Exposure | Cross-domain propagation | Priority |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|-------------------------------------|---------------------------------------------------------------|-----------------------------------------------------------------|------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+|------------------------|--------------------------------------------------------------------------------|----------------------------------------------|----------------------------------|--------------------------------------------------------|----------------------------------------|------------------------------------------------|----------------------------------------------------------------------------|--------------------------------------------|
 | 1 | 9 · OT command manipulation (MQTT/Modbus) | 13 / 11 | 5 | 4 | 9.1* | Internal | High (OT→physical) | 20 · Critical |
 | 2 | 2 · SQLi in `productos.php` | 13 | 4 | 5 | 9.8* | Internet | Medium | 20 · Critical |
 | 3 | 1 · Web app exploitation (Apache 2.4.49) | 13 | 4 | 5 | 9.8 | Internet | Medium | 20 · Critical |
@@ -240,9 +239,11 @@ backup/`.git` file), 6 (default/weak credentials) and 7 (phishing) are configura
 weaknesses, not software vulnerabilities, so Challenge 2's vulnerability matrix (Table 3) never
 assigned them a CVE or CWE-based score — CVSS does not apply to this class of finding. Vector 10
 (outdated jQuery/Bootstrap, weak TLS) also has no entry in Table 3; Challenge 2 documented the
-finding qualitatively but did not assign it a CWE-based score, and none is invented here. The 1–5
+finding qualitatively but did not assign it a CWE-based score, and none has been fabricated here. Instrument 2.9 scored six risk scenarios directly; the P×I values for vectors 3, 6, 7 and 10 are conservative design estimates on the same 1–5 scale, as those vectors were not among them. The 1–5
 probability and impact scales are defined in Challenge 2's risk instrument (Annex 1, p. 29;
 instrument 2.9), reproduced here for traceability:
+
+**Probability and Impact (P/I) rating scales (Challenge 2 instrument 2.9, Annex 1 p. 29).**
 
 | Level | Probability (P) | Impact (I) |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -254,11 +255,11 @@ instrument 2.9), reproduced here for traceability:
 
 # 4. Traceability matrix: vector to control
 
-Table 5 is the spine of the report. Each row starts from a Challenge 2 vector and ends in an
+Table 5 is the structural axis of the report. Each row starts from a Challenge 2 vector and ends in an
 observable artefact; the control columns are split into preventive, detective and corrective so that
 no vector depends on a single measure. The frameworks named in each control — CIS Controls v8, OWASP
-Top 10, NIST CSF 2.0 and ISO/IEC 27001:2022 — supply the *how*, while the vector and the affected
-asset supply the *what for* (Center for Internet Security, 2021; OWASP Foundation, 2021; NIST, 2024;
+Top 10, NIST CSF 2.0 and ISO/IEC 27001:2022 — supply the method, whereas the vector and the affected
+asset supply the purpose (Center for Internet Security, 2021; OWASP Foundation, 2021; NIST, 2024;
 ISO/IEC, 2022). The matrix preserves the nine required fields of the rubric and adds the
 expected-evidence field requested by the guide, with the vector as the row label; each row can be
 read by a defender (what to do), by a SOC analyst (what to watch) and by the Cyber Range (what to
@@ -284,13 +285,13 @@ Challenge 4.
 |--------------------------------------------------------------|---------------------------------------------------------------------------|-------------------------------------|--------------------------------------------------------|------------------------------------------------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------------|
 | 1 · Web app exploitation (Apache 2.4.49 RCE) | Apache 2.4.49 unpatched | A-01 | RCE in DMZ | Exploitation | Initial Access — T1190 Exploit Public-Facing Application | CVE-2021-41773 | Upgrade Apache to ≥2.4.51; WAF virtual patch for CVE-2021-41773/42013; restrict HTTP methods and `/cgi-bin` (CIS 16; OWASP A06) | WAF/`access.log` rule for encoded traversal (`%2e%2e`, `.%2e`) plus vulnerability re-scan alert | Isolate A-01; restore golden image; rotate secrets; re-scan before return | `Server: Apache/2.4.51+`; WAF block event with payload; NSE `http-vuln-cve2021-41773` not vulnerable; golden-image hash |
 | 2 · SQLi in `productos.php` | Unsanitized `categoría` parameter | A-01 | DB extraction | Exploitation | Initial Access — T1190 Exploit Public-Facing Application | CWE-89 | Prepared statements in `productos.php`; allowlist `categoría`; WAF SQLi rules (OWASP A03; CIS 16) | WAF SQLi alert correlated with `error.log` 500/`PDOException`; DB audit for UNION query to information_schema | WAF block; restore DB snapshot; rotate DB credentials; code rollback | WAF block log; no mysqli fetch array trace in `error.log`; clean DB audit; diff with `PDO::prepare` |
-| 3 · IDOR in the API | Missing object-level authorization | A-01 | PII disclosure | Actions on Objectives | Not applicable — Broken Object-Level Authorization has no discrete Enterprise ATT&CK technique; see OWASP API1:2023 | CWE-639 | Object-level authorization on `/api/v1/usuario`; opaque IDs; deny-by-default API gateway (OWASP A01; CIS 16) | API gateway alert for sequential `id` enumeration and 200 on foreign records | Revoke sessions; patch authorization; notify DPO; add regression test | 403 for foreign `id`; SIEM enumeration alert; CI test case; DPO notification record |
+| 3 · IDOR in the API | Missing object-level authorization | A-01 | PII disclosure | Actions on Objectives | N/A (no Txxxx) — Broken Object-Level Authorization has no discrete Enterprise ATT&CK technique; framework: OWASP API1:2023 (BOLA) | CWE-639 | Object-level authorization on `/api/v1/usuario`; opaque IDs; deny-by-default API gateway (OWASP A01; CIS 16) | API gateway alert for sequential `id` enumeration and 200 on foreign records | Revoke sessions; patch authorization; notify DPO; add regression test | 403 for foreign `id`; SIEM enumeration alert; CI test case; DPO notification record |
 | 4 · JWT `alg:none` session forgery | Unsigned token accepted | A-01 | Role forgery | Exploitation | Credential Access — T1606.001 Forge Web Credentials: Web Cookies | CWE-347 | Verify JWT signature with fixed `alg` allowlist; validate `iss/aud/exp`; rotate keys; HttpOnly, Secure, SameSite cookies (OWASP A07; CIS 16) | SIEM rule for alg:none / unsigned token; role-claim anomaly; auth log for `superadmin` | Invalidate sessions; rotate signing keys; force re-auth; patch library | Forged token returns 401; SIEM alert with decoded header; key-rotation log; `Set-Cookie` flags |
-| 5 · Credential theft from `.bak`/`.git` | `.bak`/`.git` exposed | A-01→A-03 | Credential reuse | Installation (Challenge 2's technical kill-chain reconstruction, instrument 2.6, step 5) | Credential Access — T1552.001 Unsecured Credentials: Credentials In Files | — | Remove `.bak`, `.git`, `/backup`, directory listing; secrets to vault; rotate exposed credentials; block dotfiles (OWASP A05; CIS 16) | `access.log` alert for `.bak`, `.git`, `/backup`; FIM on web root; secret scanning in CI | Rotate DB/DevOps credentials; revoke sessions; restore config from vault; forensic review | 404/403 on sensitive paths; clean secret scan; rotation ticket; access-log alert |
+| 5 · Credential theft from `.bak`/`.git` | `.bak`/`.git` exposed | A-01→A-03 | Credential reuse | Reconnaissance (Challenge 2's technical-variant route, instrument 2.8, step 5) | Credential Access — T1552.001 Unsecured Credentials: Credentials In Files | — | Remove `.bak`, `.git`, `/backup`, directory listing; secrets to vault; rotate exposed credentials; block dotfiles (OWASP A05; CIS 16) | `access.log` alert for `.bak`, `.git`, `/backup`; FIM on web root; secret scanning in CI | Rotate DB/DevOps credentials; revoke sessions; restore config from vault; forensic review | 404/403 on sensitive paths; clean secret scan; rotation ticket; access-log alert |
 | 6 · Default credentials on the gateway | Telnet/panel without MFA | A-05 | OT segment access | Exploitation | Initial Access — T1078 Valid Accounts (not in Challenge 2's original 13-technique inventory; added here, Section 2.4) | — | Unique credentials plus MFA on gateway; disable Telnet 23; HTTPS only; management VLAN/allowlist (CIS 4/5; NIST CSF 2.0 PR.AA) | Auth-log alert for `admin/admin` and `root/12345`; Telnet connection alert; new-admin login anomaly | Lock account; isolate A-05; reimage; rotate all IoT credentials | Telnet 23 closed; default login rejected; MFA enforced; SIEM alert |
-| 7 · Phishing / pretexting | Vendor-impersonating email | A-04 | Business credential | Exploitation (Challenge 2's phishing kill-chain, instrument 2.6, step 4) | Initial Access — T1566 Phishing | — | SPF/DKIM/DMARC; impersonation filtering; awareness; callback verification (CIS 14; NIST CSF 2.0 PR.AT); non-destructive phishing simulation as a future activity conditional on explicit authorization — not executed in Challenge 3 | Email-gateway alert for lookalike domain/attachment; user report button; SIEM correlation of login after email | Quarantine; reset credentials; revoke sessions; block sender/domain; retrain | DMARC reject report; reported-email ticket; blocked sender; simulation click rate only if a future authorized campaign is run — no campaign has been executed |
-| 8 · SMB lateral movement (null session) | SMBv1 unsigned + null session | A-03 | Share read | Command and Control (Challenge 2's technical kill-chain reconstruction, instrument 2.6, step 6) | Lateral Movement — T1021.002 SMB/Windows Admin Shares | CVE-2017-0143 | Disable SMBv1; enforce signing; block null sessions; restrict 445; patch MS17-010; tiered admin (CIS 4/12; NIST CSF 2.0 PR.IR) | Windows 4625/4624 plus Sysmon 3; null-session audit; SIEM alert for DMZ→IT SMB | Isolate A-03; block SMB at firewall; restore backup; rotate domain credentials; remove exposed share file | `smbclient -N` fails; `smb-security-mode` shows signing required/SMBv1 off; SIEM alert; firewall deny log |
-| 9 · OT command manipulation (MQTT/Modbus) | Anonymous MQTT; Modbus without auth | A-07/A-08 | Unauthorized irrigation | Actions on Objectives | Impair Process Control / Evasion — T1692.001 Command Message (catalogued as T0855 "Unauthorized Command Message" in Challenge 2's instrument 2.7; revoked and renumbered in ATT&CK for ICS v20.0) | CWE-306 | MQTT auth + TLS + per-topic ACL; disable anonymous; OT VLAN/allowlist; PLC command allowlist (CIS 4/12; NIST CSF 2.0 PR.IR/PR.AA) | Broker log for anonymous CONNECT/PUBLISH on `invernadero/riego/cmd`; OT IDS for Modbus write; SIEM alert | Block broker/PLC at firewall; manual irrigation; restore PLC config; rotate MQTT credentials; preserve pcap | Anonymous publish rejected; ACL log; OT IDS alert; manual-override record; pcap hash |
+| 7 · Phishing / pretexting | Vendor-impersonating email | A-04 | Business credential | Delivery (Challenge 2's kill-chain, instrument 2.6, step 3) | Initial Access — T1566 Phishing | — | SPF/DKIM/DMARC; impersonation filtering; awareness; callback verification (CIS 14; NIST CSF 2.0 PR.AT); non-destructive phishing simulation as a future activity conditional on explicit authorization — not executed in Challenge 3 | Email-gateway alert for lookalike domain/attachment; user report button; SIEM correlation of login after email | Quarantine; reset credentials; revoke sessions; block sender/domain; retrain | DMARC reject report; reported-email ticket; blocked sender; simulation click rate only if a future authorized campaign is run — no campaign has been executed |
+| 8 · SMB lateral movement (null session) | SMBv1 unsigned + null session | A-03 | Share read | Actions on Objectives (Challenge 2's technical-variant route, instrument 2.8, step 6) | Lateral Movement — T1021.002 SMB/Windows Admin Shares | CVE-2017-0143 | Disable SMBv1; enforce signing; block null sessions; restrict 445; patch MS17-010; tiered admin (CIS 4/12; NIST CSF 2.0 PR.IR) | Windows 4625/4624 plus Sysmon 3; null-session audit; SIEM alert for DMZ→IT SMB | Isolate A-03; block SMB at firewall; restore backup; rotate domain credentials; remove exposed share file | `smbclient -N` fails; `smb-security-mode` shows signing required/SMBv1 off; SIEM alert; firewall deny log |
+| 9 · OT command manipulation (MQTT/Modbus) | Anonymous MQTT; Modbus without auth | A-07/A-08 | Unauthorized irrigation | Actions on Objectives | Impair Process Control / Evasion — T1692.001 Command Message (catalogued as T0855 "Unauthorized Command Message" in Challenge 2's instrument 2.7; revoked and renumbered in ATT&CK for ICS v19.0) | CWE-306 | MQTT auth + TLS + per-topic ACL; disable anonymous; OT VLAN/allowlist; PLC command allowlist (CIS 4/12; NIST CSF 2.0 PR.IR/PR.AA) | Broker log for anonymous CONNECT/PUBLISH on `invernadero/riego/cmd`; OT IDS for Modbus write; SIEM alert | Block broker/PLC at firewall; manual irrigation; restore PLC config; rotate MQTT credentials; preserve pcap | Anonymous publish rejected; ACL log; OT IDS alert; manual-override record; pcap hash |
 | 10 · Outdated components / weak TLS | jQuery and Bootstrap old; SHA-1 cert | A-01 | Client XSS / interception | Exploitation | Credential Access / Collection — T1557 Adversary-in-the-Middle (not in Challenge 2's original 13-technique inventory; added here, Section 2.4) | — (no CVE/CWE score assigned to this finding in Table 3) | Update jQuery and Bootstrap; TLS 1.2+ with strong ciphers; valid certificate (no SHA-1); HSTS/CSP; remove `phpinfo.php` (OWASP A06/A02; CIS 16) | SCA alert for outdated versions; TLS scan alert for SHA-1/expired cert; SIEM TLS anomaly | Patch/upgrade; reissue certificate; revoke old cert; redeploy | `whatweb` shows updated versions; `testssl.sh` no SHA-1/expired; valid chain; clean SCA report |
 
 ```{=latex}
@@ -298,6 +299,10 @@ Challenge 4.
 \restoregeometry
 \clearpage
 ```
+
+**Note on vector 7's phase.** The phishing email maps to Delivery (Challenge 2's reconstruction,
+instrument 2.6, step 3: the message sent to Accounting), which agrees with the classic Cyber Kill
+Chain; the credential it captures is reused at later phases (SMB lateral movement, vector 8).
 
 # 5. Design of defensive controls
 
@@ -318,12 +323,12 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 
 | Hardening action | Applies? (Y/N) | Vector it mitigates | Framework | Verification |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Update Apache to ≥2.4.51; WAF virtual patch for CVE-2021-41773/42013 | Y | 1 | CIS 16 / OWASP A06 | `Server: Apache/2.4.51+`; NSE `http-vuln-cve2021-41773` returns "not vulnerable"; WAF rule active |
-| Remove `/dbadmin`, `/backup`, `/.git` from public exposure; block dotfiles | Y | 5 | CIS 16 | 404/403 on `GET /.git/config`, `/backup`, `/dbadmin`; directory listing disabled |
-| Add security headers (CSP, HSTS, X-Frame-Options, X-Content-Type-Options) | Y | 10 | OWASP A06 | Response headers present: `Strict-Transport-Security: max-age=31536000`; `X-Frame-Options: DENY`; `Content-Security-Policy: default-src 'self'` |
-| Validate file uploads (MIME type, extension whitelist, virus scanning) | Y | — (CWE-434, Table 3; general application-security control, not mapped to a numbered Challenge 2 vector) | OWASP A04 | Upload rejects non-image files; `Content-Type` verified server-side; no executable upload succeeds |
-| Harden TLS (disable SHA-1, enforce TLS 1.2+, strong ciphers) | Y | 10 | CIS 4 | `testssl.sh` output: no SHA-1, no MD5; TLS 1.2 minimum; ECDHE/RSA with AES-GCM only |
-| Move backups out of web root; restrict file access via FIM + ACL | Y | 5 | CIS 16 | Backups in `/opt/backups` (outside web root); 700 permissions; FIM alert on unauthorized modification |
+| Update Apache to ≥2.4.51; WAF virtual patch for CVE-2021-41773/42013 | Y | 1 | CIS 16 / OWASP A06 / Anexo 1 — instrument 3.2a | `Server: Apache/2.4.51+`; NSE `http-vuln-cve2021-41773` returns "not vulnerable"; WAF rule active |
+| Remove `/dbadmin`, `/backup`, `/.git` from public exposure; block dotfiles | Y | 5 | CIS 16 / Anexo 1 — instrument 3.2a | 404/403 on `GET /.git/config`, `/backup`, `/dbadmin`; directory listing disabled |
+| Add security headers (CSP, HSTS, X-Frame-Options, X-Content-Type-Options) | Y | — (indirect to 10: mitigates client-side XSS, not weak TLS/SHA-1) | OWASP A06 / Anexo 1 — instrument 3.2a | Response headers present: `Strict-Transport-Security: max-age=31536000`; `X-Frame-Options: DENY`; `Content-Security-Policy: default-src 'self'` |
+| Validate file uploads (MIME type, extension whitelist, virus scanning) | Y | — (CWE-434, Table 3; general application-security control, not mapped to a numbered Challenge 2 vector) | OWASP A04 / Anexo 1 — instrument 3.2a | Upload rejects non-image files; `Content-Type` verified server-side; no executable upload succeeds |
+| Harden TLS (disable SHA-1, enforce TLS 1.2+, strong ciphers) | Y | 10 | CIS 4 / Anexo 1 — instrument 3.2a | `testssl.sh` output: no SHA-1, no MD5; TLS 1.2 minimum; ECDHE/RSA with AES-GCM only |
+| Move backups out of web root; restrict file access via FIM + ACL | Y | 5 | CIS 16 / Anexo 1 — instrument 3.2a | Backups in `/opt/backups` (outside web root); 700 permissions; FIM alert on unauthorized modification |
 
 ## 5.2 Hardening — b) IT / Windows · instrument 3.2b
 
@@ -331,10 +336,10 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 
 | Hardening action | Applies? (Y/N) | Vector it mitigates | Framework | Verification |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Disable SMBv1; enforce signing on SMBv2/3; patch MS17-010 (CVE-2017-0143) | Y | 8 | CIS 4 / NIST CSF PR.IR | `smb-security-mode` NSE: "signing required"; `smbclient -N` fails with "Cannot connect"; `Get-WindowsOptionalFeature -FeatureName SMB1Protocol` returns Disabled |
-| Block null sessions via Group Policy; restrict registry key `LanmanServer\Parameters RestrictNullSessAccess=1` | Y | 8 | CIS 5 | `enum4linux -N` fails; 139/445 block null connections; Windows 4624 events show credential requirement |
-| RDP hardening: enforce Network Level Authentication (NLA); require MFA; account lockout policy (3 failures in 15 min) | Y | — (general IT hardening; indirect to 8 — both harden remote-access surfaces on A-03, RDP is not the observed SMB null-session mechanism) | CIS 5 / NIST CSF 2.0 PR.AA | NLA enabled in `Group Policy → Computer Configuration → Administrative Templates → System → Credentials Delegation`; MFA enforced via Windows Hello or RADIUS; 4625 logs show lockout after 3 failed attempts |
-| Segment IT (VLAN 20) ↔ IoT/OT (VLAN 30) with firewall rules; restrict cross-VLAN SMB/SSH | Y | 8 | NIST CSF 2.0 PR.IR / ISO/IEC 27001:2022 A.8.20 (Networks security) | Firewall ACL blocks 139/445/3389 from VLAN 30 to VLAN 20; VLAN isolation confirmed via `show vlan`; routing table shows separate gateways per VLAN |
+| Disable SMBv1; enforce signing on SMBv2/3; patch MS17-010 (CVE-2017-0143) | Y | 8 | CIS 4 / NIST CSF PR.IR / Anexo 1 — instrument 3.2b | `smb-security-mode` NSE: "signing required"; `smbclient -N` fails with "Cannot connect"; `Get-WindowsOptionalFeature -FeatureName SMB1Protocol` returns Disabled |
+| Block null sessions via Group Policy; restrict registry key `LanmanServer\Parameters RestrictNullSessAccess=1` | Y | 8 | CIS 5 / Anexo 1 — instrument 3.2b | `enum4linux -N` fails; 139/445 block null connections; Windows 4624 events show credential requirement |
+| RDP hardening: enforce Network Level Authentication (NLA); require MFA; account lockout policy (3 failures in 15 min) | Y | — (general IT hardening; indirect to 8 — both harden remote-access surfaces on A-03, RDP is not the observed SMB null-session mechanism) | CIS 5 / NIST CSF 2.0 PR.AA / Anexo 1 — instrument 3.2b | NLA enabled in `Group Policy → Computer Configuration → Administrative Templates → System → Credentials Delegation`; MFA enforced via Windows Hello or RADIUS; 4625 logs show lockout after 3 failed attempts |
+| Segment IT (VLAN 20) ↔ IoT/OT (VLAN 30) with firewall rules; restrict cross-VLAN SMB/SSH | Y | 8 | NIST CSF 2.0 PR.IR / ISO/IEC 27001:2022 A.8.20 (Networks security) / Anexo 1 — instrument 3.2b | Firewall ACL blocks 139/445/3389 from VLAN 30 to VLAN 20; VLAN isolation confirmed via `show vlan`; routing table shows separate gateways per VLAN |
 
 ## 5.3 Hardening — c) IoT / OT · instrument 3.2c
 
@@ -342,11 +347,11 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 
 | Hardening action | Applies? (Y/N) | Vector it mitigates | Framework | Verification |
 |----------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Disable Telnet (23) on gateway; enforce SSH (22) + HTTPS (8080) with key authentication | Y | 6 | CIS 4 / NIST CSF 2.0 PR.AA | Port 23 closed: `nmap -p 23 10.10.30.5` shows closed; SSH port 22 open with pubkey-only auth; HTTP 8080 redirects to HTTPS; certificate valid |
-| Change gateway default credentials (`admin:admin`, `root:12345`) to strong unique passwords; implement MFA on admin panel | Y | 6 | CIS 5 | Login attempts with default creds rejected; admin audit log shows only authorized accounts; MFA prompt on admin login to 10.10.30.5:8080 |
-| MQTT broker authentication + per-topic ACL; disable anonymous access | Y | 9 | NIST CSF 2.0 PR.AA / ISO/IEC 27001:2022 A.5.15 (Access control) | Broker rejects anonymous CONNECT; `mosquitto_pub` without credentials fails; ACL file restricts `invernadero/riego/cmd` to authenticated PLC user only; MQTT broker config shows `allow_anonymous false` |
-| Isolate Modbus/PLC (10.10.30.30:502) on separate OT VLAN (VLAN 30); firewall restricts access to gateway + authorized clients only | Y | 9 | NIST CSF PR.IR / CIS 4 | PLC isolated to VLAN 30; firewall rule allows only TCP 502 from gateway (10.10.30.5) and Modbus client IP; unauthorized hosts cannot reach port 502; network diagram confirms physical/logical isolation |
-| Update camera firmware from 5.2.0 to latest stable; remove EOL RTSP server | Y | — (general IoT hardening, not mapped to a numbered vector — Challenge 2's own risk instrument, 2.9 Impacto y riesgo, explicitly records A-06 as having no associated risk scenario; addresses CVE-2017-9833/CVE-2022-45956, Table 3, directly) | CIS 3 / NIST CSF 2.0 ID.RA | Camera firmware version checked: `curl http://10.10.30.21:81/info` shows current build; EOL components removed; security advisory check shows no active CVEs for deployed version |
+| Disable Telnet (23) on gateway; enforce SSH (22) + HTTPS (8080) with key authentication | Y | 6 | CIS 4 / NIST CSF 2.0 PR.AA / Anexo 1 — instrument 3.2c | Port 23 closed: `nmap -p 23 10.10.30.5` shows closed; SSH port 22 open with pubkey-only auth; HTTP 8080 redirects to HTTPS; certificate valid |
+| Change gateway default credentials (`admin:admin`, `root:12345`) to strong unique passwords; implement MFA on admin panel | Y | 6 | CIS 5 / Anexo 1 — instrument 3.2c | Login attempts with default creds rejected; admin audit log shows only authorized accounts; MFA prompt on admin login to 10.10.30.5:8080 |
+| MQTT broker authentication + per-topic ACL; disable anonymous access | Y | 9 | NIST CSF 2.0 PR.AA / ISO/IEC 27001:2022 A.5.15 (Access control) / Anexo 1 — instrument 3.2c | Broker rejects anonymous CONNECT; `mosquitto_pub` without credentials fails; ACL file restricts `invernadero/riego/cmd` to authenticated PLC user only; MQTT broker config shows `allow_anonymous false` |
+| Isolate Modbus/PLC (10.10.30.30:502) on separate OT VLAN (VLAN 30); firewall restricts access to gateway + authorized clients only | Y | 9 | NIST CSF PR.IR / CIS 4 / Anexo 1 — instrument 3.2c | PLC isolated to VLAN 30; firewall rule allows only TCP 502 from gateway (10.10.30.5) and Modbus client IP; unauthorized hosts cannot reach port 502; network diagram confirms physical/logical isolation |
+| Update camera firmware from 5.2.0 to latest stable; remove EOL RTSP server | Y | — (general IoT hardening, not mapped to a numbered vector — Challenge 2's own risk instrument, 2.9 Impacto y riesgo, explicitly records A-06 as having no associated risk scenario; addresses CVE-2017-9833/CVE-2022-45956, Table 3, directly) | CIS 3 / NIST CSF 2.0 ID.RA / Anexo 1 — instrument 3.2c | Camera firmware version checked: `curl http://10.10.30.21:81/info` shows current build; EOL components removed; security advisory check shows no active CVEs for deployed version |
 
 ## 5.4 Web-application controls
 
@@ -357,7 +362,7 @@ The application-layer defense operates at the boundary between user input and da
 The monitoring layer is designed as a detection pipeline, not as a log-collection exercise: sources
 (Apache, Windows/Sysmon, MQTT broker, firewall and camera) feed correlation rules that turn isolated
 events into incident candidates, following the sequence used by the course OVI — logs and events,
-network traffic, IoT telemetry, SIEM correlation and alerts (Zambrano Hernández, 2026). Each rule in
+network traffic, IoT telemetry, SIEM correlation and alerts (Zambrano Hernández, 2026a). Each rule in
 Table 9 is bound to a Kill Chain phase and a MITRE technique from Challenge 2, so a detection gap can
 be read as a missing ATT&CK coverage (Strom et al., 2018). Severity and thresholds are set so that the
 first alert triggers a containment action rather than a report; Table 10 assigns the source, the
@@ -378,8 +383,8 @@ frequency, the threshold and the owner. The detection strategy prioritizes the c
 ```
 
 | # | Rule name | Log source | Trigger condition | Severity | Expected event | Initial action |
-|-----------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| 1 | Brute force on `/admin` | Apache `access.log` | ≥ N POST `/admin/login` in < T s from same IP | High | Repeated 401/200 on login | Alert + temporary block |
+|-------|------------------------------------------------------|----------------------------------------|----------------------------------------------------------------|------------------------------|----------------------------------------------|----------------------------------------------|
+| 1 | Brute force on `/admin` | Apache `access.log` | ≥10 POST `/admin/login` in 60 s from same IP | High | Repeated 401/200 on login | Alert + temporary block |
 | 2 | IT credential spraying | Windows 4625 | Multiple 4625 same user from different origins | High | Failed logons spike | SOC alert |
 | 3 | Unauthorized MQTT | MQTT broker | Anonymous CONNECT + PUBLISH on a `/cmd` topic | Critical | Command topic write | Block + OT alert |
 | 4 | Sensitive path probing | Apache `access.log` | Requests to `.bak`, `.git`, `/backup`, `/dbadmin` | High | 200/403 on sensitive paths | Alert + WAF rule |
@@ -391,6 +396,8 @@ frequency, the threshold and the owner. The detection strategy prioritizes the c
 ```{=latex}
 \endgroup
 ```
+
+**Per-rule framework and Challenge 2 trace.** R1–R2: T1110.001; R3: vector 9 / T1692.001; R4: vector 5 / T1552.001; R5: vector 2 / T1190; R6: T1543.003; R7: vector 9 (MQTT C2); R8: A-06 / CVE-2017-9833 (MITRE ATT&CK; instrument 3.3).
 
 **Rule 1 thresholds.** Challenge 2's own credential-access evidence (instrument 2.7) recorded 37
 failed POSTs to `/admin/login.php` in 40 seconds with `LockoutThreshold 0`. A detection rule tuned to
@@ -404,12 +411,13 @@ validated threshold — tuning against production traffic is deferred to Challen
 
 | Source / sensor | What it watches | Frequency | Alert threshold | Owner |
 |----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| WAF / web logs | Injection, brute force | Real time | ≥3 SQLi blocks in 60s; ≥5 POST `/admin/login` from same IP in 120s | SOC |
+| WAF / web logs | Injection, brute force | Real time | ≥3 SQLi blocks in 60s; ≥10 POST `/admin/login` from same IP in 60s | SOC |
 | EDR/SIEM (IT) | Anomalous logon, new services | Real time | ≥3 failed logons (4625) same user different IPs in 300s; new service 7045 from `C:\Temp\` | SOC |
 | MQTT broker logs | Anonymous connect / command publish | Real time | Single anonymous CONNECT or PUBLISH to `*/cmd/*` topic (Critical); ≥2 failed auth in 60s | OT team |
 | Firewall | Cross-zone flows, C2 egress | Real time | Any connection DMZ↔IT port 445/3389/22; any outbound 1883 from IT subnet; any VLAN 20↔VLAN 30 except approved gateways | Network team |
 | OT IDS (Modbus) | Unauthorized write commands to PLC holding registers | Real time | Any write to holding register 100–103 (irrigation valve control) from an unauthorized source | OT team |
 | Camera / RTSP logs | Auth failures, streams to new hosts | Real time | ≥3 auth failures in 300s, or a stream opened to a host outside the approved viewer list | OT team |
+| DevSecOps / change-control telemetry | CI pipeline results (SAST, DAST, SCA, secret scan) and release approvals | Per pipeline run | Any scan that reports a finding on a deployed artefact, or a release merged without recorded approval (Table 11) | Application team + SOC |
 
 # 7. DevSecOps proposal
 
@@ -431,7 +439,7 @@ The prioritized scenario is vector 9, unauthorized command manipulation through 
 broker and the unauthenticated Modbus PLC (Table 4, rank 1). The playbook follows the six NIST SP
 800-61 phases — preparation, detection and analysis, containment, eradication, recovery and lessons
 learned (Cichonski et al., 2012) — and the operational sequence used by the course OVI: identify,
-contain, eradicate, recover and learn (Zambrano Hernández, 2026). The CSF 2.0 Respond and Recover
+contain, eradicate, recover and learn (Zambrano Hernández, 2026a). The CSF 2.0 Respond and Recover
 functions supply the governance interface: who declares the incident, who authorizes an OT shutdown
 and what evidence must survive recovery (NIST, 2024; Mantilla Torres, 2025b). Table 12 translates each
 phase into AgroSmart-specific actions, owner and evidence.
@@ -446,7 +454,7 @@ phase into AgroSmart-specific actions, owner and evidence.
 |---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
 | **Preparation** | Pre-incident: MQTT broker auth enabled; per-topic ACL in place; MQTT broker logs > syslog > SIEM; OT IDS rule for Modbus unauthorized write deployed; playbook team trained on roles and escalation (OT eng, security, management); backup of PLC config and MQTT broker config held offline | Security + OT team | MQTT broker config file; OT IDS signature; team-training sign-off; offline backup hash (SHA-256) |
 | **Detection and analysis** | SIEM alert: anonymous CONNECT attempt + PUBLISH to `invernadero/riego/cmd`; OR OT IDS signature triggers on unauthorized Modbus write command to holding register 100-103 (irrigation valve control); security analyst correlates broker log timestamp with SIEM and PLC log; manual valve position check confirms unexpected state (open when should be closed) | SOC analyst + OT operator | SIEM alert ID + timestamp; broker log entry; PLC audit log; manual inspection record; initial severity assessment (Critical) |
-| **Containment** | **Short-term:** Isolate MQTT broker at L2/L3 (block port 1883); stop all telemetry ingestion; manual override: verify manual valve operator can close the irrigation line; issue OT alert via radio/SMS to greenhouse staff. **Medium-term:** Revoke any newly created MQTT credentials; check broker logs for lateral-movement attempts (other topics); monitor IT egress to 1883 | OT lead + Security ops | Network ACL modification log; manual-override record with timestamp; OT alert dispatch log; MQTT user audit |
+| **Containment** | **Short-term:** Isolate MQTT broker at L2/L3 (block port 1883) — requires **joint authorization by the OT lead and the Security lead/CISO** per Section 8 escalation path; stop all telemetry ingestion; manual override: verify manual valve operator can close the irrigation line; issue OT alert via radio/SMS to greenhouse staff. **Medium-term:** Revoke any newly created MQTT credentials; check broker logs for lateral-movement attempts (other topics); monitor IT egress to 1883 | OT lead + Security ops (with Security lead/CISO for shutdown) | Network ACL modification log; manual-override record with timestamp; OT alert dispatch log; MQTT user audit; authorization record (OT lead + Security lead/CISO) |
 | **Eradication** | Restore MQTT broker from clean backup (pre-incident config); verify no unauthorized users in ACL; rotate MQTT credentials for all clients (sensors, PLC, application); patch/update broker if vulnerability suspected; review and enforce firewall rule blocking 1883 from IT/DMZ to OT; run full vulnerability scan on gateway and broker | OT team + Security | Broker restore log; version check; credential rotation audit; firewall rule diff; vulnerability scan report (Nessus/OpenVAS) |
 | **Recovery** | Restart MQTT broker; validate connectivity to all authorized clients (PLC, sensors, application) via health checks; manually verify irrigation is responding to commands; restore telemetry stream; test failover to backup broker; monitor for anomalies for 72 hours | OT team + application team | Broker startup log; health-check results; PLC response test log; telemetry flow confirmation; 72-hour anomaly-free monitoring log |
 | **Lessons learned** | Post-incident review (within 1 week): root-cause analysis (how was broker access enabled?); timeline reconstruction; control-gap review (why was the alert delayed?); update incident response plan; training brief for all staff on MQTT security. Document in wiki/runbook; assign owner for each preventive action from Section 5.3 | Manager + team | Incident report (IR-YYYY-MMDD-001); updated runbook; training attendance sheet; action-item tracker (JIRA/Linear) with owners and due dates |
@@ -456,10 +464,7 @@ assessment) → security lead/CISO (security coordination and incident declarati
 (executive decisions, external notification). A manual emergency stop of the irrigation valve, when
 physical safety or crop damage is imminent, may be executed immediately by the on-site OT operator
 under existing operational procedures, independent of SOC sign-off. A planned OT shutdown as an
-incident-response measure (e.g., isolating the MQTT broker) requires OT lead + security lead/CISO
-joint authorization. Activation of manual-operation/recovery mode is an OT-team decision under the OT
-lead. `[AUTHOR INPUT REQUIRED: specify the documented operational procedure, if one exists, that
-assigns formal authority for a planned OT shutdown beyond this report's proposed chain]`.
+incident-response measure (e.g., isolating the MQTT broker) requires **joint authorization by the OT lead and the Security lead/CISO**. Activation of manual-operation/recovery mode is an OT-team decision under the OT lead. This joint authorization is declared here for the purposes of this design.
 
 # 9. Validation criteria for Challenge 4
 
@@ -468,7 +473,7 @@ names the control, the evidence that would prove it works and the method to obta
 the Cyber Range. The Cyber Range activity included in the course OVA (OVA 3) insists on rules of
 engagement, authorized scope, controlled validation and evidence retention before any technical
 action (Mantilla Torres, 2025c), while the OVI frames evidence as the link between a finding and a
-defensible decision (Zambrano Hernández, 2026). The six validation criteria in Table 13 span the three
+defensible decision (Zambrano Hernández, 2026a). The nine validation criteria in Table 13 span the three
 domains (DMZ, IT, IoT/OT) and cover both preventive and detective controls, ensuring that the next
 phase has a measurable yardstick for each major control. No criterion is executed here; the table is the
 contract for Challenge 4.
@@ -495,19 +500,21 @@ not a results report.
 
 This report converts the Challenge 2 offensive findings into a defensive design that is traceable end to end: each control starts from a vector, a probable cause and an affected asset, and ends in an expected evidence line. The contribution is the chain vector → probable cause → control → evidence, organized by the CSF 2.0 functions and operationalized through the course OVI's detection and response sequence. The traceability matrix (Table 5) ensures that no vector is left undefended and no control is imposed without a corresponding threat; the hardening checklists (Tables 6–8) prioritize the actions with the highest impact on the AgroSmart case; the SIEM rules (Table 9) and the DevSecOps pipeline (Table 11) close the loop by detecting and preventing recurrence. The incident-response playbook (Table 12) operationalizes the six NIST SP 800-61 phases into concrete actions for the priority vector (OT command manipulation), and the validation criteria (Table 13) provide the falsifiable hypotheses that will be tested in the Cyber Range.
 
-The main limitation is that no control has been validated: thresholds, correlation rules, playbook times and architectural assumptions are design hypotheses to be tested in Challenge 4. A second limitation is the reliance on course materials and framework guidance rather than measured results from this organization; the OVA/OVI and the NIST, CIS and OWASP references orient the design but do not substitute for validation on the actual AgroSmart infrastructure. A third limitation is that the IoT/OT hardening and monitoring proposal (Section 5.3, Tables 8–9) assumes that firmware updates and protocol changes are possible; if the PLC or MQTT broker cannot be patched due to operational constraints, the detection and containment strategies become the primary defense, and the risk profile shifts. The next step is to execute Table 13 under the Challenge 4 rules of engagement, validate each control's effectiveness and measurable impact, and feed the empirical results back into Tables 5, 9 and 12 to refine the design.
+The main limitation is that no control has been validated: thresholds, correlation rules, playbook times and architectural assumptions are design hypotheses to be tested in Challenge 4. A second limitation is the reliance on course materials and framework guidance rather than measured results from this organization; the OVA/OVI and the NIST, CIS and OWASP references orient the design but do not substitute for validation on the actual AgroSmart infrastructure. A third limitation is that the IoT/OT hardening and monitoring proposal (Section 5.3, Tables 8–9) assumes that firmware updates and protocol changes are possible; if the PLC or MQTT broker cannot be patched due to operational constraints, the detection and containment strategies become the primary defense, and the risk profile shifts. T0855 was renumbered to T1692.001 in ATT&CK for ICS v19.0; Challenge 2's label is preserved for traceability. The next step is to execute Table 13 under the Challenge 4 rules of engagement, validate each control's effectiveness and measurable impact, and feed the empirical results back into Tables 5, 9 and 12 to refine the design.
 
 # Appendix — AI-usage declaration / log
 
+**Declaration of AI use.** AI assistants were used only for organizational, formatting, and editorial support; no AI output was used to assert any technical finding or substantiate any table. All substantive content derives from the course materials and the Challenge 2 analysis and was verified by the author.
+
 | Field | Response |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AI tool used |   |
-| What it was used for |   |
-| Main prompt(s) |   |
-| Output obtained |   |
-| How it was verified |   |
-| Critical adjustments made |   |
-| Approx. % of the deliverable supported by AI |   |
+| :-- | :-- |
+| AI tool used | OpenCode and Claude (AI assistants). |
+| Scope of use | Three strictly organizational/formatting/editorial tasks: (1) ordering the repository documentation; (2) producing the LaTeX template for PDF/DOCX rendering (Unicode `≥ → ↔` in the matrices); (3) style, grammar and APA 7 review of prose and references. |
+| Prompts employed (with purpose) | `"Organize the repository documentation"` — navigate the course materials efficiently; `"Generate the LaTeX form for rendering the PDF"` — render `doc.md` to PDF/DOCX via Pandoc/XeLaTeX; `"Review writing style and references"` — flag minor style and APA 7 issues. |
+| Output obtained | (1) A suggested listing for repository organization. (2) A draft LaTeX form for rendering. (3) Specific suggestions for minor writing corrections and notes regarding reference formatting. |
+| Verification performed | Every suggestion was checked against the sources (Annex 1, Challenge 2 instruments, the rubric), APA 7 (corrected authorships, years, direct DOIs), the "design only / no tests" declaration, and correct `make` rendering with bidirectional citation–reference correspondence; anything touching technical content was confirmed against its original source first. |
+| Adjustments made by the author's own judgment | Only structural/formatting/editorial suggestions were accepted after verification; any that would alter findings, traceability, MITRE/CVE/CWE mappings or thresholds, or add generic arguments, were rejected or rewritten manually. No AI-generated argument, control, or conclusion was adopted unmodified. |
+| What was NOT generated by AI | No substance was AI-generated — findings, vectors, assets (A-01…A-08), MITRE/CVE/CWE mappings, the traceability and risk matrices, hardening, SIEM rules, thresholds, the response playbook, validation criteria and conclusions all come from Annex 1, the Challenge 2 instruments and the course materials. AI support is not quantified as a percentage. |
 
 ## References
 
@@ -523,7 +530,8 @@ The main limitation is that no control has been validated: thresholds, correlati
 - Mantilla Torres, E. A. (2025c). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 3) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a2c82d71c0297a142919615/presentation-ova-3-iyt-203028113
 - Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
 - Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
-- Zambrano Hernández, L. F. (2026). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223
+- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 (handle pending verification — returned HTTP 404 on last access)
+- Zambrano Hernández, L. F. (2026b). *Reto integrador de Intrusión y Testing: Caso de estudio AgroSmart del Sumapaz S.A.S.* (Anexo 1) [Documento maestro del curso]. Universidad Nacional Abierta y a Distancia.
 
 **Technical frameworks**
 

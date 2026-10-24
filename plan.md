@@ -23,13 +23,13 @@ being merged.
 - [x] Add the **"no tests / no exploitation executed; verification deferred to the Cyber Range" declaration** (rubric C3.e — not ordered by the guide).
 - [x] Add the **AI-usage declaration/log** with prompts, purpose, verification and adjustments (rubric C3.b; cf. `md/reto2/instrumentos/Declaracion uso de IA.md`). — *appendix structured in `doc.md`; content (prompts, output, verification, adjustments) to be completed and reviewed before submission (see Section 6, Sat 24).*
 - [x] Fix the citation errata and never reintroduce the old forms (see Section 4 last block).
-- [x] Keep a running word count excluding references, target 6,000–8,000. — *mechanism in place: `cd report && make wordcount` (script `tools/check_report.py`; counts the body only, cross-checks the rendered `.docx`, breaks the count down per section and exits non-zero outside the range). Current: 4,350 words — still 1,650 to write before the closing pass on Sat 24.*
+- [x] Keep a running word count excluding references, target 6,000–8,000. — *mechanism in place: `cd report && make wordcount` (script `tools/check_report.py`; counts the body only, cross-checks the rendered `.docx`, breaks the count down per section and exits non-zero outside the range). Current: 7,876 words (body, references excluded) — in range, with ~124 words of headroom below the 8,000 ceiling.*
 
 ---
 
 ## 1. Objective and scope — verify before writing
 
-- [x] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections. — *confirmed against the rubric (items 1–3): `.docx`/PDF pipeline in `report/Makefile`; individual work (rubric: "proceso individual"); the 10 visible headings are enforced by `make check`; the word range is declared in Section 1 and measured by `make wordcount` (currently 4,350 — to be closed while sections 2–10 are written).*
+- [x] Confirm the deliverable is a 6,000–8,000-word report (references excluded) in .docx or PDF, individual, 10 titled sections. — *confirmed against the rubric (items 1–3): `.docx`/PDF pipeline in `report/Makefile`; individual work (rubric: "proceso individual"); the 10 visible headings are enforced by `make check`; the word range is declared in Section 1 and measured by `make wordcount` (currently 7,876 — within range).*
 - [x] State the purpose = evidence learning outcome **RA2** (design integral detection/identification/management schemas using offensive techniques + adversarial thinking). — *stated in Section 1, with RA2 quoted in the sense of `md/reto2/CONTEXTO-RETO3.md`; the rubric's own requirement for section 1 (purpose, domains, relation with the Challenge 2 findings) is covered by the added "Relation with the Challenge 2 findings" paragraph.*
 - [x] Cover the three domains: **DMZ/Web LAMP**, **corporate IT**, **IoT/OT** of the smart greenhouse. — *named in the opening paragraph of Section 1 and split again in Table 1 (domain column).*
 - [x] Declare out of scope: no exploitation, no live testing, no VM validation, no destructive DoS, no real exfiltration, no executed social engineering. — *explicit "Scope and exclusions" list (a–f) in Section 1, plus the C3.e no-test declaration; the guide's wording ("no ejecutar pruebas sobre la máquina virtual ni validar explotación técnica") is respected.*
@@ -114,7 +114,7 @@ functions, hardening rationale, Cyber Range validation). Technical frameworks �
 (CIS, OWASP, ISO/IEC 27001, NIST CSF 2.0, NIST SP 800-61, MITRE ATT&CK, NVD).
 
 - [x] **1. Introduction and scope of defensive design** — purpose, the three domains, link to Challenge 2; state that no tests/exploitation were executed and verification is deferred to Challenge 4.
-- [x] **2. Synthesis of the Challenge 2 offensive analysis** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 9 CVE/CWE rows, 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
+- [x] **2. Synthesis of the Challenge 2 offensive analysis** — **Tables 1–3**: assets A-01…A-08, exposure surfaces, 10 vectors, 10 CVE/CWE rows (5 CVE, 5 CWE), 7 Kill-Chain phases, 13 MITRE techniques (reused, not re-invented).
 - [x] **3. Risk prioritization matrix** — **Table 4**: vectors scored on the 6 mandated criteria and ordered descending; justification of web, corporate and physical-operational risks.
 - [x] **4. Traceability matrix: vector to control** — **Table 5**: ≥8 vector rows across 10 fields (9 rubric + expected evidence); declare the column decision.
 - [x] **5. Design of defensive controls** — **Tables 6–8**: hardening Ubuntu/Apache/PHP/MariaDB; app-web controls; auth/sessions; credentials; sensitive dirs/backups/exposed services; IT and IoT/OT controls — each tied to a vector.
