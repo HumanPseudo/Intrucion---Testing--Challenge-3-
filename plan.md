@@ -11,7 +11,7 @@
 **Artifacts map (keep coherent):** `plan.md` (this file) = **process**; `report/doc.md` = **product**
 (renders to `report.pdf` / `report.docx`); `report/README.md` = render pipeline + Table 1–13
 inventory; `README.md` = task summary; `AGENTS.md` = agent rules. The three share the same section
-titles (this Section 3) and the same **Table 1–13** numbers as in `report/doc.md` (Table 1: Asset classification by domain; Table 2: Attack vectors from Challenge 2 (10); Table 3: Vulnerability matrix: CVE / CWE · CVSS; Table 4: Risk prioritization matrix (6 criteria; one row per vector, ordered descending); Table 5: Traceability matrix vector–control; Table 6: Hardening a) Web / LAMP; Table 7: Hardening b) IT / Windows; Table 8: Hardening c) IoT / OT; Table 9: SIEM/XDR detection rules; Table 10: Monitoring and alerting plan; Table 11: DevSecOps practices; Table 12: Incident-response playbook; Table 13: Validation criteria for Challenge 4), so they reference the same objects without being merged.
+titles (this Section 3) and the same **Table 1–13** numbers as in `report/doc.md` (Table 1: Asset classification by domain; Table 2: Attack vectors from Challenge 2 (10); Table 3: Vulnerability matrix: CVE / CWE · CVSS; Table 4: Risk prioritization matrix (6 criteria; one row per vector, ordered descending); Table 5: Traceability matrix vector–control; Table 6: Hardening a) Web / LAMP; Table 7: Hardening b) IT / Windows; Table 8: Hardening c) IoT / OT; Table 9: SIEM/XDR detection rules; Table 10: Monitoring and alerting plan; Table 11: DevSecOps practices; Table 12: Incident-response playbook; Table 13: Validation criteria for the authorized Cyber Range), so they reference the same objects without being merged.
 
 ---
 
@@ -119,8 +119,8 @@ functions, hardening rationale, Cyber Range validation). Technical frameworks �
 - [x] **5. Design of defensive controls** — **Tables 6–8**: hardening Ubuntu/Apache/PHP/MariaDB; app-web controls; auth/sessions; credentials; sensitive dirs/backups/exposed services; IT and IoT/OT controls — each tied to a vector.
 - [x] **6. Monitoring and detection proposal** — **Tables 9–10**: ≥6 SIEM/XDR use cases with log source, trigger condition, severity, expected event, correlation and initial action.
 - [x] **7. DevSecOps proposal** — **Table 11**: ≥4 practices placed at their lifecycle stage.
-- [x] **8. Incident response plan** — **Table 12**: the 6 NIST SP 800-61 phases applied to ≥1 prioritized scenario.
-- [x] **9. Validation criteria for Challenge 4** — **Table 13**: ≥5 hypotheses/controls to verify, each with expected evidence and validation method.
+- [x] **8. Incident response plan** — **Table 12**: the NIST SP 800-61 life cycle, expanded into the 6 rubric steps, applied to ≥1 prioritized scenario.
+- [x] **9. Validation criteria for the authorized Cyber Range** — **Table 13**: ≥5 hypotheses/controls to verify, each with expected evidence and validation method.
 - [x] **10. Conclusions and references** — contributions, limitations, recommendations; APA reference list (≥8 sources) + AI-usage declaration/log (appendix).
 
 ---
@@ -137,7 +137,7 @@ Thresholds are authoritative from `md/rubrica/Rúbrica de evaluación - Reto 3.m
 | ☑ | **C2.c — Traceability matrix** | **≥8 Challenge 2 vectors**; the rubric's **9** columns + **"expected evidence" (10)** — *decision:* deliver 10 columns (superset satisfies both; audit **A5**); declare in Section 4. |
 | ☑ | **C2.d — Hardening per domain** | **≥4 actions per domain** for LAMP, IT and IoT/OT, each naming the mitigated vector (instruments 3.2a/b/c). |
 | ☑ | **C2.e — SIEM/XDR use cases** | **≥6 use cases**, each with log source, trigger condition, severity, expected event, initial action. |
-| ☑ | **C2.f — Incident response** | **6 NIST SP 800-61 phases** for **≥1 prioritized scenario** (instrument 3.5). |
+| ☑ | **C2.f — Incident response** | **6 incident-response steps** (NIST SP 800-61 life cycle) for **≥1 prioritized scenario** (instrument 3.5). |
 | ☑ | **C2.g — DevSecOps** | **≥4 practices**, each indicating its development-lifecycle point. |
 | ☑ | **C2.h — Validation criteria** | **≥5 criteria** with expected technical evidence and Cyber Range verification method. |
 | ☑ | **C2.i — Traceability of every control** | **All** controls map to a Challenge 2 vector/asset/cause — no orphan controls. |

@@ -123,8 +123,8 @@ Every matrix is a native Markdown table in `doc.md`, titled, numbered and refere
 | 9 | Section 6.1 | SIEM/XDR detection rules (≥6) | C2.e |
 | 10 | Section 6.2 | Monitoring and alerting plan | C2.e |
 | 11 | Section 7 | DevSecOps practices (≥4) | C2.g |
-| 12 | Section 8 | NIST SP 800-61 playbook (6 phases) | C2.f |
-| 13 | Section 9 | Validation criteria for Challenge 4 (≥5) | C2.h |
+| 12 | Section 8 | NIST SP 800-61 playbook (life cycle → 6 rubric steps) | C2.f |
+| 13 | Section 9 | Validation criteria for the authorized Cyber Range (≥5) | C2.h |
 
 ## Before submitting (rubric C1 / C3)
 

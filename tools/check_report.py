@@ -39,7 +39,7 @@ SECTION_TITLES = [
     "6. Monitoring and detection proposal",
     "7. DevSecOps proposal",
     "8. Incident response plan",
-    "9. Validation criteria for Challenge 4",
+    "9. Validation criteria for the authorized Cyber Range",
     "10. Conclusions and references",
 ]
 
