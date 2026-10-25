@@ -8,71 +8,17 @@ lang: en
 
 # 1. Introduction and scope of defensive design
 
-This report presents the defensive design strategy analysis required by Challenge 3 of *Intrusión y Testing*
-(203028113) and is the direct continuation of the offensive analysis delivered in Challenge 2.
-Its aim is to show that a relevant learning outcome has been met by designing a detection strategy,
-identification, hardening, monitoring, containment and response, built from the offensive
-techniques and the adversarial thinking. The design covers the three
-domains of AgroSmart del Sumapaz S.A.S. — the **DMZ/Web LAMP** environment, the **corporate IT**
-network and the **IoT/OT** layer of the smart greenhouse — and every control, hardening action and
-detection rule is traceable to a vector, asset or probable cause identified.
+This report presents the defensive design required by Challenge 3 of *Intrusión y Testing* (203028113), as a direct continuation of Challenge 2. It designs detection, identification, hardening, monitoring, containment and response based on the offensive findings. The scope covers three domains of AgroSmart del Sumapaz S.A.S.: **DMZ/Web LAMP**, **corporate IT** and **IoT/OT** (smart greenhouse). Every control, hardening action and detection rule is traceable to a Challenge 2 vector, asset or probable cause.
 
-**Case.** AgroSmart del Sumapaz S.A.S. — a single case shared by Challenges 2–5 (systems and data
-come from Annex 1 and the Challenge 2 instruments; Zambrano Hernández, 2026b).
+**Case.** AgroSmart del Sumapaz S.A.S. — single case for Challenges 2–5 (Annex 1 and Challenge 2 instruments; Zambrano Hernández, 2026b).
 
-**Relation with the Challenge 2 findings.** The offensive analysis is incorporated here rather than
-repeated: Section 2 synthesizes it from the case data (Tables 1–3), and therefore the earlier
-deliverable need not be consulted as a separate source. That synthesis consolidated eight critical assets
-(A-01…A-08) with their exposure surfaces, ten attack vectors, a ten-row CVE/CWE matrix (5 CVE, 5 CWE)
-with its severity mappings, the seven phases of the Cyber Kill Chain and the fifteen MITRE ATT&CK
-techniques bound to those phases (13 from Challenge 2's instrument plus T1078 and T1557, all justified in Section 2.4). Those findings are the input of this report: the vectors become the rows of
-the traceability matrix, the assets become the unit of criticality, and the techniques become the
-anchor of each detection rule. The attack paths were built with the penetration-testing
-methodologies reviewed in the course (Palomo Luna et al., 2024;
-Lu & Yu, 2021) and with web-application vulnerability analysis (Crespo-Martínez, 2021); the human
-factor present in vector 7 was characterized following the social-engineering and phishing
-literature of the course (Albininé Budavári et al., 2023; Benavides et al., 2020; Benavides-Astudillo
-et al., 2020; Prado Díaz, 2021).
+**Relation to Challenge 2.** Section 2 synthesizes the findings (Tables 1–3); the Challenge 2 deliverable need not be consulted separately. It consolidated eight assets (A-01…A-08), eleven exposure surfaces, ten attack vectors, a ten-row CVE/CWE matrix (5 CVE, 5 CWE), seven Cyber Kill Chain phases and fifteen MITRE ATT&CK techniques bound to them (13 from the Challenge 2 instrument plus T1078 and T1557, justified in Section 2.4). Vectors feed Table 5, assets feed criticality, and techniques anchor detection rules. Attack paths use course methodologies (Palomo Luna et al., 2024; Lu & Yu, 2021; Crespo-Martínez, 2021); vector 7 draws on social-engineering/phishing literature (Albininé Budavári et al., 2023; Benavides et al., 2020; Benavides-Astudillo et al., 2020; Prado Díaz, 2021).
 
-**Defensive frame of reference.** The design is organized around the six functions of the NIST
-Cybersecurity Framework (CSF) 2.0 — Govern, Identify, Protect, Detect, Respond and Recover — because
-that taxonomy allows each Challenge 2 vector to be traced from exposure to response without
-establishing a parallel control catalogue (NIST, 2024; Mantilla Torres, 2025a, 2025b, 2025c). The course OVI on
-detection and management of attacks in IT/IoT environments supplies the operational reading of that
-frame: it links attack vectors and adversarial thinking with the Cyber Kill Chain and MITRE ATT&CK,
-and it orders detection and incident response around evidence rather than around tools (Zambrano
-Hernández, 2026a). The report therefore uses CSF 2.0 for the architecture of the defense, the OVI for
-the detection-and-response logic, and NIST SP 800-61 for the incident-response phases (Cichonski et
-al., 2012).
+**Defensive frame.** The design uses the six NIST CSF 2.0 functions (Govern, Identify, Protect, Detect, Respond, Recover) to trace each vector from exposure to response (NIST, 2024; Mantilla Torres, 2025a–c). The course OVI links vectors and adversarial thinking to the Cyber Kill Chain and MITRE ATT&CK, ordering detection/response around evidence (Zambrano Hernández, 2026a). NIST SP 800-61 provides the incident-response phases (Cichonski et al., 2012).
 
-**Scope and exclusions.** This deliverable is design only, and the following are explicitly outside
-its scope: (a) exploitation of any vulnerability, whether proof of concept or complete; (b) live
-testing of the production assets described in Annex 1; (c) validation of exploitation on a virtual
-machine or laboratory; (d) destructive or availability-impacting actions, including denial of
-service against the portal, the MQTT broker or the irrigation controller; (e) real or simulated data
-exfiltration; and (f) any executed social-engineering action against the staff of AgroSmart del
-Sumapaz S.A.S. No activity of that kind was carried out and no argument in this report depends on
-one: every control is argued from the Challenge 2 findings and from the technical literature, and
-every verification step is written as a criterion to be executed later, in the authorized Cyber
-Range.
+**Scope and exclusions.** This is design only. Excluded: (a) exploitation (PoC or complete); (b) live testing of assets in Annex 1; (c) validation on a VM/lab; (d) destructive or availability-impacting actions (including DoS against portal, MQTT broker or irrigation controller); (e) real or simulated data exfiltration; (f) executed social-engineering against AgroSmart staff. No such activity was carried out; arguments rest on Challenge 2 findings and literature. Verification is a criterion for the authorized Cyber Range.
 
-**Declaration of no tests executed (rubric C3.e).** No test, exploitation attempt or live validation
-was executed at any point in this challenge: no vulnerability was exploited, no payload was delivered
-against the portal, no credential was used against the corporate network, no command was sent to the
-irrigation controller and no social-engineering action was carried out. The report therefore
-contains no test results — only the validation criteria and the expected evidence that will be
-required. The verification of every proposed control is deferred in full to the authorized Cyber
-Range of Challenge 4, under the rules of engagement established there.
-
-**Structure, method and evidence conventions.** The deliverable is an individual technical report of
-6,000–8,000 words (excluding the reference list), delivered as .docx or PDF and organized in the ten
-titled sections of the rubric. Every matrix is an editable table integrated in this document, with a
-title, a number and a reference in the text; no screenshot, image of a table or link to an external
-repository substitutes the requested content. Control proposals follow the preventive, detective and
-corrective taxonomy of the traceability matrix, and each one is anchored both in the corresponding
-Annex 1 instrument and in a recognized framework — CIS Controls, NIST CSF, NIST SP 800-61,
-ISO/IEC 27001, OWASP ASVS/WSTG, MITRE ATT&CK and the National Vulnerability Database records (NVD,
-n.d.). Citations and the reference list follow APA 7.
+**Declaration of no tests executed (rubric C3.e).** No test, exploitation attempt or live validation was executed. No vulnerability was exploited, no payload delivered, no credential used, no command sent to the irrigation controller, no social-engineering action carried out. The report contains only validation criteria and expected evidence. Verification of all controls is deferred to the authorized Cyber Range of Challenge 4 under its rules of engagement.
 
 # 2. Synthesis of the Challenge 2 offensive analysis
 
@@ -504,7 +450,7 @@ The main limitation is that no control has been validated: thresholds, correlati
 
 # Appendix — AI-usage declaration / log
 
-**Declaration of AI use.** AI assistants were used only for organizational, formatting, and editorial support; no AI output was used to assert any technical finding or substantiate any table. All substantive content derives from the course materials and the Challenge 2 analysis and was verified by the author.
+**Declaration of AI use.** AI assistants were used only for organizational, formatting, and editorial support. All substantive content derives from the course materials and the Challenge 2 analysis. Where reasoning extended beyond the Challenge 2 instrument (specifically the addition of T1078 Valid Accounts and T1557 Adversary-in-the-Middle to the MITRE ATT&CK mapping), those additions were proposed by reasoning, verified against current MITRE ATT&CK (Enterprise/ICS) documentation and retained only when technically justified by the vector descriptions in Annex 1 and the Challenge 2 instruments. Every suggestion was verified against primary sources before acceptance; no unverified AI output was adopted to substantiate technical findings or tables.
 
 | Field | Response |
 | :-- | :-- |

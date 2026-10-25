@@ -11,8 +11,7 @@
 **Artifacts map (keep coherent):** `plan.md` (this file) = **process**; `report/doc.md` = **product**
 (renders to `report.pdf` / `report.docx`); `report/README.md` = render pipeline + Table 1–13
 inventory; `README.md` = task summary; `AGENTS.md` = agent rules. The three share the same section
-titles (this Section 3) and the same **Table 1–13** numbers, so they reference the same objects without
-being merged.
+titles (this Section 3) and the same **Table 1–13** numbers as in `report/doc.md` (Table 1: Asset classification by domain; Table 2: Attack vectors from Challenge 2 (10); Table 3: Vulnerability matrix: CVE / CWE · CVSS; Table 4: Risk prioritization matrix (6 criteria; one row per vector, ordered descending); Table 5: Traceability matrix vector–control; Table 6: Hardening a) Web / LAMP; Table 7: Hardening b) IT / Windows; Table 8: Hardening c) IoT / OT; Table 9: SIEM/XDR detection rules; Table 10: Monitoring and alerting plan; Table 11: DevSecOps practices; Table 12: Incident-response playbook; Table 13: Validation criteria for Challenge 4), so they reference the same objects without being merged.
 
 ---
 
