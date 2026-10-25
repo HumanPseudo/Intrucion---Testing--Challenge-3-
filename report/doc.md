@@ -84,7 +84,7 @@ Challenge 2 completed a systematic offensive analysis of AgroSmart del Sumapaz S
 | A-08 IoT/OT | Anonymous MQTT broker | CWE-306 | Connects/publishes without credential | 9.1 Critical* |
 
 > All five CVE identifiers and their CVSS v3.1 vectors were independently verified against the NVD
-> API, and the values above match the current NVD records. For CVE-2017-0143, NVD's primary (NIST)
+> API (NIST, n.d.), and the values above match the current NVD records. For CVE-2017-0143, NVD's primary (NIST)
 > metric is `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H` (8.8 High) — the same vector and score recorded in
 > the Challenge 2 instrument, so no divergence arises. CVE-2021-41773, CVE-2021-42013 and
 > CVE-2017-0143 are confirmed in the CISA KEV catalog (added 2021-11-03); CVE-2017-9833 and CVE-2022-45956 are confirmed
@@ -185,11 +185,16 @@ backup/`.git` file), 6 (default/weak credentials) and 7 (phishing) are configura
 weaknesses, not software vulnerabilities, so Challenge 2's vulnerability matrix (Table 3) never
 assigned them a CVE or CWE-based score — CVSS does not apply to this class of finding. Vector 10
 (outdated jQuery/Bootstrap, weak TLS) also has no entry in Table 3; Challenge 2 documented the
-finding qualitatively but did not assign it a CWE-based score, and none has been fabricated here. Instrument 2.9 scored six risk scenarios directly; the P×I values for vectors 3, 6, 7 and 10 are conservative design estimates on the same 1–5 scale, as those vectors were not among them. The 1–5
+finding qualitatively but did not assign it a CWE-based score, and none has been fabricated here. Instrument 2.9 scored six risk scenarios directly: vector 9 (20), the portal-compromise
+scenario spanning vectors 2–4 (P5×I4 = 20), vector 8 (16), vector 4 (16), vector 5 (12) and a
+broker-DoS scenario (9). Vector 1 inherits the portal-compromise score (20) as the direct-exploitation
+path into that same scenario; the P×I values for vectors 1, 3, 6, 7 and 10 are therefore conservative
+design estimates on the same 1–5 scale, since none of them was scored as an individual scenario
+(vector 3 is held at 12 rather than inheriting the scenario's 20). The 1–5
 probability and impact scales are defined in Challenge 2's risk instrument (Annex 1, p. 29;
 instrument 2.9), reproduced here for traceability:
 
-**Probability and Impact (P/I) rating scales (Challenge 2 instrument 2.9, Annex 1 p. 29).**
+**Rating scales for Table 4 — Probability and Impact (Challenge 2 instrument 2.9, Annex 1 p. 29).**
 
 | Level | Probability (P) | Impact (I) |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -274,6 +279,8 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 | Add security headers (CSP, HSTS, X-Frame-Options, X-Content-Type-Options) | Y | — (indirect to 10: mitigates client-side XSS, not weak TLS/SHA-1) | OWASP A06 / Anexo 1 — instrument 3.2a | Response headers present: `Strict-Transport-Security: max-age=31536000`; `X-Frame-Options: DENY`; `Content-Security-Policy: default-src 'self'` |
 | Validate file uploads (MIME type, extension whitelist, virus scanning) | Y | — (CWE-434, Table 3; general application-security control, not mapped to a numbered Challenge 2 vector) | OWASP A04 / Anexo 1 — instrument 3.2a | Upload rejects non-image files; `Content-Type` verified server-side; no executable upload succeeds |
 | Harden TLS (disable SHA-1, enforce TLS 1.2+, strong ciphers) | Y | 10 | CIS 4 / Anexo 1 — instrument 3.2a | `testssl.sh` output: no SHA-1, no MD5; TLS 1.2 minimum; ECDHE/RSA with AES-GCM only |
+| Harden PHP: `expose_php=Off`, `display_errors=Off` with `log_errors=On`, `disable_functions` (exec, system, passthru), remove `phpinfo.php` | Y | 2, 10 | CIS 4 / OWASP A05 / Anexo 1 — instrument 3.2a | `X-Powered-By` header absent; `productos.php` error returns a generic 500 with no `PDOException` trace; `GET /phpinfo.php` returns 404 |
+| Harden MariaDB/MySQL: `bind-address=127.0.0.1`, least-privilege application account (CRUD only, no `FILE`/DDL), remove anonymous/test users (`mysql_secure_installation`) | Y | 2, 5 | CIS 4 / OWASP A05 / Anexo 1 — instrument 3.2a | `nmap -p 3306` from the network shows filtered/closed; `SHOW GRANTS` lists only CRUD for the app user; no anonymous rows in `mysql.user` |
 | Move backups out of web root; restrict file access via FIM + ACL | Y | 5 | CIS 16 / Anexo 1 — instrument 3.2a | Backups in `/opt/backups` (outside web root); 700 permissions; FIM alert on unauthorized modification |
 
 ## 5.2 Hardening — b) IT / Windows · instrument 3.2b
@@ -285,6 +292,7 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 | Disable SMBv1; enforce signing on SMBv2/3; patch MS17-010 (CVE-2017-0143) | Y | 8 | CIS 4 / NIST CSF PR.IR / Anexo 1 — instrument 3.2b | `smb-security-mode` NSE: "signing required"; `smbclient -N` fails with "Cannot connect"; `Get-WindowsOptionalFeature -FeatureName SMB1Protocol` returns Disabled |
 | Block null sessions via Group Policy; restrict registry key `LanmanServer\Parameters RestrictNullSessAccess=1` | Y | 8 | CIS 5 / Anexo 1 — instrument 3.2b | `enum4linux -N` fails; 139/445 block null connections; Windows 4624 events show credential requirement |
 | RDP hardening: enforce Network Level Authentication (NLA); require MFA; account lockout policy (3 failures in 15 min) | Y | — (general IT hardening; indirect to 8 — both harden remote-access surfaces on A-03, RDP is not the observed SMB null-session mechanism) | CIS 5 / NIST CSF 2.0 PR.AA / Anexo 1 — instrument 3.2b | NLA enabled in `Group Policy → Computer Configuration → Administrative Templates → System → Credentials Delegation`; MFA enforced via Windows Hello or RADIUS; 4625 logs show lockout after 3 failed attempts |
+| Enforce a domain password policy (length ≥14, complexity, rotation, lockout) and disable LM/NTLMv1 hashes to break credential reuse | Y | 7, 8 | CIS 5 / NIST CSF 2.0 PR.AA / Anexo 1 — instrument 3.2b | `net accounts` shows minimum length and lockout threshold; LM/NTLMv1 disabled via Group Policy; the phishing-reused vendor credential no longer authenticates over SMB/RDP |
 | Segment IT (VLAN 20) ↔ IoT/OT (VLAN 30) with firewall rules; restrict cross-VLAN SMB/SSH | Y | 8 | NIST CSF 2.0 PR.IR / ISO/IEC 27001:2022 A.8.20 (Networks security) / Anexo 1 — instrument 3.2b | Firewall ACL blocks 139/445/3389 from VLAN 30 to VLAN 20; VLAN isolation confirmed via `show vlan`; routing table shows separate gateways per VLAN |
 
 ## 5.3 Hardening — c) IoT / OT · instrument 3.2c
@@ -454,6 +462,8 @@ The main limitation is that no control has been validated: thresholds, correlati
 
 **Declaration of AI use.** AI assistants were used only for organizational, formatting, and editorial support. All substantive content derives from the course materials and the Challenge 2 analysis. Where reasoning extended beyond the Challenge 2 instrument (specifically the addition of T1078 Valid Accounts and T1557 Adversary-in-the-Middle to the MITRE ATT&CK mapping), those additions were proposed by reasoning, verified against current MITRE ATT&CK (Enterprise/ICS) documentation and retained only when technically justified by the vector descriptions in Annex 1 and the Challenge 2 instruments. Every suggestion was verified against primary sources before acceptance; no unverified AI output was adopted to substantiate technical findings or tables.
 
+**AI-usage log (tool, scope, prompts, purpose, verification and own adjustments — rubric C3.b).**
+
 | Field | Response |
 | :-- | :-- |
 | AI tool used | OpenCode and Claude (AI assistants). |
@@ -478,7 +488,7 @@ The main limitation is that no control has been validated: thresholds, correlati
 - Mantilla Torres, E. A. (2025c). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 3) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a2c82d71c0297a142919615/presentation-ova-3-iyt-203028113
 - Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
 - Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
-- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [Objeto virtual de información (OVI), video del curso]. Intrusión y Testing (203028113), Universidad Nacional Abierta y a Distancia. https://repository.unad.edu.co/handle/10596/83223
+- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [Objeto virtual de información (OVI), video del curso]. Intrusión y Testing (203028113), Universidad Nacional Abierta y a Distancia. https://repository.unad.edu.co/handle/10596/83223 (institutional handle returns HTTP 404 at the time of writing — handle to be verified; the OVI itself was consulted locally in the course package)
 - Zambrano Hernández, L. F. (2026b). *Reto integrador de Intrusión y Testing: Caso de estudio AgroSmart del Sumapaz S.A.S.* (Anexo 1) [Documento maestro del curso]. Universidad Nacional Abierta y a Distancia.
 
 **Technical frameworks**
