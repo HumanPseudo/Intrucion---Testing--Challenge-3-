@@ -18,7 +18,7 @@ This report presents the defensive design required by Challenge 3 of *Intrusión
 
 **Scope and exclusions.** This is design only. Excluded: (a) exploitation (PoC or complete); (b) live testing of assets in Annex 1; (c) validation on a VM/lab; (d) destructive or availability-impacting actions (including DoS against portal, MQTT broker or irrigation controller); (e) real or simulated data exfiltration; (f) executed social-engineering against AgroSmart staff. No such activity was carried out; arguments rest on Challenge 2 findings and literature. Verification is a criterion for the authorized Cyber Range.
 
-**Declaration of no tests executed (rubric C3.e).** No test, exploitation attempt or live validation was executed. No vulnerability was exploited, no payload delivered, no credential used, no command sent to the irrigation controller, no social-engineering action carried out. The report contains only validation criteria and expected evidence. Verification of all controls is deferred to the authorized Cyber Range of Challenge 4 under its rules of engagement.
+**Declaration of no tests executed (rubric C3.e).** No test, exploitation attempt or live validation was executed. No vulnerability was exploited, no payload delivered, no credential used, no command sent to the irrigation controller, no social-engineering action carried out. The report contains only validation criteria and expected evidence. Verification of all controls is deferred to the authorized Cyber Range under its rules of engagement.
 
 # 2. Synthesis of the Challenge 2 offensive analysis
 
@@ -111,11 +111,11 @@ credentials, and **T1557 Adversary-in-the-Middle** (credential access / collecti
 interception risk in vector 10's weak-TLS finding. Both are verified current MITRE ATT&CK Enterprise
 techniques and are technically justified by the Challenge 2 vector descriptions even though the
 original instrument did not enumerate them; the retained count is therefore **15 techniques**, not
-13. Of these fifteen, the eight bound to a numbered vector appear in Table 5; the remaining seven are Challenge 2 Kill Chain context. One technique has also been renumbered since Challenge 2 was authored: **T0855 "Unauthorized
-Command Message"** was revoked in ATT&CK for ICS v19.0 and consolidated into **T1692.001 "Command
-Message"** (tactics: Evasion, Impair Process Control). Table 5 and this section cite the current ID,
-T1692.001, while preserving the T0855 label historically used in Challenge 2's instrument for
-traceability; it is the only technique with no preventive or detective control in the Challenge 2
+13. Of these fifteen, the eight bound to a numbered vector appear in Table 5; the remaining seven are Challenge 2 Kill Chain context. One technique has also been cross-referenced under a new ID since Challenge 2 was authored: the
+ATT&CK for ICS v18.1→v19.0 changelog links **T0855 "Unauthorized Command Message"** — the ID used in
+Challenge 2's instrument — with **T1692.001 "Command Message"** (tactics: Evasion, Impair Process
+Control). Table 5 and this section cite **T0855** as the sourced label and note T1692.001 as its
+current cross-reference; it is the only technique with no preventive or detective control in the Challenge 2
 matrix, and it is the reason the IoT/OT domain is prioritized in Section 3: an authorized command
 published to the MQTT broker can open the irrigation valve without touching the corporate network.
 Vector 3 (IDOR) has no assigned technique: Broken Object-Level Authorization is not catalogued as a
@@ -214,7 +214,7 @@ as an artefact, not as a test result: a log line, a configuration state, a block
 a ticket. When the control is organizational (vector 7), the evidence is a policy or awareness
 artefact; when the vector ends in a physical action (vector 9), the evidence includes the OT log and
 the manual-override record. Nothing in this table has been executed; it is the contract for
-Challenge 4.
+the authorized Cyber Range.
 
 ```{=latex}
 \clearpage
@@ -237,7 +237,7 @@ Challenge 4.
 | 6 · Default credentials on the gateway | Telnet/panel without MFA | A-05 | OT segment access | Exploitation | Initial Access — T1078 Valid Accounts (not in Challenge 2's original 13-technique inventory; added here, Section 2.4) | — | Unique credentials plus MFA on gateway; disable Telnet 23; HTTPS only; management VLAN/allowlist (CIS 4/5; NIST CSF 2.0 PR.AA) | Auth-log alert for `admin/admin` and `root/12345`; Telnet connection alert; new-admin login anomaly | Lock account; isolate A-05; reimage; rotate all IoT credentials | Telnet 23 closed; default login rejected; MFA enforced; SIEM alert |
 | 7 · Phishing / pretexting | Vendor-impersonating email | A-04 | Business credential | Delivery (Challenge 2's kill-chain, instrument 2.6, step 3) | Initial Access — T1566 Phishing | — | SPF/DKIM/DMARC; impersonation filtering; awareness; callback verification (CIS 14; NIST CSF 2.0 PR.AT); non-destructive phishing simulation as a future activity conditional on explicit authorization — not executed in Challenge 3 | Email-gateway alert for lookalike domain/attachment; user report button; SIEM correlation of login after email | Quarantine; reset credentials; revoke sessions; block sender/domain; retrain | DMARC reject report; reported-email ticket; blocked sender; simulation click rate only if a future authorized campaign is run — no campaign has been executed |
 | 8 · SMB lateral movement (null session) | SMBv1 unsigned + null session | A-03 | Share read | Actions on Objectives (Challenge 2's technical-variant route, instrument 2.8, step 6) | Lateral Movement — T1021.002 SMB/Windows Admin Shares | CVE-2017-0143 | Disable SMBv1; enforce signing; block null sessions; restrict 445; patch MS17-010; tiered admin (CIS 4/12; NIST CSF 2.0 PR.IR) | Windows 4625/4624 plus Sysmon 3; null-session audit; SIEM alert for DMZ→IT SMB | Isolate A-03; block SMB at firewall; restore backup; rotate domain credentials; remove exposed share file | `smbclient -N` fails; `smb-security-mode` shows signing required/SMBv1 off; SIEM alert; firewall deny log |
-| 9 · OT command manipulation (MQTT/Modbus) | Anonymous MQTT; Modbus without auth | A-07/A-08 | Unauthorized irrigation | Actions on Objectives | Impair Process Control / Evasion — T1692.001 Command Message (catalogued as T0855 "Unauthorized Command Message" in Challenge 2's instrument 2.7; revoked and renumbered in ATT&CK for ICS v19.0) | CWE-306 | MQTT auth + TLS + per-topic ACL; disable anonymous; OT VLAN/allowlist; PLC command allowlist (CIS 4/12; NIST CSF 2.0 PR.IR/PR.AA) | Broker log for anonymous CONNECT/PUBLISH on `invernadero/riego/cmd`; OT IDS for Modbus write; SIEM alert | Block broker/PLC at firewall; manual irrigation; restore PLC config; rotate MQTT credentials; preserve pcap | Anonymous publish rejected; ACL log; OT IDS alert; manual-override record; pcap hash |
+| 9 · OT command manipulation (MQTT/Modbus) | Anonymous MQTT; Modbus without auth | A-07/A-08 | Unauthorized irrigation | Actions on Objectives | Impair Process Control / Evasion — T0855 Unauthorized Command Message (instrument 2.7; cross-referenced as T1692.001 Command Message in ATT&CK for ICS v19.0) | CWE-306 | MQTT auth + TLS + per-topic ACL; disable anonymous; OT VLAN/allowlist; PLC command allowlist (CIS 4/12; NIST CSF 2.0 PR.IR/PR.AA) | Broker log for anonymous CONNECT/PUBLISH on `invernadero/riego/cmd`; OT IDS for Modbus write; SIEM alert | Block broker/PLC at firewall; manual irrigation; restore PLC config; rotate MQTT credentials; preserve pcap | Anonymous publish rejected; ACL log; OT IDS alert; manual-override record; pcap hash |
 | 10 · Outdated components / weak TLS | jQuery and Bootstrap old; SHA-1 cert | A-01 | Client XSS / interception | Exploitation | Credential Access / Collection — T1557 Adversary-in-the-Middle (not in Challenge 2's original 13-technique inventory; added here, Section 2.4) | — (no CVE/CWE score assigned to this finding in Table 3) | Update jQuery and Bootstrap; TLS 1.2+ with strong ciphers; valid certificate (no SHA-1); HSTS/CSP; remove `phpinfo.php` (OWASP A06/A02; CIS 16) | SCA alert for outdated versions; TLS scan alert for SHA-1/expired cert; SIEM TLS anomaly | Patch/upgrade; reissue certificate; revoke old cert; redeploy | `whatweb` shows updated versions; `testssl.sh` no SHA-1/expired; valid chain; clean SCA report |
 
 ```{=latex}
@@ -343,13 +343,13 @@ frequency, the threshold and the owner. The detection strategy prioritizes the c
 \endgroup
 ```
 
-**Per-rule framework and Challenge 2 trace.** R1–R2: T1110.001; R3: vector 9 / T1692.001; R4: vector 5 / T1552.001; R5: vector 2 / T1190; R6: T1543.003; R7: vector 9 (MQTT C2); R8: A-06 / CVE-2017-9833 (MITRE ATT&CK; instrument 3.3).
+**Per-rule framework and Challenge 2 trace.** R1–R2: T1110.001; R3: vector 9 / T0855 (v19.0: T1692.001); R4: vector 5 / T1552.001; R5: vector 2 / T1190; R6: T1543.003; R7: vector 9 (MQTT C2); R8: A-06 / CVE-2017-9833 (MITRE ATT&CK; instrument 3.3).
 
 **Rule 1 thresholds.** Challenge 2's own credential-access evidence (instrument 2.7) recorded 37
 failed POSTs to `/admin/login.php` in 40 seconds with `LockoutThreshold 0`. A detection rule tuned to
 fire well before that volume is proposed as **N = 10, T = 60 s** (10 POST attempts to `/admin/login`
 from the same IP within 60 seconds). This is a proposed, uncalibrated design parameter, not a
-validated threshold — tuning against production traffic is deferred to Challenge 4.
+validated threshold — tuning against production traffic is deferred to the authorized Cyber Range.
 
 ## 6.2 Monitoring and alerting plan · instrument 3.4
 
@@ -382,10 +382,12 @@ DevSecOps integrates security validation into the application lifecycle — code
 # 8. Incident response plan
 
 The prioritized scenario is vector 9, unauthorized command manipulation through the anonymous MQTT
-broker and the unauthenticated Modbus PLC (Table 4, rank 1). The playbook follows the six NIST SP
-800-61 phases — preparation, detection and analysis, containment, eradication, recovery and lessons
-learned (Cichonski et al., 2012) — and the operational sequence used by the course OVI: identify,
-contain, eradicate, recover and learn (Zambrano Hernández, 2026a). The CSF 2.0 Respond and Recover
+broker and the unauthenticated Modbus PLC (Table 4, rank 1). The playbook follows the NIST SP
+800-61 incident-response life cycle — preparation; detection and analysis; containment, eradication
+and recovery; post-incident activity (Cichonski et al., 2012) — expanded into the six operational
+steps required by the rubric: preparation, detection and analysis, containment, eradication, recovery
+and lessons learned. The course OVI's detection and evidence logic feeds the detection-and-analysis
+phase, linking observed behaviour to a defensible response decision (Zambrano Hernández, 2026a). The CSF 2.0 Respond and Recover
 functions supply the governance interface: who declares the incident, who authorizes an OT shutdown
 and what evidence must survive recovery (NIST, 2024; Mantilla Torres, 2025b). Table 12 translates each
 phase into AgroSmart-specific actions, owner and evidence.
@@ -394,7 +396,7 @@ phase into AgroSmart-specific actions, owner and evidence.
 \needspace{8\baselineskip}
 ```
 
-**Table 12 — Incident-response playbook (instrument 3.5; NIST SP 800-61, 6 phases).**
+**Table 12 — Incident-response playbook (instrument 3.5; NIST SP 800-61 life cycle, expanded into the six rubric steps).**
 
 | NIST SP 800-61 phase | Concrete actions in AgroSmart | Owner | Evidence/log |
 |---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
@@ -412,19 +414,19 @@ physical safety or crop damage is imminent, may be executed immediately by the o
 under existing operational procedures, independent of SOC sign-off. A planned OT shutdown as an
 incident-response measure (e.g., isolating the MQTT broker) requires **joint authorization by the OT lead and the Security lead/CISO**. Activation of manual-operation/recovery mode is an OT-team decision under the OT lead. This joint authorization is declared here for the purposes of this design.
 
-# 9. Validation criteria for Challenge 4
+# 9. Validation criteria for the authorized Cyber Range
 
 Validation is written as a set of falsifiable hypotheses, not as a test log: each row of Table 13
 names the control, the evidence that would prove it works and the method to obtain that evidence in
-the Cyber Range. The Cyber Range activity included in the course OVA (OVA 3) insists on rules of
-engagement, authorized scope, controlled validation and evidence retention before any technical
-action (Mantilla Torres, 2025c), while the OVI frames evidence as the link between a finding and a
-defensible decision (Zambrano Hernández, 2026a). The nine validation criteria in Table 13 span the three
-domains (DMZ, IT, IoT/OT) and cover both preventive and detective controls, ensuring that the next
-phase has a measurable yardstick for each major control. No criterion is executed here; the table is the
-contract for Challenge 4.
+the authorized Cyber Range reserved for the later challenges of the course. The course
+OVA (OVA 3) insists on rules of engagement, authorized scope, controlled validation and evidence
+retention before any technical action (Mantilla Torres, 2025c), while the OVI frames evidence as the
+link between a finding and a defensible decision (Zambrano Hernández, 2026a). The nine validation
+criteria in Table 13 span the three domains (DMZ, IT, IoT/OT) and cover both preventive and detective
+controls, ensuring that the later validation phase has a measurable yardstick for each major control.
+No criterion is executed here; the table is the validation contract for the authorized Cyber Range.
 
-**Table 13 — Validation criteria for Challenge 4 (with expected evidence and method).**
+**Table 13 — Validation criteria for the authorized Cyber Range (with expected evidence and method).**
 
 | # | Control / hypothesis to validate | Expected technical evidence | Verification method (Cyber Range) |
 |-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
@@ -439,14 +441,14 @@ contract for Challenge 4.
 | 9 | IoT/OT detective: SIEM rule 3 (unauthorized MQTT) fires on an anonymous PUBLISH | Broker log entry + SIEM "Block + OT alert" | Anonymous `mosquitto_pub` to `invernadero/riego/cmd` in the isolated lab segment; expect block + alert (pass) or unblocked publish (fail) |
 
 **No validation was executed in Challenge 3.** All nine rows above are falsifiable hypotheses
-reserved for the authorized Cyber Range activity of Challenge 4; none has been run, and this table is
-not a results report.
+reserved for the authorized Cyber Range activity of the later challenges; none has been run, and this
+table is not a results report.
 
 # 10. Conclusions and references
 
-This report converts the Challenge 2 offensive findings into a defensive design that is traceable end to end: each control starts from a vector, a probable cause and an affected asset, and ends in an expected evidence line. The contribution is the chain vector → probable cause → control → evidence, organized by the CSF 2.0 functions and operationalized through the course OVI's detection and response sequence. The traceability matrix (Table 5) ensures that no vector is left undefended and no control is imposed without a corresponding threat; the hardening checklists (Tables 6–8) prioritize the actions with the highest impact on the AgroSmart case; the SIEM rules (Table 9) and the DevSecOps pipeline (Table 11) close the loop by detecting and preventing recurrence. The incident-response playbook (Table 12) operationalizes the six NIST SP 800-61 phases into concrete actions for the priority vector (OT command manipulation), and the validation criteria (Table 13) provide the falsifiable hypotheses that will be tested in the Cyber Range.
+This report converts the Challenge 2 offensive findings into a defensive design that is traceable end to end: each control starts from a vector, a probable cause and an affected asset, and ends in an expected evidence line. The contribution is the chain vector → probable cause → control → evidence, organized by the CSF 2.0 functions and operationalized through the course OVI's detection and evidence logic. The traceability matrix (Table 5) ensures that no vector is left undefended and no control is imposed without a corresponding threat; the hardening checklists (Tables 6–8) prioritize the actions with the highest impact on the AgroSmart case; the SIEM rules (Table 9) and the DevSecOps pipeline (Table 11) close the loop by detecting and preventing recurrence. The incident-response playbook (Table 12) operationalizes the NIST SP 800-61 life cycle, expanded into the six steps required by the rubric, into concrete actions for the priority vector (OT command manipulation), and the validation criteria (Table 13) provide the falsifiable hypotheses that will be tested in the Cyber Range.
 
-The main limitation is that no control has been validated: thresholds, correlation rules, playbook times and architectural assumptions are design hypotheses to be tested in Challenge 4. A second limitation is the reliance on course materials and framework guidance rather than measured results from this organization; the OVA/OVI and the NIST, CIS and OWASP references orient the design but do not substitute for validation on the actual AgroSmart infrastructure. A third limitation is that the IoT/OT hardening and monitoring proposal (Section 5.3, Tables 8–9) assumes that firmware updates and protocol changes are possible; if the PLC or MQTT broker cannot be patched due to operational constraints, the detection and containment strategies become the primary defense, and the risk profile shifts. T0855 was renumbered to T1692.001 in ATT&CK for ICS v19.0; Challenge 2's label is preserved for traceability. The next step is to execute Table 13 under the Challenge 4 rules of engagement, validate each control's effectiveness and measurable impact, and feed the empirical results back into Tables 5, 9 and 12 to refine the design.
+The main limitation is that no control has been validated: thresholds, correlation rules, playbook times and architectural assumptions are design hypotheses to be tested in the authorized Cyber Range. A second limitation is the reliance on course materials and framework guidance rather than measured results from this organization; the OVA/OVI and the NIST, CIS and OWASP references orient the design but do not substitute for validation on the actual AgroSmart infrastructure. A third limitation is that the IoT/OT hardening and monitoring proposal (Section 5.3, Tables 8–9) assumes that firmware updates and protocol changes are possible; if the PLC or MQTT broker cannot be patched due to operational constraints, the detection and containment strategies become the primary defense, and the risk profile shifts. T0855 is cross-referenced as T1692.001 in ATT&CK for ICS v19.0; Challenge 2's label (T0855) is cited for traceability. The next step is to execute Table 13 under the authorized Cyber Range rules of engagement, validate each control's effectiveness and measurable impact, and feed the empirical results back into Tables 5, 9 and 12 to refine the design.
 
 # Appendix — AI-usage declaration / log
 
@@ -476,7 +478,7 @@ The main limitation is that no control has been validated: thresholds, correlati
 - Mantilla Torres, E. A. (2025c). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 3) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a2c82d71c0297a142919615/presentation-ova-3-iyt-203028113
 - Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
 - Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
-- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [OVI]. Repositorio Institucional UNAD. https://repository.unad.edu.co/handle/10596/83223 (handle pending verification — returned HTTP 404 on last access)
+- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [Objeto virtual de información (OVI), video del curso]. Intrusión y Testing (203028113), Universidad Nacional Abierta y a Distancia. https://repository.unad.edu.co/handle/10596/83223
 - Zambrano Hernández, L. F. (2026b). *Reto integrador de Intrusión y Testing: Caso de estudio AgroSmart del Sumapaz S.A.S.* (Anexo 1) [Documento maestro del curso]. Universidad Nacional Abierta y a Distancia.
 
 **Technical frameworks**
