@@ -37,7 +37,7 @@ column points at the matrices (Tables 1–13) inventoried in `report/README.md`.
 | 6 | Monitoring and detection proposal | 9–10 | ≥6 SIEM/XDR use cases + monitoring plan |
 | 7 | DevSecOps proposal | 11 | ≥4 practices with lifecycle stage |
 | 8 | Incident response plan | 12 | 6 NIST SP 800-61 phases for ≥1 scenario |
-| 9 | Validation criteria for Challenge 4 | 13 | ≥5 criteria for the Cyber Range |
+| 9 | Validation criteria for the authorized Cyber Range | 13 | ≥5 criteria for the Cyber Range |
 | 10 | Conclusions and references | — | APA ≥8 sources + AI declaration (appendix) |
 
 ## Structure

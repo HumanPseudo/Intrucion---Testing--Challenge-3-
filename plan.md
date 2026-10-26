@@ -41,7 +41,7 @@ titles (this Section 3) and the same **Table 1–13** numbers as in `report/doc.
 ### Phase 1 — Inputs and asset classification (Steps 1–2) · 3 h
 
 - [x] Re-read and re-index Challenge 2 offensive material (assets, surfaces, vectors, CVE/CVSS, CKC, MITRE, attack path).
-  - [x] Output: one-page input checklist confirming 8 assets, 10 vectors, 9 CVE/CWE rows, 7 CKC phases, 13 techniques on hand.
+  - [x] Output: one-page input checklist confirming 8 assets, 10 vectors, 9 CVE/CWE rows from Challenge 2 matrix 2.3 (4 CVE + 5 CWE; promoted to 10 in report Table 3 by adding CVE-2022-45956), 7 CKC phases, 13 techniques on hand.
   - [x] Refs: `md/reto2/CONTEXTO-RETO3.md`; `md/reto2/instrumentos/2.1 Activos críticos C-I-D.md`; `…/2.2 Superficie de exposición.md`; `…/2.3 Matriz CVE-CVSS.md`; `…/2.4 Vectores de ataque.md`; `…/2.6 Cyber Kill Chain.md`; `…/2.7 MITRE ATT&CK.md`; `…/2.8 Ruta probable de ataque.md`
 - [x] Classify **≥8 assets** into DMZ/Web LAMP, IT and IoT/OT with function, criticality and exposure (C-I-D scores).
   - [x] Output: editable table "Asset classification by domain" with rows A-01…A-08 (rubric C2.a).

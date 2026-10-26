@@ -291,17 +291,16 @@ def check_source_mix(rep: Report, references: str) -> None:
     else:
         rep.ok(f"{len(entries)} reference entries (minimum 8)")
 
-    split = re.search(
-        r"^[>#*]*[ \t]*\**[ \t]*Technical frameworks[^\n]*$", references, re.M | re.I
-    )
-    if split:
-        course_block = references[: split.start()]
-        framework_block = references[split.end() :]
-    else:
-        course_block, framework_block = references, references
-
-    course_n = len(re.findall(r"^-\s+", course_block, re.M))
-    framework_n = len(re.findall(r"^-\s+", framework_block, re.M))
+    # The references are a single alphabetical APA 7 list (no thematic
+    # subheadings), so course vs. technical-framework entries are classified by
+    # content: an entry that names a recognized framework (FRAMEWORK_MARKERS) is
+    # a technical framework; everything else is a course resource.
+    framework_entries = [
+        e for e in entries if any(m.lower() in e.lower() for m in FRAMEWORK_MARKERS)
+    ]
+    course_entries = [e for e in entries if e not in framework_entries]
+    course_n = len(course_entries)
+    framework_n = len(framework_entries)
 
     if course_n < 3:
         rep.fail(f"only {course_n} course-resource entries; at least 3 are required")
@@ -320,7 +319,7 @@ def check_source_mix(rep: Report, references: str) -> None:
     missing = [
         m
         for m in FRAMEWORK_MARKERS
-        if not any(m.lower() in e.lower() for e in re.findall(r"^-\s+(.+)$", framework_block, re.M))
+        if not any(m.lower() in e.lower() for e in framework_entries)
     ]
     if missing and framework_n >= 3:
         rep.warn(

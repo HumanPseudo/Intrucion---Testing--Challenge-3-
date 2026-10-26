@@ -22,7 +22,7 @@ This report presents the defensive design required by Challenge 3 of *Intrusión
 
 # 2. Synthesis of the Challenge 2 offensive analysis
 
-Challenge 2 performed a systematic offensive analysis of AgroSmart del Sumapaz S.A.S. with penetration-testing methodologies, enumerating eight critical assets across the three domains (DMZ/Web LAMP, corporate IT, IoT/OT), eleven exposure surfaces, and ten attack vectors from reconnaissance to actions on objectives. It produced a ten-row CVE/CWE matrix anchored to the National Vulnerability Database and MITRE ATT&CK, mapping fifteen techniques across the seven Cyber Kill Chain phases — from reconnaissance and initial access (exploitation and phishing) through execution, persistence, credential access and lateral movement to impairment of process control in the OT domain. Table 1 classifies the eight assets by domain, function and criticality (Confidentiality–Integrity–Availability); Table 2 lists the ten vectors with their preconditions and evidence; Table 3 summarizes the CVE/CVSS scores and the CWE categories used where no CVE applies. This synthesis feeds the traceability matrix of Section 4, which inherits the vector names, affected assets, Kill Chain phases and MITRE techniques as row labels and control anchors.
+Challenge 2 performed a systematic offensive analysis of AgroSmart del Sumapaz S.A.S. with penetration-testing methodologies, enumerating eight critical assets across the three domains (DMZ/Web LAMP, corporate IT, IoT/OT), eleven exposure surfaces, and ten attack vectors from reconnaissance to actions on objectives. It produced a ten-row CVE/CWE matrix anchored to the National Vulnerability Database and MITRE ATT&CK, mapping techniques across the seven Cyber Kill Chain phases — from reconnaissance and initial access through execution, persistence, credential access and lateral movement to impairment of process control in the OT domain. Table 1 below classifies the assets by domain and criticality, Table 2 the ten vectors with their preconditions and evidence, and Table 3 the CVE/CVSS–CWE matrix; this synthesis feeds the traceability matrix of Section 4, which inherits the vector names, affected assets, Kill Chain phases and MITRE techniques as row labels and control anchors.
 
 ## 2.1 Asset classification by domain
 
@@ -182,17 +182,16 @@ the probability or the physical consequence for this organization.
 \endgroup
 ```
 
-The blank CVSS-severity cells for vectors 5, 6, 7 and 10 are not omissions: vectors 5 (exposed
-backup/`.git` file), 6 (default/weak credentials) and 7 (phishing) are configuration and procedural
-weaknesses, not software vulnerabilities, so Challenge 2's vulnerability matrix (Table 3) never
-assigned them a CVE or CWE-based score — CVSS does not apply to this class of finding. Vector 10
-(outdated jQuery/Bootstrap, weak TLS) also has no entry in Table 3; Challenge 2 documented the
-finding qualitatively but did not assign it a CWE-based score, and none has been fabricated here. Instrument 2.9 scored six risk scenarios directly: vector 9 (20), the portal-compromise
-scenario spanning vectors 2–4 (P5×I4 = 20), vector 8 (16), vector 4 (16), vector 5 (12) and a
-broker-DoS scenario (9). Vector 1 inherits the portal-compromise score (20) as the direct-exploitation
-path into that same scenario; the P×I values for vectors 1, 3, 6, 7 and 10 are therefore conservative
-design estimates on the same 1–5 scale, since none of them was scored as an individual scenario
-(vector 3 is held at 12 rather than inheriting the scenario's 20). The 1–5
+The blank CVSS-severity cells for vectors 5, 6, 7 and 10 are not omissions: vectors 5, 6 and 7 are
+configuration and procedural weaknesses, not software vulnerabilities, so Challenge 2's vulnerability
+matrix (Table 3) assigned them no CVE or CWE-based score and CVSS does not apply to this class of
+finding; vector 10 (outdated jQuery/Bootstrap, weak TLS) was documented qualitatively in Challenge 2
+but given no CWE-based score, and none has been fabricated here. Instrument 2.9 scored six risk
+scenarios directly: vector 9 (20), the portal-compromise scenario spanning vectors 2–4 (P5×I4 = 20),
+vector 8 (16), vector 4 (16), vector 5 (12) and a broker-DoS scenario (9). Vector 1 inherits the
+portal-compromise score (20) as the direct-exploitation path into it; the P×I values for vectors 1, 3,
+6, 7 and 10 are therefore conservative design estimates on the same 1–5 scale, since none was scored as
+an individual scenario (vector 3 is held at 12 rather than inheriting the scenario's 20). The 1–5
 probability and impact scales are defined in Challenge 2's risk instrument (Annex 1, p. 29;
 instrument 2.9), reproduced here for traceability:
 
@@ -214,13 +213,12 @@ no vector depends on a single measure. The frameworks named in each control — 
 Top 10, NIST CSF 2.0 and ISO/IEC 27001:2022 — supply the method, whereas the vector and the affected
 asset supply the purpose (Center for Internet Security, 2021; OWASP Foundation, 2021; NIST, 2024;
 ISO/IEC, 2022). The matrix preserves the nine required fields of the rubric and adds the
-expected-evidence field requested by the guide, with the vector as the row label; each row can be
-read by a defender (what to do), by a SOC analyst (what to watch) and by the Cyber Range (what to
-prove). The evidence column is written
-as an artefact, not as a test result: a log line, a configuration state, a blocked request, a hash or
-a ticket. When the control is organizational (vector 7), the evidence is a policy or awareness
-artefact; when the vector ends in a physical action (vector 9), the evidence includes the OT log and
-the manual-override record. Nothing in this table has been executed; it is the contract for
+expected-evidence field requested by the guide, with the vector as the row label, so each row reads
+for the defender (what to do), the SOC analyst (what to watch) and the Cyber Range (what to prove).
+The evidence column is written as an artefact, not a test result — a log line, a configuration state,
+a blocked request, a hash or a ticket; where the control is organizational (vector 7) it is a policy
+or awareness artefact, and where the vector ends in a physical action (vector 9) it includes the OT
+log and the manual-override record. Nothing in this table has been executed; it is the contract for
 the authorized Cyber Range.
 
 ```{=latex}
@@ -317,7 +315,7 @@ the Challenge 2 vector is the *what for*; no action enters Tables 6, 7 or 8 with
 
 ## 5.4 Web-application controls
 
-The application-layer defense operates at the boundaries between user input and database storage, between privilege levels, and between the distributed components (frontend, API, backend). The OWASP Top 10:2021 and the OWASP Application Security Verification Standard (ASVS) v4.0 (OWASP Foundation, 2019, 2021) supply the framework; Challenge 2 vectors 2, 3, 4 and 10 supply the cases. For vector 2 (SQLi), prepared statements with parameterized queries are the primary control: all dynamic SQL in `productos.php` and the order-search and inventory endpoints must use PHP PDO or MySQLi placeholders, never string concatenation. For vectors 3 and 4 (IDOR and JWT), object-level authorization must be enforced: every `/api/v1/usuario`, `/api/v1/pedidos` and `/api/v1/inventario` endpoint must verify that the authenticated user owns the object before returning it, using an allowlist (deny-by-default). JWT tokens must carry a fixed `alg` (RS256 or HS256, never `none`), include standard claims (`iss`, `aud`, `exp`), and be validated before each use. For vector 10 (outdated components), a Software Composition Analysis (SCA) scan in the CI/CD pipeline must flag jQuery and Bootstrap versions with known CVEs. File uploads (vector 2, CWE-434 dimension) must be validated client- and server-side: accept only expected MIME types (image/jpeg, image/png), reject executable extensions, scan for malware and store outside the web root. Database credentials, API keys and secrets must not live in the codebase: `config.php` must read from deployment-time environment variables, with a secrets manager (e.g., Vault) for shared credentials. These controls feed the DevSecOps pipeline of Section 7.
+The application-layer defense operates at the boundaries between user input and database storage, between privilege levels, and between the distributed components (frontend, API, backend). The OWASP Top 10:2021 and the OWASP Application Security Verification Standard (ASVS) v4.0 (OWASP Foundation, 2019, 2021) supply the framework; Challenge 2 vectors 2, 3, 4 and 10 supply the cases. Vector 2 (SQLi) requires prepared statements with parameterized queries — PHP PDO or MySQLi placeholders, never string concatenation — across `productos.php` and the order-search and inventory endpoints. Vectors 3 and 4 (IDOR, JWT) require deny-by-default object-level authorization on every `/api/v1/*` endpoint, verifying that the authenticated user owns the object before it is returned, and JWTs with a fixed `alg` (RS256/HS256, never `none`) and validated `iss`, `aud` and `exp` claims. Vector 10 requires a Software Composition Analysis (SCA) scan in the CI/CD pipeline to flag vulnerable jQuery and Bootstrap versions. File uploads (CWE-434) must be validated client- and server-side: expected MIME types only (image/jpeg, image/png), no executable extensions, malware-scanned and stored outside the web root. Secrets must leave the codebase — `config.php` reads deployment-time environment variables, with a secrets manager (e.g., Vault) for shared credentials. These controls feed the DevSecOps pipeline of Section 7.
 
 # 6. Monitoring and detection proposal
 
@@ -402,7 +400,11 @@ broker and the unauthenticated Modbus PLC (Table 4, rank 1). The playbook follow
 800-61 incident-response life cycle — preparation; detection and analysis; containment, eradication
 and recovery; post-incident activity (Cichonski et al., 2012) — expanded into the six operational
 steps required by the rubric: preparation, detection and analysis, containment, eradication, recovery
-and lessons learned. The course OVI's detection and evidence logic feeds the detection-and-analysis
+and lessons learned. NIST withdrew Rev. 2 on 3 April 2025 and replaced it with Rev. 3, which reframes
+incident response around the six CSF 2.0 functions rather than a fixed four-phase cycle (Nelson et al.,
+2025); this report already organizes its controls by those functions (Section 5) and keeps the Rev. 2
+four-phase lifecycle here only because it maps cleanly onto the rubric's six operational steps. The
+course OVI's detection and evidence logic feeds the detection-and-analysis
 phase, linking observed behaviour to a defensible response decision (Zambrano Hernández, 2026a). The CSF 2.0 Respond and Recover
 functions supply the governance interface: who declares the incident, who authorizes an OT shutdown
 and what evidence must survive recovery (NIST, 2024; Mantilla Torres, 2025b). Table 12 translates each
@@ -484,30 +486,26 @@ The main limitation is that no control has been validated: thresholds, correlati
 
 ## References
 
-**Course resources**
-
 - Albininé Budavári, E., Albini, A., & Mester, G. (2023). The role of social engineering in the energy balance of systems. *Interdisciplinary Description of Complex Systems, 21*(2), 168–173. https://doi.org/10.7906/indecs.21.2.5
 - Benavides, E., Fuertes, W., & Sánchez, S. (2020). Caracterización de los ataques de phishing y técnicas para mitigarlos. Ataques: una revisión sistemática de la literatura. *Revista Ciencia y Tecnología, 13*(1), 97–104. https://doi.org/10.18779/cyt.v13i1.357
 - Benavides-Astudillo, E., Fuertes-Díaz, W., & Sánchez-Gordon, S. (2020). Un experimento para crear conciencia en las personas acerca de los ataques de Ingeniería Social. *Revista Ciencia UNEMI, 13*(32), 27–40. https://doi.org/10.29076/issn.2528-7737vol13iss32.2020pp27-40p
+- Center for Internet Security. (2021). *CIS Controls Version 8: Implementation guidance for enterprises* (CIS Critical Security Controls). https://www.cisecurity.org/controls/v8
+- Cichonski, P., Millar, T., Grance, T., & Scarfone, K. (2012). *Computer security incident handling guide* (NIST SP 800-61 Rev. 2). National Institute of Standards and Technology. https://doi.org/10.6028/NIST.SP.800-61r2
 - Crespo-Martínez, E. (2021). Análisis de vulnerabilidades con SQLMAP aplicada a entornos APEX 5. *Ingenius, Revista de Ciencia y Tecnología*, (25), 104–113. https://doi.org/10.17163/ings.n25.2021.10
+- ISO/IEC. (2022). *Information security, cybersecurity and privacy protection — Information security management systems — Requirements* (ISO/IEC 27001:2022). https://www.iso.org/standard/27001
 - Lu, H.-J., & Yu, Y. (2021). Research on WiFi penetration testing with Kali Linux. *Complexity, 2021*, Article 5570001. https://doi.org/10.1155/2021/5570001
 - Mantilla Torres, E. A. (2025a). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 1) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a29f213dc375b9eff3ca8b8/presentation-ova-1-iyt-203028113
 - Mantilla Torres, E. A. (2025b). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 2) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a29fb634ab60d77b87d6b2c/presentation-ova-2-iyt-203028113
 - Mantilla Torres, E. A. (2025c). *Marco de seguridad cibernética 2.0 del NIST para gestión de los riesgos de seguridad cibernética* (OVA 3) [OVA]. Universidad Nacional Abierta y a Distancia. https://view.genially.com/6a2c82d71c0297a142919615/presentation-ova-3-iyt-203028113
-- Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
-- Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
-- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [Objeto virtual de información (OVI), video del curso]. Intrusión y Testing (203028113), Universidad Nacional Abierta y a Distancia. https://repository.unad.edu.co/handle/10596/83223
-- Zambrano Hernández, L. F. (2026b). *Reto integrador de Intrusión y Testing: Caso de estudio AgroSmart del Sumapaz S.A.S.* (Anexo 1) [Documento maestro del curso]. Universidad Nacional Abierta y a Distancia.
-
-**Technical frameworks**
-
-- Center for Internet Security. (2021). *CIS Controls Version 8: Implementation guidance for enterprises* (CIS Critical Security Controls). https://www.cisecurity.org/controls/v8
-- Cichonski, P., Millar, T., Grance, T., & Scarfone, K. (2012). *Computer security incident handling guide* (NIST SP 800-61 Rev. 2). National Institute of Standards and Technology. https://doi.org/10.6028/NIST.SP.800-61r2
-- ISO/IEC. (2022). *Information security, cybersecurity and privacy protection — Information security management systems — Requirements* (ISO/IEC 27001:2022). https://www.iso.org/standard/27001
 - MITRE. (n.d.). *MITRE ATT&CK* [Enterprise and ICS knowledge base]. The MITRE Corporation. Retrieved October 22, 2026, from https://attack.mitre.org/
-- NIST. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSF 2.0; NIST CSWP 29). https://doi.org/10.6028/NIST.CSWP.29
+- Nelson, A., Rekhi, S., Souppaya, M., & Scarfone, K. (2025). *Incident response recommendations and considerations for cybersecurity risk management: A CSF 2.0 community profile* (NIST SP 800-61r3). National Institute of Standards and Technology. https://doi.org/10.6028/NIST.SP.800-61r3
 - NIST. (n.d.). *National Vulnerability Database* (NVD) [Database]. Retrieved October 22, 2026, from https://nvd.nist.gov/
+- NIST. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSF 2.0; NIST CSWP 29). https://doi.org/10.6028/NIST.CSWP.29
 - OWASP Foundation. (2019). *OWASP Application Security Verification Standard (ASVS) 4.0*. https://owasp.org/www-project-application-security-verification-standard/
 - OWASP Foundation. (2021). *OWASP Top 10: 2021 — The ten most critical web application security risks*. https://owasp.org/Top10/
 - OWASP Foundation. (2023). *OWASP API Security Top 10: 2023*. https://owasp.org/www-project-api-security/
+- Palomo Luna, D. F., Zambrano Hernández, L. F., Moreno Molano, S. X., & Peña Hidalgo, H. J. (2024). Una mirada a metodologías para pruebas de penetración en ciberseguridad. *CSIRT Académico UNAD, Boletín Informativo N.º 28*. https://selloeditorial.unad.edu.co/images/Documentos/ciberseguridad/Boletin/Octubre_2024.pdf
+- Prado Díaz, J. P. (2021). Ingeniería social, un ejemplo práctico. *Revista ODIGOS, 2*(3), 47–76. https://doi.org/10.35290/ro.v2n3.2021.493
 - Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2018). *MITRE ATT&CK: Design and philosophy*. The MITRE Corporation. https://doi.org/10.13140/RG.2.2.13778.58565
+- Zambrano Hernández, L. F. (2026a). *Diseño de estrategias de detección y gestión de ataques cibernéticos en entornos TI e IoT* [Objeto virtual de información (OVI), video del curso]. Intrusión y Testing (203028113), Universidad Nacional Abierta y a Distancia. https://repository.unad.edu.co/handle/10596/83223
+- Zambrano Hernández, L. F. (2026b). *Reto integrador de Intrusión y Testing: Caso de estudio AgroSmart del Sumapaz S.A.S.* (Anexo 1) [Documento maestro del curso]. Universidad Nacional Abierta y a Distancia.
